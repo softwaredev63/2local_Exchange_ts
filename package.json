@@ -6,6 +6,9 @@
   "dependencies": {
     "@crowdin/crowdin-api-client": "^1.8.16",
     "@ethersproject/experimental": "^5.0.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@pancakeswap-libs/sdk": "1.0.1",
     "@pancakeswap-libs/uikit": "goosedefi/goose-uikit",
     "@popperjs/core": "^2.4.4",
@@ -62,6 +65,7 @@
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "rebass": "^4.0.7",
+    "recharts": "^2.0.9",
     "redux-localstorage-simple": "^2.3.1",
     "styled-components": "^5.2.1",
     "typescript": "^4.1.3",

@@ -13,6 +13,7 @@ const StyledSlippageToleranceSettings = styled.div`
   margin-bottom: 16px;
   width: 290px;
   opacity: 0.5;
+  font: Swis721 BT;
 `
 
 const Option = styled.div`

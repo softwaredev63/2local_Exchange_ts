@@ -47,7 +47,8 @@ const StyledChevronDownIcon = styled(ChevronDownIcon)`
 
 const StyledCurrencyText = styled(Text)`
   color: white;
-  font-size: 25px;
+  font: normal normal bold 25px/40px Swis721 BT;
+  letter-spacing: 0.5px;
   padding-left: 8px;
   display: inline;
   vertical-align: middle;

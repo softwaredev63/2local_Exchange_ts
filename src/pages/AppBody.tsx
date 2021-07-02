@@ -4,8 +4,10 @@ import { Card } from '@pancakeswap-libs/uikit'
 
 export const BodyWrapper = styled(Card)`
   position: relative;
-  max-width: 436px;
-  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-content: center;
   z-index: 5;
 `
 

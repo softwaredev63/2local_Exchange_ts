@@ -11,10 +11,18 @@ const RISKY_SLIPPAGE_HIGH = 500
 
 const StyledSlippageToleranceSettings = styled.div`
   margin-bottom: 16px;
+  width: 290px;
+  opacity: 0.5;
 `
 
 const Option = styled.div`
   padding: 0 4px;
+  width: 65px;
+`
+
+const InputOption = styled.div`
+  padding: 0 4px;
+  width: 80px;
 `
 
 const Options = styled.div`
@@ -41,10 +49,14 @@ const Label = styled.div`
   margin-bottom: 8px;
 `
 
+const StyledToggleButton = styled(Button)`
+  width: 100%;
+`
+
 const predefinedValues = [
   { label: '0.1%', value: 0.1 },
   { label: '0.5%', value: 0.5 },
-  { label: '1%', value: 1 }
+  { label: '1%', value: 1 },
 ]
 
 const SlippageToleranceSettings = () => {
@@ -84,10 +96,9 @@ const SlippageToleranceSettings = () => {
   return (
     <StyledSlippageToleranceSettings>
       <Label>
-        <Text style={{ fontWeight: 600 }}>
+        <Text>
           <TranslatedText translationId={88}>Slippage tolerance</TranslatedText>
         </Text>
-        <QuestionHelper text="Your transaction will revert if the price changes unfavorably by more than this percentage." />
       </Label>
       <Options>
         <Flex mb={['8px', 0]} mr={[0, '8px']}>
@@ -96,15 +107,15 @@ const SlippageToleranceSettings = () => {
 
             return (
               <Option key={predefinedValue}>
-                <Button variant={value === predefinedValue ? 'primary' : 'tertiary'} onClick={handleClick}>
+                <StyledToggleButton variant={value === predefinedValue ? 'primary' : 'tertiary'} onClick={handleClick}>
                   {label}
-                </Button>
+                </StyledToggleButton>
               </Option>
             )
           })}
         </Flex>
         <Flex alignItems="center">
-          <Option>
+          <InputOption>
             <Input
               type="number"
               scale="lg"
@@ -115,7 +126,7 @@ const SlippageToleranceSettings = () => {
               onChange={handleChange}
               isWarning={error !== null}
             />
-          </Option>
+          </InputOption>
           <Option>
             <Text fontSize="18px">%</Text>
           </Option>

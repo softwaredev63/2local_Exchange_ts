@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components'
 import { AutoColumn } from '../Column'
 
 export const Wrapper = styled.div`
+  width: 800px;
   position: relative;
 `
 
@@ -31,6 +32,9 @@ export const SectionBreak = styled.div`
 
 export const BottomGrouping = styled.div`
   margin-top: 1rem;
+  text-align: center;
+  width: 330px;
+  margin: auto;
 `
 
 export const ErrorText = styled(Text)<{ severity?: 0 | 1 | 2 | 3 | 4 }>`

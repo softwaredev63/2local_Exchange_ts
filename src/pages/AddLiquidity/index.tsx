@@ -323,6 +323,7 @@ export default function AddLiquidity({
                 </ColumnCenter>
               )}
               <CurrencyInputPanel
+                back="transparent"
                 value={formattedAmounts[Field.CURRENCY_A]}
                 onUserInput={onFieldAInput}
                 onMax={() => {
@@ -338,6 +339,7 @@ export default function AddLiquidity({
                 <AddIcon color="textSubtle" />
               </ColumnCenter>
               <CurrencyInputPanel
+                back="transparent"
                 value={formattedAmounts[Field.CURRENCY_B]}
                 onUserInput={onFieldBInput}
                 onCurrencySelect={handleCurrencyBSelect}

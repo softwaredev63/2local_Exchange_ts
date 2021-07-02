@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import { escapeRegExp } from '../../utils'
 
 const StyledInput = styled.input<{ error?: boolean; fontSize?: string; align?: string }>`
-  color: ${({ error, theme }) => (error ? theme.colors.failure : theme.colors.text)};
+  color: #ffffff;
   width: 0;
+  height: 32px;
   position: relative;
   font-weight: 500;
   outline: none;
@@ -16,7 +17,7 @@ const StyledInput = styled.input<{ error?: boolean; fontSize?: string; align?: s
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0px;
+  padding: 0px 20px;
   -webkit-appearance: textfield;
 
   ::-webkit-search-decoration {
@@ -33,7 +34,7 @@ const StyledInput = styled.input<{ error?: boolean; fontSize?: string; align?: s
   }
 
   ::placeholder {
-    color: ${({ theme }) => theme.colors.textSubtle};
+    color: #ffffff;
   }
 `
 
@@ -61,7 +62,7 @@ export const Input = React.memo(function InnerInput({
     <StyledInput
       {...rest}
       value={value}
-      onChange={event => {
+      onChange={(event) => {
         // replace commas with periods, because uniswap exclusively uses period as the decimal separator
         enforcer(event.target.value.replace(/,/g, '.'))
       }}

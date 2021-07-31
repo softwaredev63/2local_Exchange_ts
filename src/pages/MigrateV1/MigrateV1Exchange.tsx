@@ -1,6 +1,6 @@
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { AddressZero } from '@ethersproject/constants'
-import { Currency, CurrencyAmount, Fraction, JSBI, Percent, Token, TokenAmount, WETH } from '@pancakeswap-libs/sdk'
+import { Currency, CurrencyAmount, Fraction, JSBI, Percent, Token, TokenAmount, WETH } from '@overage69/pancake-sdk-v2'
 import { Button, Text } from '@pancakeswap-libs/uikit'
 import React, { useCallback, useMemo, useState } from 'react'
 import { Redirect, RouteComponentProps } from 'react-router'

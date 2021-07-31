@@ -1,4 +1,4 @@
-import { Percent } from '@pancakeswap-libs/sdk'
+import { Percent } from '@overage69/pancake-sdk-v2'
 import React from 'react'
 import { ONE_BIPS } from '../../constants'
 import { warningSeverity } from '../../utils/prices'

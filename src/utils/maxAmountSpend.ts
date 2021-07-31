@@ -1,4 +1,4 @@
-import { CurrencyAmount, ETHER, JSBI } from '@pancakeswap-libs/sdk'
+import { CurrencyAmount, ETHER, JSBI } from '@overage69/pancake-sdk-v2'
 import { MIN_ETH } from '../constants'
 
 /**

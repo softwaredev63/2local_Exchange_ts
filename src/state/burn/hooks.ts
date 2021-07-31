@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, JSBI, Pair, Percent, TokenAmount } from '@pancakeswap-libs/sdk'
+import { Currency, CurrencyAmount, JSBI, Pair, Percent, TokenAmount } from '@overage69/pancake-sdk-v2'
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { usePair } from '../../data/Reserves'

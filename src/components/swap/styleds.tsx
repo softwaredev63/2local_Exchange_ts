@@ -35,6 +35,7 @@ export const BottomGrouping = styled.div`
   text-align: center;
   width: 330px;
   margin: auto;
+  margin-top: 15px;
 `
 
 export const ErrorText = styled(Text)<{ severity?: 0 | 1 | 2 | 3 | 4 }>`

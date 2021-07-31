@@ -1,4 +1,4 @@
-import { ChainId, JSBI, Percent, Token, WETH } from '@pancakeswap-libs/sdk'
+import { ChainId, JSBI, Percent, Token, WETH } from '@overage69/pancake-sdk-v2'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 // import { bsc, fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'

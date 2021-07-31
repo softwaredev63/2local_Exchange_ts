@@ -1,4 +1,4 @@
-import { Currency } from '@pancakeswap-libs/sdk'
+import { Currency } from '@overage69/pancake-sdk-v2'
 import React, { useCallback, useEffect, useState } from 'react'
 import useLast from '../../hooks/useLast'
 import { useSelectedListUrl } from '../../state/lists/hooks'

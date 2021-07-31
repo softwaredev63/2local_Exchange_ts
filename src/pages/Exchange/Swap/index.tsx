@@ -1,4 +1,4 @@
-import { CurrencyAmount, JSBI, Token, Trade } from '@pancakeswap-libs/sdk'
+import { CurrencyAmount, JSBI, Token, Trade } from '@overage69/pancake-sdk-v2'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { ArrowDown } from 'react-feather'
 import { CardBody, ArrowDownIcon, ArrowForwardIcon, Button, IconButton, Text } from '@pancakeswap-libs/uikit'
@@ -329,8 +329,8 @@ const Swap = () => {
                     <IconButton
                       variant="tertiary"
                       onClick={() => {
-                        setApprovalSubmitted(false) // reset 2 step UI for approvals
-                        onSwitchTokens()
+                        // setApprovalSubmitted(false) // reset 2 step UI for approvals
+                        // onSwitchTokens()
                       }}
                       style={{ borderRadius: '50%' }}
                       size="sm"
@@ -384,14 +384,10 @@ const Swap = () => {
                         />
                       </RowBetween>
                     )} */}
-                    {allowedSlippage !== INITIAL_ALLOWED_SLIPPAGE && (
-                      <RowBetween align="center">
-                        <SlippageToleranceSetting />
-                        <TransactionDeadlineSetting />
-                        {/* <Text fontSize="14px">Slippage Tolerance</Text>
-                        <Text fontSize="14px">{allowedSlippage / 100}%</Text> */}
-                      </RowBetween>
-                    )}
+                    <RowBetween align="center">
+                      <SlippageToleranceSetting />
+                      <TransactionDeadlineSetting />
+                    </RowBetween>
                   </AutoColumn>
                 </Card>
               )}

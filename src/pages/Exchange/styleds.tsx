@@ -1,5 +1,4 @@
 import { Button, CardBody, Text } from '@pancakeswap-libs/uikit'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
 
 export const Layout = styled.div`

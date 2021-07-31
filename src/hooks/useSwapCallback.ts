@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
-import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from '@pancakeswap-libs/sdk'
+import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from '@overage69/pancake-sdk-v2'
 import { useMemo } from 'react'
 import { BIPS_BASE, DEFAULT_DEADLINE_FROM_NOW, INITIAL_ALLOWED_SLIPPAGE } from '../constants'
 import { getTradeVersion, useV1TradeExchangeAddress } from '../data/V1'
@@ -74,7 +74,7 @@ function useSwapCallArguments(
           // @ts-ignore
           Router.swapCallParameters(trade, {
             feeOnTransfer: false,
-            allowedSlippage: new Percent(JSBI.BigInt(allowedSlippage), BIPS_BASE),
+            allowedSlippage: new Percent(JSBI.BigInt(Math.floor(allowedSlippage)), BIPS_BASE),
             recipient,
             ttl: deadline,
           })
@@ -85,7 +85,7 @@ function useSwapCallArguments(
             // @ts-ignore
             Router.swapCallParameters(trade, {
               feeOnTransfer: true,
-              allowedSlippage: new Percent(JSBI.BigInt(allowedSlippage), BIPS_BASE),
+              allowedSlippage: new Percent(JSBI.BigInt(Math.floor(allowedSlippage)), BIPS_BASE),
               recipient,
               ttl: deadline,
             })
@@ -96,7 +96,7 @@ function useSwapCallArguments(
         swapMethods.push(
           // @ts-ignore
           v1SwapArguments(trade, {
-            allowedSlippage: new Percent(JSBI.BigInt(allowedSlippage), BIPS_BASE),
+            allowedSlippage: new Percent(JSBI.BigInt(Math.floor(allowedSlippage)), BIPS_BASE),
             recipient,
             ttl: deadline,
           })

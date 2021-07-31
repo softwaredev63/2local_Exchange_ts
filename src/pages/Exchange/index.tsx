@@ -38,13 +38,13 @@ export default function Exchange() {
       </LayoutTokenDescription>
       <RowBetween>
         <DetailDescription>
-          <Text fontSize="18px">1 BNB : 387.38 USD &nbsp;</Text>
-          <PriceArea>
+          <Text fontSize="18px">1 2LC : 0.0015 USD &nbsp;</Text>
+          {/* <PriceArea>
             <FontAwesomeIcon icon={faArrowUp} color="#56e19f" />
             <Percent fontSize="18px" color="#56e19f">
-              8.68%
+              6.82%
             </Percent>
-          </PriceArea>
+          </PriceArea> */}
         </DetailDescription>
         <ContractAddress>02d5d94756cdc38e0fc712e629b9fb</ContractAddress>
       </RowBetween>

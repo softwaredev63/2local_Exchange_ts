@@ -6,6 +6,7 @@
   "dependencies": {
     "@crowdin/crowdin-api-client": "^1.8.16",
     "@ethersproject/experimental": "^5.0.1",
+    "@overage69/pancake-sdk-v2": "^3.0.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",

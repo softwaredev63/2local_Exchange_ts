@@ -1,5 +1,5 @@
 import { parseUnits } from '@ethersproject/units'
-import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade } from '@pancakeswap-libs/sdk'
+import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade } from '@overage69/pancake-sdk-v2'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -91,7 +91,7 @@ export function tryParseAmount(value?: string, currency?: Currency): CurrencyAmo
 const BAD_RECIPIENT_ADDRESSES: string[] = [
   '0xBCfCcbde45cE874adCB698cC183deBcF17952812', // v2 factory
   '0xf164fC0Ec4E93095b804a4795bBe1e041497b92a', // v2 router 01
-  '0x10ED43C718714eb63d5aA57B78B54704E256024E', // v2 router 02
+  '0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F', // v2 router 02
 ]
 
 /**
@@ -128,7 +128,11 @@ export function useDerivedSwapInfo(): {
   } = useSwapState()
 
   const inputCurrency = useCurrency(inputCurrencyId)
-  const outputCurrency = useCurrency(outputCurrencyId)
+  const outputCurrency = useCurrency(
+    outputCurrencyId !== undefined && outputCurrencyId !== null && outputCurrencyId !== ''
+      ? outputCurrencyId
+      : '0x11f6ecc9e2658627e0876212f1078b9f84d3196e'
+  )
   const recipientLookup = useENS(recipient ?? undefined)
   const to: string | null = (recipient === null ? account : recipientLookup.address) ?? null
 

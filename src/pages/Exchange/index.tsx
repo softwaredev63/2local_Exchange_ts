@@ -1,23 +1,9 @@
 import React, { useContext, useMemo } from 'react'
 import { ThemeContext } from 'styled-components'
-import { Button, CardBody, Text } from '@pancakeswap-libs/uikit'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faArrowUp } from '@fortawesome/free-solid-svg-icons'
-import { RowBetween } from 'components/Row'
-
 import { useActiveWeb3React } from 'hooks'
 import TranslatedText from 'components/TranslatedText'
 import AppBody from '../AppBody'
-import {
-  Description,
-  DetailDescription,
-  LayoutTokenDescription,
-  Layout,
-  Percent,
-  PriceArea,
-  IconWrapper,
-  ContractAddress,
-} from './styleds'
+import { Description, LayoutTokenDescription, Layout, IconWrapper } from './styleds'
 import Pencil from '../../assets/images/pencil.svg'
 import Swap from './Swap'
 import Graph from './Graph'
@@ -36,18 +22,6 @@ export default function Exchange() {
           <img src={Pencil} alt="Edit Description" />
         </IconWrapper>
       </LayoutTokenDescription>
-      <RowBetween>
-        <DetailDescription>
-          <Text fontSize="18px">1 2LC : 0.0015 USD &nbsp;</Text>
-          {/* <PriceArea>
-            <FontAwesomeIcon icon={faArrowUp} color="#56e19f" />
-            <Percent fontSize="18px" color="#56e19f">
-              6.82%
-            </Percent>
-          </PriceArea> */}
-        </DetailDescription>
-        <ContractAddress>02d5d94756cdc38e0fc712e629b9fb</ContractAddress>
-      </RowBetween>
       <Graph />
       <AppBody>
         <Swap />

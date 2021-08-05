@@ -32,6 +32,7 @@ export const ContractAddress = styled(Text)`
   font: normal normal bold 16px/6px Swis721 BT;
   letter-spacing: 0.18px;
   opacity: 0.36;
+  margin-right: 30px;
 `
 
 export const PriceArea = styled.div`

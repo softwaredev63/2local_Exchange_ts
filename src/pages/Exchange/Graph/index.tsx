@@ -38,8 +38,9 @@ function Graph() {
     .then((response) => response.json())
     .then((responseData) => {
       setPriceData(responseData)
-      setPrice(responseData[41].price.toFixed(5))
-      const priceChangePercent = (responseData[41].price / responseData[38].price - 1) * 100
+      setPrice(responseData[responseData.length - 1].price.toFixed(5))
+      const priceChangePercent =
+        (responseData[responseData.length - 1].price / responseData[responseData.length - 4].price - 1) * 100
       setPercent(Math.abs(priceChangePercent))
       if (priceChangePercent > 0) {
         setIncrease(true)

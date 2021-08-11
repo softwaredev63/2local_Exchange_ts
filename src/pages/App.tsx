@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import Popups from '../components/Popups'
 import Web3ReactManager from '../components/Web3ReactManager'
@@ -48,7 +48,7 @@ export default function App() {
 
   return (
     <Suspense fallback={null}>
-      <HashRouter>
+      <BrowserRouter>
         <AppWrapper>
           <LanguageContext.Provider
             value={{ selectedLanguage, setSelectedLanguage, translatedLanguage, setTranslatedLanguage }}
@@ -59,12 +59,13 @@ export default function App() {
                   <Popups />
                   <Web3ReactManager>
                     <Switch>
-                      <Route exact strict path="/exchange" component={Exchange} />
+                      <Route exact strict path="/" component={Exchange} />
                       <Route exact strict path="/launch-pool" component={Exchange} />
                       <Route exact strict path="/yield-farming" component={Exchange} />
                       <Route exact strict path="/airdrops" component={Exchange} />
                       <Route exact strict path="/swap" component={Swap} />
-                      <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
+                      <Route exact strict path="/:outputCurrency" component={RedirectToSwap} />
+                      <Route exact strict path="/trading" component={TradingPage} />
                       <Route component={RedirectPathToExchange} />
                     </Switch>
                   </Web3ReactManager>
@@ -74,7 +75,7 @@ export default function App() {
             </TranslationsContext.Provider>
           </LanguageContext.Provider>
         </AppWrapper>
-      </HashRouter>
+      </BrowserRouter>
     </Suspense>
   )
 }

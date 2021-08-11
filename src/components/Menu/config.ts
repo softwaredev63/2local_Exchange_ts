@@ -4,48 +4,48 @@ const config: MenuEntry[] = [
   {
     label: 'Exchange',
     icon: 'ExchangeIcon',
-    href: '/exchange',
+    href: '/',
     items: [
       {
         label: 'BNB',
-        href: '/exchange',
+        href: '/',
         icon: 'BNBIcon',
         items: [
           {
             label: '2LC',
-            href: '/exchange?coin=bnb&token=2lc',
+            href: '/?coin=BNB&token=2LC',
             icon: 'L2LIcon',
           },
           {
             label: 'BUSD',
-            href: '/exchange?coin=bnb&token=busd',
+            href: '/?coin=BNB&token=BUSD',
             icon: 'BUSDIcon',
           },
           {
             label: 'BETH',
-            href: '/exchange?coin=bnb&token=beth',
+            href: '/?coin=BNB&token=BETH',
             icon: 'BETHIcon',
           },
         ],
       },
       // {
       //   label: "ETH",
-      //   href: "/exchange?coin=eth",
+      //   href: "/?coin=eth",
       //   icon: "ETHIcon",
       // },
       // {
       //   label: "USD",
-      //   href: "/exchange?coin=usd",
+      //   href: "/?coin=usd",
       //   icon: "USDIcon",
       // },
       // {
       //   label: "XLM",
-      //   href: "/exchange?coin=xlm",
+      //   href: "/?coin=xlm",
       //   icon: "XLMIcon",
       // },
       // {
       //   label: "BTC",
-      //   href: "/exchange?coin=btc",
+      //   href: "/?coin=btc",
       //   icon: "BTCIcon",
       // },
     ],
@@ -53,21 +53,21 @@ const config: MenuEntry[] = [
   {
     label: 'Pools',
     icon: 'LaunchPoolIcon',
-    href: '/pools',
+    href: 'staking',
     items: [
       {
         label: 'Yield Farming',
-        href: '/pools?type=yield',
+        href: 'https://farms.2local.io/',
         icon: 'BNB2LCIcon',
       },
       {
         label: 'Trading Pools',
-        href: '/pools?type=trading',
+        href: 'https://trading.2local.io/',
         icon: 'BETH2LCIcon',
       },
       {
         label: 'Staking Pools',
-        href: '/pools?type=staking',
+        href: 'https://staking.2local.io/',
         icon: 'BUSD2LCIcon',
       },
     ],
@@ -75,11 +75,11 @@ const config: MenuEntry[] = [
   {
     label: 'Dapps',
     icon: 'YieldFarmingIcon',
-    href: '/yield-farming',
+    href: 'dapp',
     items: [
       {
         label: 'Multi-send',
-        href: '/dapps?type=multisend',
+        href: 'https://msend.2local.io/',
         icon: 'BNB2LCIcon',
       },
     ],

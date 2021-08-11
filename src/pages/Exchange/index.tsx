@@ -16,9 +16,9 @@ export default function Exchange() {
     <Layout>
       <LayoutTokenDescription>
         <Description>
-          <TranslatedText translationId={102}>Binance Coin</TranslatedText>
+          <TranslatedText translationId={102}>2local</TranslatedText>
         </Description>
-        <IconWrapper size={30}>
+        <IconWrapper size={28}>
           <img src={Pencil} alt="Edit Description" />
         </IconWrapper>
       </LayoutTokenDescription>

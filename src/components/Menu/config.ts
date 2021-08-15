@@ -59,6 +59,12 @@ const config: MenuEntry[] = [
     href: 'staking',
     items: [
       {
+        label: 'Liquidity 2LC-LP',
+        href: '/pool',
+        icon: 'BNB2LCIcon',
+        disabled: true,
+      },
+      {
         label: 'Yield Farming',
         href: 'https://farms.2local.io/',
         icon: 'BNB2LCIcon',

@@ -9,6 +9,7 @@ import QuestionHelper from 'components/QuestionHelper'
 import TranslatedText from 'components/TranslatedText'
 
 const Tabs = styled.div`
+  width: 100%;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;

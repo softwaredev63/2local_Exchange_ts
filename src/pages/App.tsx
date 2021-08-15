@@ -1,10 +1,22 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import { BrowserRouter, HashRouter, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
+import { Card } from '@pancakeswap-libs/uikit'
 import Popups from '../components/Popups'
 import Web3ReactManager from '../components/Web3ReactManager'
 import Exchange from './Exchange'
 import Swap from './Exchange/Swap'
+import AddLiquidity from './AddLiquidity'
+import {
+  RedirectDuplicateTokenIds,
+  RedirectOldAddLiquidityPathStructure,
+  RedirectToAddLiquidity
+} from './AddLiquidity/redirects'
+import Pool from './Pool'
+import PoolFinder from './PoolFinder'
+import RemoveLiquidity from './RemoveLiquidity'
+import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects'
+import { EN, allLanguages } from '../constants/localisation/languageCodes'
 import { RedirectToSwap } from './Exchange/Swap/redirects'
 import { LanguageContext } from '../hooks/LanguageContext'
 import { TranslationsContext } from '../hooks/TranslationsContext'
@@ -41,6 +53,13 @@ const Marginer = styled.div`
   margin-top: 5rem;
 `
 
+export const BodyWrapperOrg = styled(Card)`
+  position: relative;
+  max-width: 436px;
+  width: 100%;
+  z-index: 5;
+`
+
 export default function App() {
   const [selectedLanguage, setSelectedLanguage] = useState<any>(undefined)
   const [translatedLanguage, setTranslatedLanguage] = useState<any>(undefined)
@@ -48,7 +67,7 @@ export default function App() {
 
   return (
     <Suspense fallback={null}>
-      <BrowserRouter>
+      <HashRouter>
         <AppWrapper>
           <LanguageContext.Provider
             value={{ selectedLanguage, setSelectedLanguage, translatedLanguage, setTranslatedLanguage }}
@@ -63,7 +82,14 @@ export default function App() {
                       <Route exact strict path="/launch-pool" component={Exchange} />
                       <Route exact strict path="/yield-farming" component={Exchange} />
                       <Route exact strict path="/airdrops" component={Exchange} />
-                      <Route exact strict path="/swap" component={Swap} />
+                        <Route exact strict path='/find' component={PoolFinder} />
+                        <Route exact strict path='/pool' component={Pool} />
+                        <Route exact strict path='/create' component={RedirectToAddLiquidity} />
+                        <Route exact path='/add' component={AddLiquidity} />
+                        <Route exact path='/add/:currencyIdA' component={RedirectOldAddLiquidityPathStructure} />
+                        <Route exact path='/add/:currencyIdA/:currencyIdB' component={RedirectDuplicateTokenIds} />
+                        <Route exact strict path='/remove/:tokens' component={RedirectOldRemoveLiquidityPathStructure} />
+                        <Route exact strict path='/remove/:currencyIdA/:currencyIdB' component={RemoveLiquidity} />
                       <Route exact strict path="/:outputCurrency" component={RedirectToSwap} />
                       <Route component={RedirectPathToExchange} />
                     </Switch>
@@ -74,7 +100,7 @@ export default function App() {
             </TranslationsContext.Provider>
           </LanguageContext.Provider>
         </AppWrapper>
-      </BrowserRouter>
+      </HashRouter>
     </Suspense>
   )
 }

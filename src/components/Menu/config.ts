@@ -62,13 +62,13 @@ const config: MenuEntry[] = [
         label: 'Liquidity 2LC-LP',
         href: '/pool',
         icon: 'BNB2LCIcon',
-        disabled: true,
+        disabled: false,
       },
       {
         label: 'Yield Farming',
         href: 'https://farms.2local.io/',
         icon: 'BNB2LCIcon',
-        disabled: true,
+        disabled: false,
       },
       {
         label: 'Trading Pools',

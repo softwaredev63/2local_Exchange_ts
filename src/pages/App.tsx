@@ -65,7 +65,6 @@ export default function App() {
                       <Route exact strict path="/airdrops" component={Exchange} />
                       <Route exact strict path="/swap" component={Swap} />
                       <Route exact strict path="/:outputCurrency" component={RedirectToSwap} />
-                      <Route exact strict path="/trading" component={TradingPage} />
                       <Route component={RedirectPathToExchange} />
                     </Switch>
                   </Web3ReactManager>

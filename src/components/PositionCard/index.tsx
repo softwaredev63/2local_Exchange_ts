@@ -75,7 +75,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
                 <RowFixed>
                   <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin size={20} />
                   <Text fontSize="14px">
-                    {currency0.symbol}/{currency1.symbol}
+                    2LC-LP
                   </Text>
                 </RowFixed>
                 <RowFixed>

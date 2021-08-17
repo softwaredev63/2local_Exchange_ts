@@ -3,6 +3,7 @@ import { BrowserRouter, HashRouter, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import { Card } from '@pancakeswap-libs/uikit'
 import Popups from '../components/Popups'
+import Footer from '../components/Footer'
 import Web3ReactManager from '../components/Web3ReactManager'
 import Exchange from './Exchange'
 import Swap from './Exchange/Swap'
@@ -94,7 +95,7 @@ export default function App() {
                       <Route component={RedirectPathToExchange} />
                     </Switch>
                   </Web3ReactManager>
-                  <Marginer />
+                  <Footer />
                 </BodyWrapper>
               </Menu>
             </TranslationsContext.Provider>

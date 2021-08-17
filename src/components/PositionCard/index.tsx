@@ -150,7 +150,7 @@ export default function FullPositionCard({ pair }: PositionCardProps) {
         <FixedHeightRow onClick={() => setShowMore(!showMore)} style={{ cursor: 'pointer' }}>
           <RowFixed>
             <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin size={20} />
-            <Text>{!currency0 || !currency1 ? <Dots>Loading</Dots> : `${currency0.symbol}/${currency1.symbol}`}</Text>
+            <Text>{!currency0 || !currency1 ? <Dots>Loading</Dots> : `2LC-LP`}</Text>
           </RowFixed>
           <RowFixed>
             {showMore ? (

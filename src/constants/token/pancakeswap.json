@@ -29,8 +29,28 @@
       "symbol": "BUSD",
       "address": "0xe9e7cea3dedca5984780bafc599bd69add087d56",
       "chainId": 56,
-      "decimals": 18,
-      "logoURI": "/images/coins/BUSD.png"
+      "decimals": 18
+    },
+    {
+      "name": "BTCB Token",
+      "symbol": "BTCB",
+      "address": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
+      "chainId": 56,
+      "decimals": 18
+    },
+    {
+      "name": "CAKE Token",
+      "symbol": "CAKE",
+      "address": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+      "chainId": 56,
+      "decimals": 18
+    },
+    {
+      "name": "ETH Token",
+      "symbol": "ETH",
+      "address": "0x250632378e573c6be1ac2f97fcdf00515d0aa91b",
+      "chainId": 56,
+      "decimals": 18
     }
   ]
 }

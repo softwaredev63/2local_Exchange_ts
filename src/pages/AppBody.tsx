@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Card } from '@pancakeswap-libs/uikit'
 
-export const BodyWrapper = styled(Card)`
+export const BodyWrapper = styled.div`
   position: relative;
   display: flex;
   flex-wrap: wrap;

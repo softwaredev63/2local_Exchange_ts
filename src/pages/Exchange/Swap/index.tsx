@@ -374,16 +374,6 @@ const Swap = () => {
               {showWrap ? null : (
                 <Card padding=".25rem .75rem 0 .75rem" borderRadius="20px">
                   <AutoColumn gap="4px">
-                    {/* {Boolean(trade) && (
-                      <RowBetween align="center">
-                        <Text fontSize="14px">Price</Text>
-                        <TradePrice
-                          price={trade?.executionPrice}
-                          showInverted={showInverted}
-                          setShowInverted={setShowInverted}
-                        />
-                      </RowBetween>
-                    )} */}
                     <RowBetween align="center">
                       <SlippageToleranceSetting />
                       <TransactionDeadlineSetting />

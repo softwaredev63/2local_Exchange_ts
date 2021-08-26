@@ -7,12 +7,26 @@ import { RowBetween } from 'components/Row'
 import { ChartArea, Price } from './styleds'
 import { DetailDescription, Percent, PriceArea, ContractAddress } from '../styleds'
 
-function Graph() {
+interface GraphProps {
+  coin: string
+  token: string
+}
+
+function Graph({ coin, token } : GraphProps) {
   const [priceData, setPriceData] = useState([])
   const [price, setPrice] = useState(0)
   const [percent, setPercent] = useState(0)
   const [increase, setIncrease] = useState(true)
   const [infoColor, setInfoColor] = useState('#56e19f')
+
+  const TokenAddress = {
+    L2L: '0x11f6ecc9e2658627e0876212f1078b9f84d3196e',
+    BUSD: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+    BETH: '0x250632378e573c6be1ac2f97fcdf00515d0aa91b',
+    ETH: '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
+    CAKE: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82',
+    BTCB: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c',
+  }
 
   const EpochToDate = (epoch: number) => {
     if (epoch < 10000000000) epoch *= 1000
@@ -33,6 +47,8 @@ function Graph() {
     }
     return number.toString()
   }
+
+  console.log("pooh, TokenAddress = ", TokenAddress)
 
   fetch('https://dcrypto.io/api/chart_data?period=week&symbol=2LCUSDT')
     .then((response) => response.json())

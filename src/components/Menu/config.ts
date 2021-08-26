@@ -21,13 +21,13 @@ const config: MenuEntry[] = [
             label: 'BUSD',
             href: '/?coin=BNB&token=BUSD',
             icon: 'BUSDIcon',
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'BETH',
             href: '/?coin=BNB&token=BETH',
             icon: 'BETHIcon',
-            disabled: true,
+            disabled: false,
           },
         ],
       },
@@ -98,13 +98,25 @@ const config: MenuEntry[] = [
     ],
   },
   {
-    label: 'Airdrops',
+    label: 'Rewards',
     icon: 'AirdropIcon',
     href: '/airdrops',
     items: [
       {
-        label: '2LC 2local',
+        label: 'Airdrops',
         href: '/airdrops',
+        icon: 'L2L2LCIcon',
+        disabled: true,
+      },
+      {
+        label: 'Lottery',
+        href: '/lottery',
+        icon: 'L2L2LCIcon',
+        disabled: true,
+      },
+      {
+        label: 'Prediction',
+        href: '/prediction',
         icon: 'L2L2LCIcon',
         disabled: true,
       },

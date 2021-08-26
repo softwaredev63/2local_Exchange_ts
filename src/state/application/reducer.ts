@@ -5,7 +5,10 @@ import {
   removePopup,
   toggleWalletModal,
   toggleSettingsMenu,
-  updateBlockNumber
+  updateBlockNumber,
+  toggleExchangeTab,
+  toggleExchangeCoin,
+  toggleExchangeToken
 } from './actions'
 
 type PopupList = Array<{ key: string; show: boolean; content: PopupContent; removeAfterMs: number | null }>
@@ -15,13 +18,19 @@ export interface ApplicationState {
   popupList: PopupList
   walletModalOpen: boolean
   settingsMenuOpen: boolean
+  exchangeTab: string
+  exchangeCoin: string
+  exchangeToken: string
 }
 
 const initialState: ApplicationState = {
   blockNumber: {},
   popupList: [],
   walletModalOpen: false,
-  settingsMenuOpen: false
+  settingsMenuOpen: false,
+  exchangeTab: 'Send',
+  exchangeCoin: 'BNB',
+  exchangeToken: '2LC'
 }
 
 export default createReducer(initialState, builder =>
@@ -39,6 +48,15 @@ export default createReducer(initialState, builder =>
     })
     .addCase(toggleSettingsMenu, state => {
       state.settingsMenuOpen = !state.settingsMenuOpen
+    })
+    .addCase(toggleExchangeTab, (state, { payload: { tabName } }) => {
+      state.exchangeTab = tabName
+    })
+    .addCase(toggleExchangeCoin, (state, { payload: { coinName } }) => {
+      state.exchangeCoin = coinName
+    })
+    .addCase(toggleExchangeToken, (state, { payload: { tokenName } }) => {
+      state.exchangeToken = tokenName
     })
     .addCase(addPopup, (state, { payload: { content, key, removeAfterMs = 15000 } }) => {
       state.popupList = (key ? state.popupList.filter(popup => popup.key !== key) : state.popupList).concat([

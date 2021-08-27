@@ -8,7 +8,8 @@ import {
   updateBlockNumber,
   toggleExchangeTab,
   toggleExchangeCoin,
-  toggleExchangeToken
+  toggleExchangeToken,
+  toggleSimplexCheckoutModal,
 } from './actions'
 
 type PopupList = Array<{ key: string; show: boolean; content: PopupContent; removeAfterMs: number | null }>
@@ -21,6 +22,7 @@ export interface ApplicationState {
   exchangeTab: string
   exchangeCoin: string
   exchangeToken: string
+  simplexCheckoutModalOpen: boolean
 }
 
 const initialState: ApplicationState = {
@@ -30,7 +32,8 @@ const initialState: ApplicationState = {
   settingsMenuOpen: false,
   exchangeTab: 'Send',
   exchangeCoin: 'BNB',
-  exchangeToken: '2LC'
+  exchangeToken: '2LC',
+  simplexCheckoutModalOpen: false,
 }
 
 export default createReducer(initialState, builder =>
@@ -74,5 +77,8 @@ export default createReducer(initialState, builder =>
           p.show = false
         }
       })
+    })
+    .addCase(toggleSimplexCheckoutModal, state => {console.log('============================== toggleSimplexCheckoutModal')
+      state.simplexCheckoutModalOpen = !state.simplexCheckoutModalOpen
     })
 )

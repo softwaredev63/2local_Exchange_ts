@@ -39,7 +39,8 @@
     "import/no-unresolved": [
       2,
       { "caseSensitive": false }
-    ]
+    ],
+    "import/named": 0
     // End temporary rules
   }
 }

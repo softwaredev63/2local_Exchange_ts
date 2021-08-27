@@ -3,7 +3,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ParsedQs } from 'qs'
 import { useActiveWeb3React } from '../../hooks'
 import useParsedQueryString from '../../hooks/useParsedQueryString'
-import { addPopup, PopupContent, removePopup, toggleWalletModal, toggleSettingsMenu, toggleExchangeTab, toggleExchangeCoin, toggleExchangeToken } from './actions'
+import {
+  addPopup,
+  PopupContent,
+  removePopup,
+  toggleWalletModal,
+  toggleSettingsMenu,
+  toggleExchangeTab,
+  toggleExchangeCoin,
+  toggleExchangeToken,
+  toggleSimplexCheckoutModal
+} from './actions'
 import { AppDispatch, AppState } from '../index'
 
 export function useBlockNumber(): number | undefined {
@@ -136,4 +146,14 @@ export function useRemovePopup(): (key: string) => void {
 export function useActivePopups(): AppState['application']['popupList'] {
   const list = useSelector((state: AppState) => state.application.popupList)
   return useMemo(() => list.filter(item => item.show), [list])
+}
+
+
+export function useSimplexCheckoutModalOpen(): boolean {
+  return useSelector((state: AppState) => state.application.simplexCheckoutModalOpen)
+}
+
+export function useSimplexCheckoutModalToggle(): () => void {
+  const dispatch = useDispatch()
+  return useCallback(() => dispatch(toggleSimplexCheckoutModal()), [dispatch])
 }

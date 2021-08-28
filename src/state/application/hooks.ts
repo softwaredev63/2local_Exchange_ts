@@ -63,7 +63,10 @@ function parseTokenDataFromURLParameter(urlParam: any): string {
     if (urlParam.toUpperCase() === 'BNB') return 'BNB'
     if (urlParam.toUpperCase() === 'BUSD') return 'BUSD'
     if (urlParam.toUpperCase() === 'BETH') return 'BETH'
-    if (urlParam.toUpperCase() === 'BNB') return 'BNB'
+    if (urlParam.toUpperCase() === 'ETH') return 'ETH'
+    if (urlParam.toUpperCase() === 'CAKE') return 'CAKE'
+    if (urlParam.toUpperCase() === 'UNI') return 'UNI'
+    if (urlParam.toUpperCase() === 'BTCB') return 'BTCB'
   }
   return ''
 }

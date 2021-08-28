@@ -10,6 +10,8 @@ const TabCategory = styled.div`
   display: flex;
   flex-direction: row;
   margin: 0 30px;
+  border-bottom: 1px solid #c3c3c3;
+  padding: 10px 0;
 `
 
 const TabItem = styled.div<{ match: boolean }>`
@@ -20,6 +22,7 @@ const TabItem = styled.div<{ match: boolean }>`
     cursor: pointer;
   }
   border-bottom: 3px solid ${({ match }) => (match ? '#DF642B' : 'transparent')};
+  opacity: ${({ match }) => (match ? '1' : '0.6')};
 `
 
 export default function TabBar() {

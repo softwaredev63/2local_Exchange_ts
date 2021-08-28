@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo } from 'react'
+import React, { useContext, useEffect, useState, useMemo } from 'react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Button, CardBody, Text } from '@pancakeswap-libs/uikit'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,77 +12,125 @@ interface GraphProps {
   token: string
 }
 
+interface PriceDataProps {
+  date: string | undefined
+  price_2lc: string | undefined
+  price_eth: string | undefined
+  price_cake: string | undefined
+  price_uni: string | undefined
+  price_btcb: string | undefined
+}
+
 function Graph({ coin, token } : GraphProps) {
-  const [priceData, setPriceData] = useState([])
+
+  console.log("token = ", token)
+  const [priceData, setPriceData] = useState<PriceDataProps[]>([])
   const [price, setPrice] = useState(0)
   const [percent, setPercent] = useState(0)
   const [increase, setIncrease] = useState(true)
   const [infoColor, setInfoColor] = useState('#56e19f')
+  const [currentTokenAddress, setCurrentTokenAddress] = useState('0x11f6ecc9e2658627e0876212f1078b9f84d3196e')
+  const [chartKey, setChartKey] = useState('price_2lc')
 
-  const TokenAddress = {
-    L2L: '0x11f6ecc9e2658627e0876212f1078b9f84d3196e',
-    BUSD: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
-    BETH: '0x250632378e573c6be1ac2f97fcdf00515d0aa91b',
-    ETH: '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
-    CAKE: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82',
-    BTCB: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c',
+  useEffect(() => {
+    let tokenAddress = ''
+    const TokenAddress = {
+      L2L: '0x11f6ecc9e2658627e0876212f1078b9f84d3196e',
+      ETH: '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
+      CAKE: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82',
+      UNI: '0xbf5140a22578168fd562dccf235e5d43a02ce9b1',
+      BTCB: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c',
+    }
+
+    fetch('https://exchangeapi.2local.io/getPriceData')
+      .then((response) => response.json())
+      .then((responseData) => {
+        setPriceData(responseData)
+      })
+
+    let tokenString = token
+    if (token === 'BTCB') tokenString = 'BTC'
+
+    const priceUrl = 'https://www.bitrue.com/api/v1/ticker/price?symbol='.concat(tokenString).concat('USDT')
+    fetch(priceUrl)
+      .then((response) => response.json())
+      .then((responseData) => {
+        const currentPrice = responseData.price;
+        setPrice(currentPrice)
+      })
+
+    const percentUrl = 'https://www.bitrue.com/api/v1/ticker/24hr?symbol='.concat(tokenString).concat('USDT')
+    fetch(percentUrl)
+      .then((response) => response.json())
+      .then((responseData) => {        
+        if (responseData) {
+          const data24h = responseData[0]
+          console.log("pooh, data24h = ", data24h)
+          if (data24h) {
+            setPercent(Math.abs(data24h.priceChange))
+            if (data24h.priceChange > 0) {
+              setIncrease(true)
+              setInfoColor('#56e19f')
+            } else {
+              setIncrease(false)
+              setInfoColor('#e15656')
+            }
+          }
+        }
+      })
+
+
+    switch(token) {
+      case '2LC':
+         tokenAddress = TokenAddress.L2L
+         setChartKey('price_2lc')
+         break
+      case 'ETH':
+        tokenAddress =  TokenAddress.ETH
+        const data: PriceDataProps = priceData[priceData.length - 1]
+        setChartKey('price_eth')
+        break
+      case 'CAKE':
+        tokenAddress =  TokenAddress.CAKE
+        setChartKey('price_cake')
+        break
+      case 'UNI':
+        tokenAddress =  TokenAddress.UNI
+        setChartKey('price_uni')
+        break
+      case 'BTCB':
+        tokenAddress =  TokenAddress.BTCB
+        setChartKey('price_btcb')
+        break
+    }
+    setCurrentTokenAddress(tokenAddress)
+  }, [ token, priceData ])
+
+  const EpochToDate = (date: string) => {
+    const time = date.toString()
+    return time.substring(5, 10)
   }
 
-  const EpochToDate = (epoch: number) => {
-    if (epoch < 10000000000) epoch *= 1000
-    const time = epoch + new Date().getTimezoneOffset() * -1
-    const dateString = new Date(time).toString()
-    return dateString.substring(4, 11)
+  const DataFormater = (data: string) => {
+    return data
   }
-
-  const DataFormater = (number: number) => {
-    if (number > 1000000000) {
-      return (number / 1000000000).toString().concat('B')
-    }
-    if (number > 1000000) {
-      return (number / 1000000).toString().concat('M')
-    }
-    if (number > 1000) {
-      return (number / 1000).toString().concat('K')
-    }
-    return number.toString()
-  }
-
-  console.log("pooh, TokenAddress = ", TokenAddress)
-
-  fetch('https://dcrypto.io/api/chart_data?period=week&symbol=2LCUSDT')
-    .then((response) => response.json())
-    .then((responseData) => {
-      setPriceData(responseData)
-      setPrice(responseData[responseData.length - 1].price.toFixed(5))
-      const priceChangePercent =
-        (responseData[responseData.length - 1].price / responseData[responseData.length - 4].price - 1) * 100
-      setPercent(Math.abs(priceChangePercent))
-      if (priceChangePercent > 0) {
-        setIncrease(true)
-        setInfoColor('#56e19f')
-      } else {
-        setIncrease(false)
-        setInfoColor('#e15656')
-      }
-    })
 
   return (
     <ChartArea>
       <RowBetween>
         <DetailDescription>
-          <Text fontSize="18px">1 2LC : {price} USD &nbsp;</Text>
+          <Text fontSize="18px">1 {token} : {price} USD &nbsp;</Text>
           <PriceArea>
             <FontAwesomeIcon icon={increase ? faArrowUp : faArrowDown} color={infoColor} />
             <Percent fontSize="18px" color={infoColor}>
-              {percent.toFixed(2)}%
+              {percent}%
             </Percent>
           </PriceArea>
         </DetailDescription>
-        <ContractAddress>0x11f6ecc9e2658627e0876212f1078b9f84d3196e</ContractAddress>
+        <ContractAddress>{currentTokenAddress}</ContractAddress>
       </RowBetween>
       <Price>Price (USD)</Price>
-      <AreaChart width={1120} height={200} data={priceData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+        <AreaChart width={1120} height={200} data={priceData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
@@ -98,13 +146,13 @@ function Graph({ coin, token } : GraphProps) {
           tickFormatter={EpochToDate}
           axisLine={false}
           tickLine={false}
-          dataKey="time"
+          dataKey="date"
           padding={{ left: 30 }}
         />
         <YAxis fontSize="12px" tickFormatter={DataFormater} axisLine={false} tickLine={false} />
         <Tooltip />
-        <Area type="monotone" dataKey="price" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-      </AreaChart>
+        <Area type="monotone" dataKey={chartKey} stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+      </AreaChart> 
     </ChartArea>
   )
 }

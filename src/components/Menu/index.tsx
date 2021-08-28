@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { Menu as UikitMenu, ConnectorId } from '@pancakeswap-libs/uikit'
 import { useWeb3React } from '@web3-react/core'
 import { allLanguages } from 'constants/localisation/languageCodes'
@@ -13,6 +13,10 @@ const Menu: React.FC = props => {
   const { selectedLanguage, setSelectedLanguage } = useContext(LanguageContext)
   const { isDark, toggleTheme } = useTheme()
   const cakePriceUsd = useGetPriceData()
+
+  const onBuyCryptoWithSimplex = useCallback(() => {
+    console.log("put code here")
+  }, [])
 
   return (
     <UikitMenu
@@ -37,6 +41,7 @@ const Menu: React.FC = props => {
       langs={allLanguages}
       setLang={setSelectedLanguage}
       cakePriceUsd={cakePriceUsd}
+      onBuyCryptoWithSimplex={onBuyCryptoWithSimplex}
       {...props}
     />
   )

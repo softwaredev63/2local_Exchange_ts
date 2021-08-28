@@ -48,7 +48,7 @@ export default function Exchange() {
       </LayoutTokenDescription>
       <Graph coin={coin} token={token} />
       <TabArea>
-        <TabBar /> 
+        {/* <TabBar /> */}
         <Swap />
       </TabArea>
     </Layout>

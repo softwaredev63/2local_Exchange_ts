@@ -18,17 +18,35 @@ const config: MenuEntry[] = [
             disabled: false,
           },
           {
-            label: 'BUSD',
-            href: '/?coin=BNB&token=BUSD',
-            icon: 'BUSDIcon',
+            label: 'ETH',
+            href: '/?coin=BNB&token=ETH',
+            icon: 'ETHIcon',
             disabled: false,
           },
           {
-            label: 'BETH',
-            href: '/?coin=BNB&token=BETH',
-            icon: 'BETHIcon',
+            label: 'CAKE',
+            href: '/?coin=BNB&token=CAKE',
+            icon: 'CAKEIcon',
             disabled: false,
           },
+          {
+            label: 'UNI',
+            href: '/?coin=BNB&token=UNI',
+            icon: 'UNIIcon',
+            disabled: false,
+          },
+          {
+            label: 'BTCB',
+            href: '/?coin=BNB&token=BTCB',
+            icon: 'BTCIcon',
+            disabled: false,
+          },
+          // {
+          //   label: 'XLM',
+          //   href: '/?coin=BNB&token=XLM',
+          //   icon: 'XLMIcon',
+          //   disabled: false,
+          // }
         ],
       },
       // {

@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <script src="iframeResizer.contentWindow.min.js"></script>
-    <!-- Links -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet" />
-    <link rel="shortcut icon" type="image/png" href="%PUBLIC_URL%/favicon.ico" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link href="https://fonts.googleapis.com/css?family=Kanit:400,500,900" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css">
-    <!-- Meta -->
-    <title>2local</title>
-    <meta name="description" content="2local exchange app" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="fortmatic-site-verification" content="j93LgcVZk79qcgyo" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" />
-    <meta name="twitter:image" content="https://demo.2local.io//logo192.png" />
-    <meta name="twitter:description" content="2local exchange app" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="2local exchange app" />
 
-    <script src='simplex-test-sdk.min.js' async></script>
-  </head>
-  <body>
-    <script>
-      window.simplexAsyncFunction = function () {
-        Simplex.init({public_key: 'pk_test_0c3e2ecd-1546-4068-ae01-d49382e1266a'});
-        window.Simplex = Simplex
-        console.log('>>>>>>>>>>>>>>>>>>> Simplex initialized', window.Simplex)
-      };
-    </script>
+<head>
+  <meta charset="utf-8" />
+  <script src="iframeResizer.contentWindow.min.js"></script>
+  <!-- Links -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="shortcut icon" type="image/png" href="%PUBLIC_URL%/favicon.ico" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link href="https://fonts.googleapis.com/css?family=Kanit:400,500,900" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <!-- Meta -->
+  <title>2local</title>
+  <meta name="description" content="2local exchange app" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="fortmatic-site-verification" content="j93LgcVZk79qcgyo" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" />
+  <meta name="twitter:image" content="https://demo.2local.io//logo192.png" />
+  <meta name="twitter:description" content="2local exchange app" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2local exchange app" />
 
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <audio id="bgMusic">
-      <source src="swap.mp3" type="audio/mp3" />
-    </audio>
-    <div id="root"></div>
-  </body>
+  <script src='https://cdn.test-simplexcc.com/sdk/v1/js/sdk.js' async></script>
+</head>
+
+<body>
+  <script>
+    window.simplexAsyncFunction = function () {
+      Simplex.init({ public_key: "pk_test_f7ea202b-86d6-47a9-bf93-d94b9c772266" });
+    };
+  </script>
+
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <audio id="bgMusic">
+    <source src="swap.mp3" type="audio/mp3" />
+  </audio>
+  <div id="root"></div>
+</body>
+
 </html>

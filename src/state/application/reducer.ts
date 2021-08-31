@@ -78,7 +78,7 @@ export default createReducer(initialState, builder =>
         }
       })
     })
-    .addCase(toggleSimplexCheckoutModal, state => {console.log('============================== toggleSimplexCheckoutModal')
+    .addCase(toggleSimplexCheckoutModal, state => {
       state.simplexCheckoutModalOpen = !state.simplexCheckoutModalOpen
     })
 )

@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react'
+import React, { useCallback, useContext, useEffect, useState, useMemo } from 'react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Button, CardBody, Text } from '@pancakeswap-libs/uikit'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { RowBetween } from 'components/Row'
 import { ChartArea, Price } from './styleds'
+import useInterval from '../../../hooks/useInterval'
 import { DetailDescription, Percent, PriceArea, ContractAddress } from '../styleds'
 
 interface GraphProps {
@@ -24,6 +25,7 @@ interface PriceDataProps {
 function Graph({ coin, token } : GraphProps) {
 
   console.log("token = ", token)
+  const [during, setDuring] = useState(0)
   const [priceData, setPriceData] = useState<PriceDataProps[]>([])
   const [price, setPrice] = useState(0)
   const [percent, setPercent] = useState(0)
@@ -47,38 +49,6 @@ function Graph({ coin, token } : GraphProps) {
       .then((responseData) => {
         setPriceData(responseData)
       })
-
-    let tokenString = token
-    if (token === 'BTCB') tokenString = 'BTC'
-
-    const priceUrl = 'https://www.bitrue.com/api/v1/ticker/price?symbol='.concat(tokenString).concat('USDT')
-    fetch(priceUrl)
-      .then((response) => response.json())
-      .then((responseData) => {
-        const currentPrice = responseData.price;
-        setPrice(currentPrice)
-      })
-
-    const percentUrl = 'https://www.bitrue.com/api/v1/ticker/24hr?symbol='.concat(tokenString).concat('USDT')
-    fetch(percentUrl)
-      .then((response) => response.json())
-      .then((responseData) => {        
-        if (responseData) {
-          const data24h = responseData[0]
-          console.log("pooh, data24h = ", data24h)
-          if (data24h) {
-            setPercent(Math.abs(data24h.priceChange))
-            if (data24h.priceChange > 0) {
-              setIncrease(true)
-              setInfoColor('#56e19f')
-            } else {
-              setIncrease(false)
-              setInfoColor('#e15656')
-            }
-          }
-        }
-      })
-
 
     switch(token) {
       case '2LC':
@@ -105,6 +75,35 @@ function Graph({ coin, token } : GraphProps) {
     }
     setCurrentTokenAddress(tokenAddress)
   }, [ token, priceData ])
+
+  useEffect(() => {
+    let tokenString = token
+    if (token === 'BTCB') tokenString = 'BTC'
+
+    const percentUrl = 'https://www.bitrue.com/api/v1/ticker/24hr?symbol='.concat(tokenString).concat('USDT')
+    fetch(percentUrl)
+      .then((response) => response.json())
+      .then((responseData) => {        
+        if (responseData) {
+          const data24h = responseData[0]
+          console.log("pooh, data24h = ", data24h)          
+          if (data24h) {
+            setPrice(data24h.lastPrice)
+            setPercent(Math.abs(data24h.priceChange))
+            if (data24h.priceChange > 0) {
+              setIncrease(true)
+              setInfoColor('#56e19f')
+            } else {
+              setIncrease(false)
+              setInfoColor('#e15656')
+            }
+          }
+        }
+      })
+  }, [ token ])
+
+  // useInterval(updatePriceChartChange, 240000)
+  // useInterval(updatePriceChange, 60000)
 
   const EpochToDate = (date: string) => {
     const time = date.toString()

@@ -41,34 +41,8 @@ const config: MenuEntry[] = [
             icon: 'BTCIcon',
             disabled: false,
           },
-          // {
-          //   label: 'XLM',
-          //   href: '/?coin=BNB&token=XLM',
-          //   icon: 'XLMIcon',
-          //   disabled: false,
-          // }
         ],
       },
-      // {
-      //   label: "ETH",
-      //   href: "/?coin=eth",
-      //   icon: "ETHIcon",
-      // },
-      // {
-      //   label: "USD",
-      //   href: "/?coin=usd",
-      //   icon: "USDIcon",
-      // },
-      // {
-      //   label: "XLM",
-      //   href: "/?coin=xlm",
-      //   icon: "XLMIcon",
-      // },
-      // {
-      //   label: "BTC",
-      //   href: "/?coin=btc",
-      //   icon: "BTCIcon",
-      // },
     ],
   },
   {

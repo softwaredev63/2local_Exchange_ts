@@ -1,0 +1,24 @@
+.container{
+  margin-top: 50px;
+}
+.trading-chart {  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}  
+.hide-block{
+  z-index: 1000;
+  position:absolute;
+  width:100px;
+  height: 300px;
+  background-color: #faf9fa;
+}
+#chart_container {
+  width: 100%;  
+}
+iframe {    
+  max-width: 100% !important;    
+}
+
+

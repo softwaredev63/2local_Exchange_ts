@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-flow: column nowrap;
   margin: 0;
-  padding: 0;
+  padding: 10px;
   width: 100%;
 `
 

@@ -33,6 +33,7 @@ function Graph({ coin, token } : GraphProps) {
   const [infoColor, setInfoColor] = useState('#56e19f')
   const [currentTokenAddress, setCurrentTokenAddress] = useState('0x11f6ecc9e2658627e0876212f1078b9f84d3196e')
   const [chartKey, setChartKey] = useState('price_2lc')
+  const [priceChange, setPriceChange] = useState(true)
 
   useEffect(() => {
     let tokenAddress = ''
@@ -77,16 +78,15 @@ function Graph({ coin, token } : GraphProps) {
   }, [ token, priceData ])
 
   useEffect(() => {
-    let tokenString = token
-    if (token === 'BTCB') tokenString = 'BTC'
-
-    const percentUrl = 'https://www.bitrue.com/api/v1/ticker/24hr?symbol='.concat(tokenString).concat('USDT')
-    fetch(percentUrl)
+    if (priceChange) {
+      let tokenString = token
+      if (token === 'BTCB') tokenString = 'BTC'
+      const percentUrl = 'https://www.bitrue.com/api/v1/ticker/24hr?symbol='.concat(tokenString).concat('USDT')
+      fetch(percentUrl)
       .then((response) => response.json())
       .then((responseData) => {        
         if (responseData) {
           const data24h = responseData[0]
-          console.log("pooh, data24h = ", data24h)          
           if (data24h) {
             setPrice(data24h.lastPrice)
             setPercent(Math.abs(data24h.priceChange))
@@ -97,13 +97,20 @@ function Graph({ coin, token } : GraphProps) {
               setIncrease(false)
               setInfoColor('#e15656')
             }
+            setPriceChange(false)
           }
         }
       })
-  }, [ token ])
+    }
+  }, [ token, priceChange ])
 
-  // useInterval(updatePriceChartChange, 240000)
-  // useInterval(updatePriceChange, 60000)
+  const updatePriceChangeCallback = useCallback(() => {
+    if (!priceChange) {
+      setPriceChange(true)
+    }
+  }, [ priceChange, setPriceChange ])
+
+  useInterval(updatePriceChangeCallback, 60000)
 
   const EpochToDate = (date: string) => {
     const time = date.toString()

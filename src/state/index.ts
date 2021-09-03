@@ -38,6 +38,7 @@ const store = configureStore({
     lists,
   },
   middleware: [...getDefaultMiddleware({ thunk: false }), save({ states: PERSISTED_KEYS })] as Middleware[],
+  // @ts-ignore
   preloadedState: loadedState,
 })
 

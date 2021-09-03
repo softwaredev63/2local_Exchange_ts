@@ -54,6 +54,8 @@
     "prefer-template": 0,
     "@typescript-eslint/no-shadow": 0,
     "no-unused-expressions": 0,
-    "no-restricted-syntax": 0
+    "no-restricted-syntax": 0,
+    "import/no-duplicates": 0,
+    "react/jsx-no-bind": 0
   }
 }

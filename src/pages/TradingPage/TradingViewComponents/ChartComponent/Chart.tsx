@@ -3,12 +3,6 @@ import binanceAPI from "../services/api";
 import "../assets/Chart.css";
 import { widget } from '../charting_library/charting_library';
 
-declare global {
-  interface Window {
-    tvWidget:any;
-    TradingView:any;
-  }
-}
 
 export type chartMode = { chartMode?: any };
 
@@ -25,19 +19,19 @@ export default class Chart extends Component<chartMode> {
 
   constructor(p) {
     super(p);        
-    const { chartMode = '1' } = this.props;
-    console.log('>>>>>', this.props);
+    const { chartMode = {'mode': 'price', 'symbol': 'BTCBUSD', 'interval': '1'} } = this.props;    
     this.chartType = chartMode.mode;
     this.chartSymbol = chartMode.symbol;
     this.chartInterval = chartMode.interval;
     this.chartId =  this.chartType + this.chartSymbol + this.chartInterval;
+    
 
     this.bfAPI = new binanceAPI({ debug: false });
     this.widgetOptions = {
       container_id: this.chartId,
       datafeed: this.bfAPI,
       library_path: "/scripts/charting_library/",
-      width: 1000,
+      width:1200,
       height: 300,
       symbol: this.chartSymbol,
       interval: this.chartInterval,
@@ -47,17 +41,18 @@ export default class Chart extends Component<chartMode> {
       overrides: {
         "mainSeriesProperties.style": 3,
         "mainSeriesProperties.lineStyle.color": "#66a5dc",
-        "mainSeriesProperties.lineStyle.linewidth": 0,
-        "scalesProperties.showSymbolLabels": true,
+        "mainSeriesProperties.lineStyle.linewidth": 0,        
         "mainSeriesProperties.showPriceLine": true,
 
+        "scalesProperties.showSymbolLabels": true,  
         "scalesProperties.showStudyLastValue":true,        
         "scalesProperties.showStudyPlotLabels":true,
+
+        "mainSeriesProperties.priceAxisProperties.autoScale":false,
       },
       studies_overrides: {
         "macd.histogram.color": "#f8857c",
         "macd.macd.color": "#66a5dc",
-        "macd.macd.transparency": 0,
         "macd.signal.color": "#ff9042",
         "macd.histogram.plottype": "columns",
       },      
@@ -66,7 +61,8 @@ export default class Chart extends Component<chartMode> {
     this.chartObject = null;
   }
   componentDidMount() {
-    const tvWidget = new widget(this.widgetOptions); this.tradingViewWidget = tvWidget;
+    const tvWidget = new widget(this.widgetOptions);
+    this.tradingViewWidget = tvWidget;
     this.chartReady();
   }
   componentDidUpdate() {

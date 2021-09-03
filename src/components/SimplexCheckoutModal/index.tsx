@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   margin: 0;
   padding: 10px;
   width: 100%;
+  min-height: 150px;
 `
 
 export default function SimplexCheckoutModal() {
@@ -28,6 +29,9 @@ export default function SimplexCheckoutModal() {
         promise.then(function (data) {
           const currencies = data.supportedCryptoCurrencies;
           simplex.updateCryptoCurrency('BNB');
+
+          // @ts-ignore
+          // console.log(document.querySelector('#checkout-element > iframe').contentWindow.document.querySelector('#simplex-iframe-form > div.powered-logo.justify-content-end > div > img'));
         });
 
         simplex.on('submit', function (event) {

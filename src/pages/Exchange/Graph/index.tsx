@@ -24,7 +24,6 @@ interface PriceDataProps {
 
 function Graph({ coin, token } : GraphProps) {
 
-  console.log("token = ", token)
   const [during, setDuring] = useState(0)
   const [priceData, setPriceData] = useState<PriceDataProps[]>([])
   const [price, setPrice] = useState(0)

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Menu as UikitMenu, ConnectorId } from '@pancakeswap-libs/uikit'
 import { useWeb3React } from '@web3-react/core'
 import { allLanguages } from 'constants/localisation/languageCodes'
@@ -7,6 +7,8 @@ import useTheme from 'hooks/useTheme'
 import useGetPriceData from 'hooks/useGetPriceData'
 import { injected, bsc, walletconnect } from 'connectors'
 import links from './config'
+import { useSimplexCheckoutModalToggle } from '../../state/application/hooks'
+import SimplexCheckoutModal from '../SimplexCheckoutModal'
 
 const Menu: React.FC = props => {
   const { account, activate, deactivate } = useWeb3React()
@@ -14,11 +16,10 @@ const Menu: React.FC = props => {
   const { isDark, toggleTheme } = useTheme()
   const cakePriceUsd = useGetPriceData()
 
-  const onBuyCryptoWithSimplex = useCallback(() => {
-    console.log("put code here")
-  }, [])
+  const simplexCheckoutModalToggle = useSimplexCheckoutModalToggle()
 
   return (
+    <>
     <UikitMenu
       links={links}
       priceLink="https://www.coingecko.com/en/coins/goose-finance"
@@ -41,9 +42,11 @@ const Menu: React.FC = props => {
       langs={allLanguages}
       setLang={setSelectedLanguage}
       cakePriceUsd={cakePriceUsd}
-      onBuyCryptoWithSimplex={onBuyCryptoWithSimplex}
       {...props}
+      onBuyCryptoWithSimplex={simplexCheckoutModalToggle}
     />
+      <SimplexCheckoutModal />
+      </>
   )
 }
 

@@ -18,6 +18,8 @@ import PoolFinder from './PoolFinder'
 import RemoveLiquidity from './RemoveLiquidity'
 import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects'
 import { EN, allLanguages } from '../constants/localisation/languageCodes'
+
+import TradingPage from './TradingPage'
 import { RedirectToSwap } from './Exchange/Swap/redirects'
 import { LanguageContext } from '../hooks/LanguageContext'
 import { TranslationsContext } from '../hooks/TranslationsContext'
@@ -83,15 +85,16 @@ export default function App() {
                       <Route exact strict path="/launch-pool" component={Exchange} />
                       <Route exact strict path="/yield-farming" component={Exchange} />
                       <Route exact strict path="/airdrops" component={Exchange} />
-                        <Route exact strict path='/find' component={PoolFinder} />
-                        <Route exact strict path='/pool' component={Pool} />
-                        <Route exact strict path='/create' component={RedirectToAddLiquidity} />
-                        <Route exact path='/add' component={AddLiquidity} />
-                        <Route exact path='/add/:currencyIdA' component={RedirectOldAddLiquidityPathStructure} />
-                        <Route exact path='/add/:currencyIdA/:currencyIdB' component={RedirectDuplicateTokenIds} />
-                        <Route exact strict path='/remove/:tokens' component={RedirectOldRemoveLiquidityPathStructure} />
-                        <Route exact strict path='/remove/:currencyIdA/:currencyIdB' component={RemoveLiquidity} />
-                      <Route exact strict path="/:outputCurrency" component={RedirectToSwap} />
+                      <Route exact strict path='/find' component={PoolFinder} />
+                      <Route exact strict path='/pool' component={Pool} />
+                      <Route exact strict path='/create' component={RedirectToAddLiquidity} />
+                      <Route exact path='/add' component={AddLiquidity} />
+                      <Route exact path='/add/:currencyIdA' component={RedirectOldAddLiquidityPathStructure} />
+                      <Route exact path='/add/:currencyIdA/:currencyIdB' component={RedirectDuplicateTokenIds} />
+                      <Route exact strict path='/remove/:tokens' component={RedirectOldRemoveLiquidityPathStructure} />
+                      <Route exact strict path='/remove/:currencyIdA/:currencyIdB' component={RemoveLiquidity} />
+                      {/* <Route exact strict path="/:outputCurrency" component={RedirectToSwap} /> */}
+                      <Route exact strict path="/trading" component={TradingPage} />
                       <Route component={RedirectPathToExchange} />
                     </Switch>
                   </Web3ReactManager>

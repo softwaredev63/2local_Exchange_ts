@@ -6,7 +6,7 @@ import { faCoffee, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-ic
 import { RowBetween } from 'components/Row'
 import { ChartArea, Price } from './styleds'
 import useInterval from '../../../hooks/useInterval'
-import { DetailDescription, Percent, PriceArea, ContractAddress } from '../styleds'
+import { DetailDescription, Percent, PriceArea, ContractAddress, Tick, TickArea } from '../styleds'
 
 interface GraphProps {
   coin: string
@@ -113,7 +113,14 @@ function Graph({ coin, token } : GraphProps) {
 
   const EpochToDate = (date: string) => {
     const time = date.toString()
-    return time.substring(5, 10)
+    const tick = ' '.concat(time.substring(0, 10)).concat('     ')
+    return tick
+  }
+
+  const GetDate = (index: number) => {
+    const date = new Date()
+    date.setDate(date.getDate() - index)
+    return date.toString().substring(4, 10)
   }
 
   const DataFormater = (data: string) => {
@@ -135,7 +142,7 @@ function Graph({ coin, token } : GraphProps) {
         <ContractAddress>{currentTokenAddress}</ContractAddress>
       </RowBetween>
       <Price>Price (USD)</Price>
-        <AreaChart width={1120} height={200} data={priceData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+      <AreaChart width={1120} height={200} data={priceData}>
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
@@ -146,18 +153,18 @@ function Graph({ coin, token } : GraphProps) {
             <stop offset="95%" stopColor="#43A3DE" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <XAxis
-          fontSize="12px"
-          tickFormatter={EpochToDate}
-          axisLine={false}
-          tickLine={false}
-          dataKey="date"
-          padding={{ left: 30 }}
-        />
         <YAxis fontSize="12px" tickFormatter={DataFormater} axisLine={false} tickLine={false} />
-        <Tooltip />
         <Area type="monotone" dataKey={chartKey} stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
       </AreaChart> 
+      <TickArea>
+        <Tick>{GetDate(6)}</Tick>
+        <Tick>{GetDate(5)}</Tick>
+        <Tick>{GetDate(4)}</Tick>
+        <Tick>{GetDate(3)}</Tick>
+        <Tick>{GetDate(2)}</Tick>
+        <Tick>{GetDate(1)}</Tick>
+        <Tick>{GetDate(0)}</Tick>
+      </TickArea>
     </ChartArea>
   )
 }

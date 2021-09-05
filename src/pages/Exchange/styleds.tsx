@@ -58,3 +58,17 @@ export const IconWrapper = styled.div<{ size?: number }>`
     align-items: flex-end;
   }
 `
+
+export const TickArea = styled.div`
+  display: flex;
+  width: 90%;
+  margin-left: 50px;
+`
+
+export const Tick = styled(Text)`
+  font: normal normal bold 12px/6px Swis721 BT;
+  font-weight: 600;
+  width: 20%;
+  margin-left: 15px;
+  opacity: .7;
+`

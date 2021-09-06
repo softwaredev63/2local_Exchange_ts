@@ -153,7 +153,7 @@ function Graph({ coin, token } : GraphProps) {
             <stop offset="95%" stopColor="#43A3DE" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <YAxis fontSize="12px" tickFormatter={DataFormater} axisLine={false} tickLine={false} />
+        <YAxis fontSize="12px" tickFormatter={DataFormater} axisLine={false} tickLine={false} domain={[0.00045, 0.00065]} />
         <Area type="monotone" dataKey={chartKey} stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
       </AreaChart> 
       <TickArea>

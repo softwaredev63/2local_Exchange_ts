@@ -38,7 +38,7 @@ export default function IntroducePanel() {
           <Row style={{padding:5}}>
               <TickIcon /> &nbsp;&nbsp;
               <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
-                The tokens will be used for trading BTC-BUSD at Binance.
+                The tokens will be swapped for BTCB and back again to BUSD.
               </Text>
           </Row>
           <Row style={{padding:5}}>
@@ -48,9 +48,7 @@ export default function IntroducePanel() {
               </Text>
           </Row>
           <hr style={{marginTop:15,marginBottom:15}} />
-          <Row>
             <Description>
-              <div style={{borderRight:'1px solid',borderColor:'#D5D5D5',width:'93%',height:'98%'}}>
               <Row >
                 <Text color="#333333" style={{fontSize:18,textAlign:"center"}}>
                   <b>Trading BTC(UP)</b>
@@ -65,7 +63,7 @@ export default function IntroducePanel() {
               <Row style={{padding:5}}>
                 <GreenIcon /> &nbsp;&nbsp;
                 <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
-                MACD (3,6,9) 1H  0: Selling
+                MACD (3,6,9) 4H  0: Selling
                 </Text>
               </Row>
               <Row style={{padding:5}}>
@@ -80,48 +78,10 @@ export default function IntroducePanel() {
                 1 hour price change  -0.5%: Selling
                 </Text>
               </Row>
-              </div>
             </Description>
-            <DetailDescription>
-              <Row >
-                <Text color="#333333" style={{fontSize:18,textAlign:"center"}}>
-                  <b>Trading borrowed BTC (DOWN)</b>
-                </Text>
-              </Row>
-              <Row style={{padding:5,paddingTop:10}}>
-                <RedIcon /> &nbsp;&nbsp;
-                <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
-                MACD (3,6,9) 8H, 4H, 1H, 15m, 3m, 1m, is negative: Selling
-                </Text>
-              </Row>
-              <Row style={{padding:5}}>
-                <RedIcon /> &nbsp;&nbsp;
-                <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
-                MACD (3,6,9) 1H  0: Buying (repaying)
-                </Text>
-              </Row>
-              <Row style={{padding:5}}>
-                <RedIcon /> &nbsp;&nbsp;
-                <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
-                One day price change  +2.5%: Buying (repaying)
-                </Text>
-              </Row>
-              <Row style={{padding:5}}>
-                <RedIcon /> &nbsp;&nbsp;
-                <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
-                1 hour price change  +1.5%: Buying (repaying)
-                </Text>
-              </Row>
-            </DetailDescription>
-          </Row>
           <Row style={{paddingTop:15}}>
             <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
-              Withdraw tokens will be available after lockup period and 48H after a trading round.
-            </Text>
-          </Row>
-          <Row>
-            <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
-              Transfer fee = 3%
+            Withdraw is only possible when the tokens are swapped in BUSD.
             </Text>
           </Row>
         </OutlineCard>

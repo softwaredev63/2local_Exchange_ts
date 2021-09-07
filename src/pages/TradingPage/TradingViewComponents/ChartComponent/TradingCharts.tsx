@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Text } from '@pancakeswap-libs/uikit'
 import "../assets/Chart.css";
 import macd from 'macd';
 import Chart from "./Chart";
@@ -46,7 +47,7 @@ export default class TradingCharts extends Component<MACDProps> {
   }
 
   async setMACDValue(interval) {
-    const response = await fetch(`https://api.binance.com/api/v1/klines?symbol=BTCBUSD&interval=${interval}&limit=50`, { method: 'GET' });
+    const response = await fetch(`https://api.binance.com/api/v1/klines?symbol=BTCUSDT&interval=${interval}&limit=50`, { method: 'GET' });
     const res = await response.json(); 
     const closePrices = await res.map(candle => ( 
       parseFloat(candle[4])
@@ -71,18 +72,19 @@ export default class TradingCharts extends Component<MACDProps> {
     return (
       <div>
         <div className="container"> 
-          <b className="macd-label">2LCT-BUSD</b>
+          <b className="macd-label">BTC-USDT</b>
+          <Text color="#727272" style={{fontSize:18}}>We use BTC-USDT only for trading data when to swap to BTCB or BUSD</Text>
           <div className="hide-block "></div>
           <div className="trading-chart">
-            <Chart chartMode={{'mode': 'price', 'symbol': 'BNBBUSD', 'interval': '1'}}/>
+            <Chart chartMode={{'mode': 'price', 'symbol': 'BTCUSDT', 'interval': '3'}}/>
           </div>     
         </div>
 
         <div className="container"> 
-          <b className="macd-label">BTC-BUSD</b>    
+          <b className="macd-label">BTC-USDT</b> 
           <div className="hide-block "></div>
           <div className="trading-chart">
-            <Chart chartMode={{'mode': 'price', 'symbol': 'BTCBUSD', 'interval': '1'}}/>
+            <Chart chartMode={{'mode': 'price', 'symbol': 'BTCUSDT', 'interval': '1'}}/>
           </div>  
         </div>
         

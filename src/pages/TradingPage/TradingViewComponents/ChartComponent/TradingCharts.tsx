@@ -3,15 +3,20 @@ import "../assets/Chart.css";
 import macd from 'macd';
 import Chart from "./Chart";
 
-export default class TradingCharts extends Component {  
+export interface MACDProps {
+  currentMACD: (value: any) => void
+}
+
+export default class TradingCharts extends Component<MACDProps> {  
   
   macdState:any;
   macdValue:any;
 
-  constructor(p){
-    super(p);
+  constructor(props: MACDProps){
+    super(props);
     this.state = {
       macd_1d: 0,
+      macd_8h: 0,
       macd_4h: 0,
       macd_1h: 0,
       macd_15m: 0,
@@ -22,6 +27,7 @@ export default class TradingCharts extends Component {
   componentDidMount() { 
     (async () => {
       this.setMACDValue('1d');
+      this.setMACDValue('8h');
       this.setMACDValue('4h');
       this.setMACDValue('1h');
       this.setMACDValue('15m');
@@ -30,6 +36,7 @@ export default class TradingCharts extends Component {
 
     const interval = setInterval(() => {        
       this.setMACDValue('1d');
+      this.setMACDValue('8h');
       this.setMACDValue('4h');
       this.setMACDValue('1h');
       this.setMACDValue('15m');
@@ -48,11 +55,15 @@ export default class TradingCharts extends Component {
     // console.log('histogram', interval, ': ', macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]);
     switch (interval){
       case '1d': this.setState({macd_1d: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
+      case '8h': this.setState({macd_8h: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
       case '4h': this.setState({macd_4h: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
       case '1h': this.setState({macd_1h: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
       case '15m': this.setState({macd_15m: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
       case '1m': this.setState({macd_1m: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
-    }    
+    }   
+    
+    const { currentMACD } = this.props;
+    currentMACD(this.state); 
   }
 
   render() {
@@ -60,7 +71,7 @@ export default class TradingCharts extends Component {
     return (
       <div>
         <div className="container"> 
-          <h5>2LCT-BUSD</h5>
+          <b className="macd-label">2LCT-BUSD</b>
           <div className="hide-block "></div>
           <div className="trading-chart">
             <Chart chartMode={{'mode': 'price', 'symbol': 'BNBBUSD', 'interval': '1'}}/>
@@ -68,7 +79,7 @@ export default class TradingCharts extends Component {
         </div>
 
         <div className="container"> 
-          <h5>BTC-BUSD</h5>    
+          <b className="macd-label">BTC-BUSD</b>    
           <div className="hide-block "></div>
           <div className="trading-chart">
             <Chart chartMode={{'mode': 'price', 'symbol': 'BTCBUSD', 'interval': '1'}}/>
@@ -76,6 +87,7 @@ export default class TradingCharts extends Component {
         </div>
         
         <div className="container"> 
+          <b className="macd-label">MACD 1D</b>
           <div className="hide-block "> 
             <div className="macd-icons">
               {
@@ -100,6 +112,7 @@ export default class TradingCharts extends Component {
         </div>
 
         <div className="container"> 
+          <b className="macd-label">MACD 4H</b>
           <div className="hide-block "> 
             <div className="macd-icons">
               {
@@ -144,6 +157,7 @@ export default class TradingCharts extends Component {
         </div>
 
         <div className="container"> 
+          <b className="macd-label">MACD 1H</b>
           <div className="hide-block "> 
             <div className="macd-icons">
               {
@@ -188,6 +202,7 @@ export default class TradingCharts extends Component {
         </div>
 
         <div className="container"> 
+          <b className="macd-label">MACD 15M</b>
           <div className="hide-block "> 
             <div className="macd-icons">
               {
@@ -232,6 +247,7 @@ export default class TradingCharts extends Component {
         </div>
 
         <div className="container"> 
+          <b className="macd-label">MACD 1M</b>
           <div className="hide-block "> 
             <div className="macd-icons">
               {

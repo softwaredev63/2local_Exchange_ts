@@ -20,33 +20,33 @@ const Menu: React.FC = props => {
 
   return (
     <>
-    <UikitMenu
-      links={links}
-      priceLink="https://www.coingecko.com/en/coins/goose-finance"
-      account={account as string}
-      login={(connectorId: ConnectorId) => {
-        if (connectorId === 'walletconnect') {
-          return activate(walletconnect)
-        }
+      <UikitMenu
+        links={links}
+        priceLink="https://www.coingecko.com/en/coins/goose-finance"
+        account={account as string}
+        login={(connectorId: ConnectorId) => {
+          if (connectorId === 'walletconnect') {
+            return activate(walletconnect)
+          }
 
-        if (connectorId === 'bsc') {
-          return activate(bsc)
-        }
+          if (connectorId === 'bsc') {
+            return activate(bsc)
+          }
 
-        return activate(injected)
-      }}
-      logout={deactivate}
-      isDark={isDark}
-      toggleTheme={toggleTheme}
-      currentLang={selectedLanguage?.code || ''}
-      langs={allLanguages}
-      setLang={setSelectedLanguage}
-      cakePriceUsd={cakePriceUsd}
-      {...props}
-      onBuyCryptoWithSimplex={simplexCheckoutModalToggle}
-    />
+          return activate(injected)
+        }}
+        logout={deactivate}
+        isDark={isDark}
+        toggleTheme={toggleTheme}
+        currentLang={selectedLanguage?.code || ''}
+        langs={allLanguages}
+        setLang={setSelectedLanguage}
+        cakePriceUsd={cakePriceUsd}
+        {...props}
+        onBuyCryptoWithSimplex={simplexCheckoutModalToggle}
+      />
       <SimplexCheckoutModal />
-      </>
+    </>
   )
 }
 

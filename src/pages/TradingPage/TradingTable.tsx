@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {  Text } from '@pancakeswap-libs/uikit'
 import { OutlineCard } from '../../components/Card'
 
-export default function TradingTable() {
+export default function TradingTable({currentMACD}) {
+
   return (
         <OutlineCard style={{marginTop:25}}>
           <table width="100%" style={{paddingLeft:10}}>
@@ -319,9 +320,16 @@ export default function TradingTable() {
                 </Text>
               </td>
               <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>20.3</b>
-                </Text>
+                {
+                  currentMACD.macd_8h < 0 ?
+                  <Text color="#DE0505" style={{fontSize:16}}>
+                    <b>{currentMACD.macd_8h.toFixed(2)}</b>
+                  </Text>
+                  :
+                  <Text color="#707070" style={{fontSize:16}}>
+                    <b>{currentMACD.macd_8h.toFixed(2)}</b>
+                  </Text>
+                }
               </td>
               <td style={{textAlign:'left',paddingLeft:10}}>
                 <Text color="#707070" style={{fontSize:16}}>
@@ -336,9 +344,16 @@ export default function TradingTable() {
                 </Text>
               </td>
               <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>30.5</b>
-                </Text>
+                {
+                  currentMACD.macd_4h < 0 ?
+                  <Text color="#DE0505" style={{fontSize:16}}>
+                    <b>{currentMACD.macd_4h.toFixed(2)}</b>
+                  </Text>
+                  :
+                  <Text color="#707070" style={{fontSize:16}}>
+                    <b>{currentMACD.macd_4h.toFixed(2)}</b>
+                  </Text>
+                }                
               </td>
               <td style={{textAlign:'left',paddingLeft:10}}>
                 <Text color="#707070" style={{fontSize:16}}>
@@ -353,9 +368,16 @@ export default function TradingTable() {
                 </Text>
               </td>
               <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#333333" style={{fontSize:16}}>
-                  <b>33.6</b>
-                </Text>
+                {
+                  currentMACD.macd_1h < 0 ?
+                  <Text color="#DE0505" style={{fontSize:16}}>
+                    <b>{currentMACD.macd_1h.toFixed(2)}</b>
+                  </Text>
+                  :
+                  <Text color="#707070" style={{fontSize:16}}>
+                    <b>{currentMACD.macd_1h.toFixed(2)}</b>
+                  </Text>
+                }
               </td>
               <td style={{textAlign:'left',paddingLeft:10}}>
                 <Text color="#333333" style={{fontSize:16}}>
@@ -370,9 +392,16 @@ export default function TradingTable() {
                 </Text>
               </td>
               <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>42.2</b>
-                </Text>
+                {
+                  currentMACD.macd_15m < 0 ?
+                  <Text color="#DE0505" style={{fontSize:16}}>
+                    <b>{currentMACD.macd_15m.toFixed(2)}</b>
+                  </Text>
+                  :
+                  <Text color="#707070" style={{fontSize:16}}>
+                    <b>{currentMACD.macd_15m.toFixed(2)}</b>
+                  </Text>
+                }
               </td>
               <td style={{textAlign:'left',paddingLeft:10}}>
                 <Text color="#707070" style={{fontSize:16}}>
@@ -387,9 +416,16 @@ export default function TradingTable() {
                 </Text>
               </td>
               <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#DE0505" style={{fontSize:16}}>
-                  <b>-20.1</b>
-                </Text>
+              {
+                  currentMACD.macd_1m < 0 ?
+                  <Text color="#DE0505" style={{fontSize:16}}>
+                    <b>{currentMACD.macd_1m.toFixed(2)}</b>
+                  </Text>
+                  :
+                  <Text color="#707070" style={{fontSize:16}}>
+                    <b>{currentMACD.macd_1m.toFixed(2)}</b>
+                  </Text>
+                }
               </td>
               <td style={{textAlign:'left',paddingLeft:10}}>
                 <Text color="#707070" style={{fontSize:16}}>

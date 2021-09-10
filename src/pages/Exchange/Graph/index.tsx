@@ -6,6 +6,7 @@ import { faCoffee, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-ic
 import { RowBetween } from 'components/Row'
 import { ChartArea, Price } from './styleds'
 import useInterval from '../../../hooks/useInterval'
+import { L2L, CAKE, UNI, BTCB, ETH } from '../../../constants'
 import { DetailDescription, Percent, PriceArea, ContractAddress, Tick, TickArea } from '../styleds'
 
 interface GraphProps {
@@ -37,13 +38,6 @@ function Graph({ coin, token } : GraphProps) {
 
   useEffect(() => {
     let tokenAddress = ''
-    const TokenAddress = {
-      L2L: '0x11f6ecc9e2658627e0876212f1078b9f84d3196e',
-      ETH: '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
-      CAKE: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82',
-      UNI: '0xbf5140a22578168fd562dccf235e5d43a02ce9b1',
-      BTCB: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c',
-    }
 
     fetch('https://exchangeapi.2local.io/getPriceData')
       .then((response) => response.json())
@@ -53,28 +47,28 @@ function Graph({ coin, token } : GraphProps) {
 
     switch(token) {
       case '2LC':
-         tokenAddress = TokenAddress.L2L
+         tokenAddress = L2L.address
          setChartKey('price_2lc')
-         setDomain([0.0004, 0.0006])
+         setDomain([0.0004, 0.0008])
          break
       case 'ETH':
-        tokenAddress =  TokenAddress.ETH
+        tokenAddress =  ETH.address
         const data: PriceDataProps = priceData[priceData.length - 1]
         setChartKey('price_eth')
         setDomain([3000, 4600])
         break
       case 'CAKE':
-        tokenAddress =  TokenAddress.CAKE
+        tokenAddress =  CAKE.address
         setChartKey('price_cake')
         setDomain([14, 30])
         break
       case 'UNI':
-        tokenAddress =  TokenAddress.UNI
+        tokenAddress =  UNI.address
         setChartKey('price_uni')
-        setDomain([14, 30])
+        setDomain([16, 32])
         break
       case 'BTCB':
-        tokenAddress =  TokenAddress.BTCB
+        tokenAddress =  BTCB.address
         setChartKey('price_btcb')
         setDomain([38000, 54000])
         break

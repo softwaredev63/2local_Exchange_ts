@@ -17,6 +17,10 @@ export const USDT = new Token(ChainId.MAINNET, '0x55d398326f99059ff7754852469990
 export const EOS = new Token(ChainId.MAINNET, '0x56b6fb708fc5732dec1afc8d8556423a2edccbd6', 18, 'EOS', 'EOS Token')
 export const DOT = new Token(ChainId.MAINNET, '0x7083609fce4d1d8dc0c979aab8c869ea2c873402', 18, 'DOT', 'Polkadot Token')
 export const ETH = new Token(ChainId.MAINNET, '0x2170ed0880ac9a755fd29b2688956bd959f933f8', 18, 'ETH', 'Ethereum Token')
+export const L2L = new Token(ChainId.MAINNET, '0x11f6ecc9e2658627e0876212f1078b9f84d3196e', 18, '2LC', '2local Token')
+export const CAKE = new Token(ChainId.MAINNET, '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82', 18, 'Cake', 'PancakeSwap Token')
+export const UNI = new Token(ChainId.MAINNET, '0xbf5140a22578168fd562dccf235e5d43a02ce9b1', 18, 'UNI', 'Binance-Peg Uniswap')
+export const BTCB = new Token(ChainId.MAINNET, '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c', 18, 'BTCB', 'Binance-Peg BTCB Token')
 
 const WETH_ONLY: ChainTokenList = {
   [ChainId.MAINNET]: [WETH[ChainId.MAINNET]],

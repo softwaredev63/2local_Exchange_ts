@@ -33,6 +33,7 @@ function Graph({ coin, token } : GraphProps) {
   const [currentTokenAddress, setCurrentTokenAddress] = useState('0x11f6ecc9e2658627e0876212f1078b9f84d3196e')
   const [chartKey, setChartKey] = useState('price_2lc')
   const [priceChange, setPriceChange] = useState(true)
+  const [domain, setDomain] = useState([0.00045, 0.00065])
 
   useEffect(() => {
     let tokenAddress = ''
@@ -54,23 +55,28 @@ function Graph({ coin, token } : GraphProps) {
       case '2LC':
          tokenAddress = TokenAddress.L2L
          setChartKey('price_2lc')
+         setDomain([0.0004, 0.0006])
          break
       case 'ETH':
         tokenAddress =  TokenAddress.ETH
         const data: PriceDataProps = priceData[priceData.length - 1]
         setChartKey('price_eth')
+        setDomain([3000, 4600])
         break
       case 'CAKE':
         tokenAddress =  TokenAddress.CAKE
         setChartKey('price_cake')
+        setDomain([14, 30])
         break
       case 'UNI':
         tokenAddress =  TokenAddress.UNI
         setChartKey('price_uni')
+        setDomain([14, 30])
         break
       case 'BTCB':
         tokenAddress =  TokenAddress.BTCB
         setChartKey('price_btcb')
+        setDomain([38000, 54000])
         break
     }
     setCurrentTokenAddress(tokenAddress)
@@ -153,7 +159,7 @@ function Graph({ coin, token } : GraphProps) {
             <stop offset="95%" stopColor="#43A3DE" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <YAxis fontSize="12px" tickFormatter={DataFormater} axisLine={false} tickLine={false} domain={[0.00045, 0.00065]} />
+        <YAxis fontSize="12px" tickFormatter={DataFormater} axisLine={false} tickLine={false} domain={domain} />
         <Area type="monotone" dataKey={chartKey} stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
       </AreaChart> 
       <TickArea>

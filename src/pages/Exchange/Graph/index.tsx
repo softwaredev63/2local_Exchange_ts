@@ -49,7 +49,7 @@ function Graph({ coin, token } : GraphProps) {
       case '2LC':
          tokenAddress = L2L.address
          setChartKey('price_2lc')
-         setDomain([0.0004, 0.0008])
+         setDomain([0.00036, 0.00076])
          break
       case 'ETH':
         tokenAddress =  ETH.address

@@ -61,7 +61,7 @@ export const IconWrapper = styled.div<{ size?: number }>`
 
 export const TickArea = styled.div`
   display: flex;
-  width: 90%;
+  width: 1200px;
   margin-left: 50px;
 `
 

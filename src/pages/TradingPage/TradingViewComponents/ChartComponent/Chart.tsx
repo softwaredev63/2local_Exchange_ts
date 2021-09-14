@@ -51,10 +51,15 @@ export default class Chart extends Component<chartMode> {
         "mainSeriesProperties.priceAxisProperties.autoScale":false,
       },
       studies_overrides: {
-        "macd.histogram.color": "#f8857c",
-        "macd.macd.color": "#66a5dc",
-        "macd.signal.color": "#ff9042",
+        "macd.histogram.color": "#b0b0b0",
+        "macd.macd.color": "#2196f3",
+        "macd.macd.linewidth": 2,
+        "macd.macd.transparency": 0,
+        "macd.signal.color": "#6ab071",
+        "macd.signal.linewidth": 2,
+        "macd.signal.transparency": 0,
         "macd.histogram.plottype": "columns",
+        "macd.histogram.transparency": 0,
       },      
     };
     this.tradingViewWidget = null;

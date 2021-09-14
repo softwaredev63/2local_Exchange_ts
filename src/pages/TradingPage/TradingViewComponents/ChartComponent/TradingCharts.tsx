@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text } from '@pancakeswap-libs/uikit'
+import {  Text } from '@pancakeswap-libs/uikit'
 import "../assets/Chart.css";
 import macd from 'macd';
 import Chart from "./Chart";
@@ -53,17 +53,17 @@ export default class TradingCharts extends Component<MACDProps> {
       parseFloat(candle[4])
     )); 
     
-    // console.log('histogram', interval, ': ', macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]);
+    console.log('MACD', interval, ': ', macd(closePrices, 6, 3, 9).MACD[50-1]);
     switch (interval){
-      case '1d': this.setState({macd_1d: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
-      case '8h': this.setState({macd_8h: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
-      case '4h': this.setState({macd_4h: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
-      case '1h': this.setState({macd_1h: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
-      case '15m': this.setState({macd_15m: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
-      case '1m': this.setState({macd_1m: macd(closePrices, 6, 3, 9).MACD[50-1] - macd(closePrices, 6, 3, 9).signal[50-1]}); break;
+      case '1d': this.setState({macd_1d: macd(closePrices, 6, 3, 9).MACD[50-1]}); break;
+      case '8h': this.setState({macd_8h: macd(closePrices, 6, 3, 9).MACD[50-1]}); break;
+      case '4h': this.setState({macd_4h: macd(closePrices, 6, 3, 9).MACD[50-1]}); break;
+      case '1h': this.setState({macd_1h: macd(closePrices, 6, 3, 9).MACD[50-1]}); break;
+      case '15m': this.setState({macd_15m: macd(closePrices, 6, 3, 9).MACD[50-1]}); break;
+      case '1m': this.setState({macd_1m: macd(closePrices, 6, 3, 9).MACD[50-1]}); break;
     }   
     
-    const { currentMACD } = this.props;
+    const {currentMACD} = this.props;
     currentMACD(this.state); 
   }
 
@@ -118,7 +118,7 @@ export default class TradingCharts extends Component<MACDProps> {
           <div className="hide-block "> 
             <div className="macd-icons">
               {
-                this.macdState.macd_4h > 0 ? 
+                this.macdState.macd_1d > 0 && this.macdState.macd_4h > 0 ? 
                 <div>                
                   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#94C01E" className="bi bi-check2-circle" viewBox="0 0 16 16">
                     <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
@@ -137,7 +137,7 @@ export default class TradingCharts extends Component<MACDProps> {
           <div className="hide-block-lamp">
             <div className="macd-lamp">
               {
-                this.macdState.macd_4h > 0 ? 
+                this.macdState.macd_1d > 0 && this.macdState.macd_4h > 0 ? 
                 <div> 
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#94C01E" className="bi bi-circle-fill" viewBox="0 0 16 16">
                     <circle cx="8" cy="8" r="8"/>
@@ -163,7 +163,7 @@ export default class TradingCharts extends Component<MACDProps> {
           <div className="hide-block "> 
             <div className="macd-icons">
               {
-                this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 ?
+                this.macdState.macd_1d > 0 && this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 ?
                 <div>                
                   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#94C01E" className="bi bi-check2-circle" viewBox="0 0 16 16">
                     <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
@@ -182,7 +182,7 @@ export default class TradingCharts extends Component<MACDProps> {
           <div className="hide-block-lamp">
             <div className="macd-lamp">
               {
-                this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 ?
+                this.macdState.macd_1d > 0 && this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 ?
                 <div> 
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#94C01E" className="bi bi-circle-fill" viewBox="0 0 16 16">
                     <circle cx="8" cy="8" r="8"/>
@@ -208,7 +208,7 @@ export default class TradingCharts extends Component<MACDProps> {
           <div className="hide-block "> 
             <div className="macd-icons">
               {
-                this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 && this.macdState.macd_15m > 0 ?
+                this.macdState.macd_1d > 0 && this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 && this.macdState.macd_15m > 0 ?
                 <div>                
                   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#94C01E" className="bi bi-check2-circle" viewBox="0 0 16 16">
                     <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
@@ -227,7 +227,7 @@ export default class TradingCharts extends Component<MACDProps> {
           <div className="hide-block-lamp">
             <div className="macd-lamp">
               {
-                this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 && this.macdState.macd_15m > 0 ?
+                this.macdState.macd_1d > 0 && this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 && this.macdState.macd_15m > 0 ?
                 <div> 
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#94C01E" className="bi bi-circle-fill" viewBox="0 0 16 16">
                     <circle cx="8" cy="8" r="8"/>
@@ -253,7 +253,7 @@ export default class TradingCharts extends Component<MACDProps> {
           <div className="hide-block "> 
             <div className="macd-icons">
               {
-                this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 && this.macdState.macd_15m > 0 && this.macdState.macd_1m > 0 ?
+                this.macdState.macd_1d > 0 && this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 && this.macdState.macd_15m > 0 && this.macdState.macd_1m > 0 ?
                 <div>                
                   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#94C01E" className="bi bi-check2-circle" viewBox="0 0 16 16">
                     <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
@@ -272,7 +272,7 @@ export default class TradingCharts extends Component<MACDProps> {
           <div className="hide-block-lamp">
             <div className="macd-lamp">
               {
-                this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 && this.macdState.macd_15m > 0 && this.macdState.macd_1m > 0 ?
+                this.macdState.macd_1d > 0 && this.macdState.macd_4h > 0 && this.macdState.macd_1h > 0 && this.macdState.macd_15m > 0 && this.macdState.macd_1m > 0 ?
                 <div> 
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#94C01E" className="bi bi-circle-fill" viewBox="0 0 16 16">
                     <circle cx="8" cy="8" r="8"/>

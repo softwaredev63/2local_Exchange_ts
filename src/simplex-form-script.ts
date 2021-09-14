@@ -2,7 +2,8 @@ export const loadSimplexForm = (callback) => {
     const simplexFormScript = document.getElementById('simplexForm');
     if (!simplexFormScript) {
         const script = document.createElement('script');
-        script.src = 'https://iframe.sandbox.test-simplexcc.com/form-sdk.js';
+        // script.src = 'https://iframe.sandbox.test-simplexcc.com/form-sdk.js';
+        script.src = 'https://iframe.simplex-affiliates.com/form-sdk.js';
         script.id = 'simplexForm';
         document.body.appendChild(script);
         script.onload = () => {

@@ -19,6 +19,20 @@ window.addEventListener('error', () => {
    localStorage?.removeItem('redux_localstorage_simple_lists')
 })
 
+/* =======  Load Simplex script begin ======= */
+const script = document.createElement('script');
+script.src = process.env.REACT_APP_SIMPLEX_SCRIPT_SRC || 'https://cdn.test-simplexcc.com/sdk/v1/js/sdk.js';
+script.id = 'simplexSDK';
+script.async = true;
+document.body.appendChild(script);
+
+// @ts-ignore
+window.simplexAsyncFunction = function () {
+  // @ts-ignore
+  Simplex.init({ public_key: process.env.REACT_APP_SIMPLEX_PUBLIC_KEY });
+};
+/* =======  Load Simplex script end ======= */
+
 ReactDOM.render(
   <StrictMode>
     <Providers>

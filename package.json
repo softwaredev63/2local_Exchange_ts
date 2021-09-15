@@ -43,6 +43,7 @@
     "chart.js": "^3.5.0",
     "cids": "^1.0.0",
     "copy-to-clipboard": "^3.2.0",
+    "dotenv-cli": "^4.0.0",
     "ethers": "^5.0.7",
     "i18next": "^15.0.9",
     "i18next-browser-languagedetector": "^3.0.1",
@@ -93,7 +94,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "echo \"Please use build:dev or build:prod \" && exit 1",
+    "build:dev": "dotenv -e .env.development react-scripts build",
+    "build:prod": "dotenv -e .env.production react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",

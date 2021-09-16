@@ -21,6 +21,7 @@ export const L2L = new Token(ChainId.MAINNET, '0x11f6ecc9e2658627e0876212f1078b9
 export const CAKE = new Token(ChainId.MAINNET, '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82', 18, 'Cake', 'PancakeSwap Token')
 export const UNI = new Token(ChainId.MAINNET, '0xbf5140a22578168fd562dccf235e5d43a02ce9b1', 18, 'UNI', 'Binance-Peg Uniswap')
 export const BTCB = new Token(ChainId.MAINNET, '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c', 18, 'BTCB', 'Binance-Peg BTCB Token')
+export const ECOIN = new Token(ChainId.MAINNET, '0xeba66d75a2b3a832b1eaee03b83ffd91a38bb362', 5, 'ECOIN', 'ECOIN')
 
 const WETH_ONLY: ChainTokenList = {
   [ChainId.MAINNET]: [WETH[ChainId.MAINNET]],

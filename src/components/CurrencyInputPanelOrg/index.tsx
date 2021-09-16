@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react'
-import { Currency, Pair } from '@overage69/pancake-sdk-v2'
-import { Button, ChevronDownIcon, Text } from '@pancakeswap-libs/uikit'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Currency, Pair, Token } from '@overage69/pancake-sdk-v2'
+import { Button, ChevronDownIcon, Dropdown, Text } from '@pancakeswap-libs/uikit'
 import styled from 'styled-components'
 import { darken } from 'polished'
+import { FixedSizeList } from 'react-window'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
-import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import CurrencyLogo from '../CurrencyLogo'
 import DoubleCurrencyLogo from '../DoubleLogo'
 import { RowBetween } from '../Row'
@@ -12,6 +12,9 @@ import { Input as NumericalInputOrg } from '../NumericalInputOrg'
 import { useActiveWeb3React } from '../../hooks'
 import TranslatedText from "../TranslatedText"
 import { TranslateString } from '../../utils/translateTextHelpers'
+import CurrencyList from './CurrencyList'
+import { useAllTokens, useToken } from '../../hooks/Tokens'
+import { BUSD, L2L, ECOIN } from '../../constants'
 
 const InputRow = styled.div<{ selected: boolean }>`
   display: flex;
@@ -108,13 +111,31 @@ export default function CurrencyInputPanel({
   id,
   showCommonBases
 }: CurrencyInputPanelProps) {
+  const fixedList = useRef<FixedSizeList>()
+  const allTokens = useAllTokens()
   const [modalOpen, setModalOpen] = useState(false)
+  const [showETH, setShowETH] = useState(false)
   const { account } = useActiveWeb3React()
   const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined)
 
   const handleDismissSearch = useCallback(() => {
     setModalOpen(false)
   }, [setModalOpen])
+
+  const filterTokens = useMemo(() => {
+    if (showETH) {
+      return [BUSD]
+    }
+    return [L2L, ECOIN]
+  }, [ showETH ])
+
+  useEffect(() => {
+    if (id.includes("tokena")) {
+      setShowETH(true)
+    } else {
+      setShowETH(false)
+    }
+  }, [ id ])
 
   return (
     <InputPanel id={id}>
@@ -150,15 +171,8 @@ export default function CurrencyInputPanel({
               )}
             </>
           )}
-          <CurrencySelect
-            selected={!!currency}
-            className="open-currency-select-button"
-            onClick={() => {
-              if (!disableCurrencySelect) {
-                setModalOpen(true)
-              }
-            }}
-          >
+          
+          <Dropdown position="bottom" target={
             <Aligner>
               {pair ? (
                 <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={16} margin />
@@ -179,20 +193,20 @@ export default function CurrencyInputPanel({
                 </Text>
               )}
               {!disableCurrencySelect && <ChevronDownIcon />}
-            </Aligner>
-          </CurrencySelect>
+            </Aligner>} >
+            {onCurrencySelect && (<CurrencyList
+              height={60}
+              showETH={showETH}
+              currencies={filterTokens}
+              onCurrencySelect={onCurrencySelect}
+              otherCurrency={otherCurrency}
+              selectedCurrency={currency}
+              fixedListRef={fixedList}
+            />)
+          }
+          </Dropdown>
         </InputRow>
       </Container>
-      {!disableCurrencySelect && onCurrencySelect && (
-        <CurrencySearchModal
-          isOpen={modalOpen}
-          onDismiss={handleDismissSearch}
-          onCurrencySelect={onCurrencySelect}
-          selectedCurrency={currency}
-          otherSelectedCurrency={otherCurrency}
-          showCommonBases={showCommonBases}
-        />
-      )}
     </InputPanel>
   )
 }

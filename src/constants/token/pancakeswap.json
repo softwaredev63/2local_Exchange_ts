@@ -58,6 +58,13 @@
       "address": "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
       "chainId": 56,
       "decimals": 18
+    },
+    {
+      "name": "ECOIN",
+      "symbol": "ECOIN",
+      "address": "0xeba66d75a2b3a832b1eaee03b83ffd91a38bb362",
+      "chainId": 56,
+      "decimals": 5
     }
   ]
 }

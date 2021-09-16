@@ -76,28 +76,27 @@ const Menu: React.FC = props => {
             const tokenLength = linkData[0].items[0].items.length
             for (let i = 0; i < tokenLength; i ++) {
               if (linkData[0].items[0].items[i]) {
-                const token = linkData[0].items[0].items[i].label
-                if (token === "2LC" && balanceL2L && priceData.price_2lc) {
+                if (i === 0 && balanceL2L && priceData.price_2lc) {
                   const balance = Number(balanceL2L.toSignificant())
                   linkData[0].items[0].items[i].balance = balance
                   linkData[0].items[0].items[i].cost = balance * priceData.price_2lc
                   setCost2LC(balance * priceData.price_2lc)
-                } else if (token === "ETH" && balanceETH) {
+                } else if (i === 1 && balanceETH) {
                   const balance = Number(balanceETH.toSignificant())
                   linkData[0].items[0].items[i].balance = balance
                   linkData[0].items[0].items[i].cost = balance * priceData.price_eth
                   setCostETH(balance * priceData.price_eth)
-                } else if (token === "CAKE" && balanceCAKE && priceData.price_cake) {
+                } else if (i === 2 && balanceCAKE && priceData.price_cake) {
                   const balance = Number(balanceCAKE.toSignificant())
                   linkData[0].items[0].items[i].balance = balance
                   linkData[0].items[0].items[i].cost = balance * priceData.price_cake
                   setCostCAKE(balance * priceData.price_cake)
-                } else if (token === "UNI" && balanceUNI && priceData.price_uni) {
+                } else if (i === 3 && balanceUNI && priceData.price_uni) {
                   const balance = Number(balanceUNI.toSignificant())
                   linkData[0].items[0].items[i].balance = balance
                   linkData[0].items[0].items[i].cost = balance * priceData.price_uni
                   setCostUNI(balance * priceData.price_uni)
-                } else if (token === "BTCB" && balanceBTCB && priceData.price_btcb) {
+                } else if (i === 4 && balanceBTCB && priceData.price_btcb) {
                   const balance = Number(balanceBTCB.toSignificant())
                   linkData[0].items[0].items[i].balance = balance
                   linkData[0].items[0].items[i].cost = balance * priceData.price_btcb

@@ -93,8 +93,8 @@ export default function App() {
                       <Route exact path='/add/:currencyIdA/:currencyIdB' component={RedirectDuplicateTokenIds} />
                       <Route exact strict path='/remove/:tokens' component={RedirectOldRemoveLiquidityPathStructure} />
                       <Route exact strict path='/remove/:currencyIdA/:currencyIdB' component={RemoveLiquidity} />
-                      {/* <Route exact strict path="/:outputCurrency" component={RedirectToSwap} /> */}
                       <Route exact strict path="/trading" component={TradingPage} />
+                      <Route exact strict path="/:outputCurrency" component={RedirectToSwap} />
                       <Route component={RedirectPathToExchange} />
                     </Switch>
                   </Web3ReactManager>

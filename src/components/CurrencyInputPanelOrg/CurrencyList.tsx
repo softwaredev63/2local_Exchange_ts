@@ -83,8 +83,6 @@ export default function CurrencyList({
 }) {
   const itemData = useMemo(() => (showETH ? [Currency.ETHER, ...currencies] : [...currencies]), [currencies, showETH])
 
-  console.log("pooh, itemData = ", itemData)
-
   const Row = useCallback(
     ({ data, index, style }) => {
       const currency: Currency = data[index]

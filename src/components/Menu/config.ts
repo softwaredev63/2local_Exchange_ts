@@ -66,7 +66,7 @@ const config: MenuEntry[] = [
         label: 'Trading Pools',
         href: '/trading',
         icon: 'BETH2LCIcon',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Staking Pools',

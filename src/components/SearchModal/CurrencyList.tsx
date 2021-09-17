@@ -116,7 +116,7 @@ function CurrencyRow({
     >
       <CurrencyLogo currency={currency} size="24px" />
       <Column>
-        <Text title={currency.name}>{currency.symbol}</Text>
+        <Text title={currency.name}>{currency.symbol === "BNB" ? "BNB (BEP20)" : currency.symbol}</Text>
         <FadedSpan>
           {!isOnSelectedList && customAdded && !(currency instanceof WrappedTokenInfo) ? (
             <Main fontWeight={500}>

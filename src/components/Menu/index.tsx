@@ -143,6 +143,8 @@ const Menu: React.FC = props => {
         onBuyCryptoWithSimplex={simplexCheckoutModalToggle}
         showBalanceContol
         totalCost={totalCost}
+        showBuyButton
+        showContractButton
       />
       <SimplexCheckoutModal />
     </>

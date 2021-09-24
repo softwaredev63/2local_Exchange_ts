@@ -34,7 +34,7 @@ function Graph({ coin, token } : GraphProps) {
   const [currentTokenAddress, setCurrentTokenAddress] = useState('0x11f6ecc9e2658627e0876212f1078b9f84d3196e')
   const [chartKey, setChartKey] = useState('price_2lc')
   const [priceChange, setPriceChange] = useState(true)
-  const [domain, setDomain] = useState([0.00028, 0.00052])
+  const [domain, setDomain] = useState([0.00026, 0.00054])
 
   useEffect(() => {
     let tokenAddress = ''
@@ -49,7 +49,7 @@ function Graph({ coin, token } : GraphProps) {
       case '2LC':
          tokenAddress = L2L.address
          setChartKey('price_2lc')
-         setDomain([0.00028, 0.00052])
+         setDomain([0.00026, 0.00054])
          break
       case 'ETH':
         tokenAddress =  ETH.address

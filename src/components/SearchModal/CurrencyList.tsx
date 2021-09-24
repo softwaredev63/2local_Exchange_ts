@@ -12,6 +12,7 @@ import { useIsUserAddedToken } from '../../hooks/Tokens'
 import Column from '../Column'
 import { RowFixed } from '../Row'
 import CurrencyLogo from '../CurrencyLogo'
+import CoinLogo from '../CoinLogo'
 import { MouseoverTooltip } from '../Tooltip'
 import { FadedSpan, MenuItem } from './styleds'
 import Loader from '../Loader'
@@ -42,6 +43,11 @@ const Tag = styled.div`
   white-space: nowrap;
   justify-self: flex-end;
   margin-right: 4px;
+`
+
+const FlexColumn = styled(Column)`
+  display: flex;
+  flex-direction: row;
 `
 
 function Balance({ balance }: { balance: CurrencyAmount }) {
@@ -115,8 +121,8 @@ function CurrencyRow({
       selected={otherSelected}
     >
       <CurrencyLogo currency={currency} size="24px" />
-      <Column>
-        <Text title={currency.name}>{currency.symbol === "BNB" ? "BNB (BEP20)" : currency.symbol}</Text>
+      <FlexColumn>
+        <Text title={currency.name} mr="8px">{currency.symbol === "BNB" ? "BNB (BEP20)" : currency.symbol}</Text>
         <FadedSpan>
           {!isOnSelectedList && customAdded && !(currency instanceof WrappedTokenInfo) ? (
             <Main fontWeight={500}>
@@ -145,7 +151,8 @@ function CurrencyRow({
             </Main>
           ) : null}
         </FadedSpan>
-      </Column>
+        <CoinLogo size="24px" />
+      </FlexColumn>
       <TokenTags currency={currency} />
       <RowFixed style={{ justifySelf: 'flex-end' }}>
         {balance ? <Balance balance={balance} /> : account ? <Loader /> : null}

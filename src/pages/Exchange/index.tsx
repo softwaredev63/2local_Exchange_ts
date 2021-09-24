@@ -19,7 +19,8 @@ const TabArea = styled.div`
 
 export default function Exchange() {
   const [coin, setCoin] = useState<string>('')
-  const [token, setToken] = useState<string>('')
+  const [token, setToken] = useState<string>('2LC')
+  const coinIcon = "BEP20"
 
   const tokenData = useTokenDataFromURLSearch()
 
@@ -39,11 +40,14 @@ export default function Exchange() {
   return (
     <Layout>
       <LayoutTokenDescription>
+        <IconWrapper size={28}>
+          <img src={`/images/2local/${token}.svg`} alt="Token" />
+        </IconWrapper>
         <Description>
           <TranslatedText translationId={102}>{token}</TranslatedText>
         </Description>
         <IconWrapper size={28}>
-          <img src={Pencil} alt="Edit Description" />
+          <img src={`/images/2local/${coinIcon}.svg`} alt="Coin" />
         </IconWrapper>
       </LayoutTokenDescription>
       <Graph coin={coin} token={token} />

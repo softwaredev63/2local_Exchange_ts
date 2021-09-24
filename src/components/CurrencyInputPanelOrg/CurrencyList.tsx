@@ -12,6 +12,7 @@ import { useIsUserAddedToken } from '../../hooks/Tokens'
 import Column from '../Column'
 import { RowBetween, RowFixed } from '../Row'
 import CurrencyLogoOrg from '../CurrencyLogoOrg'
+import CoinLogo from '../CoinLogo'
 import { MouseoverTooltip } from '../Tooltip'
 import Loader from '../Loader'
 import { isTokenOnList } from '../../utils'
@@ -59,7 +60,8 @@ function CurrencyRow({
       selected={otherSelected}
     >
       <CurrencyLogoOrg currency={currency} size="24px" />
-      <Text title={currency.name} ml="10px">{currency.symbol}</Text>
+      <Text title={currency.name} ml="10px" mr="10px">{currency.symbol}</Text>
+      <CoinLogo size="24px" />
     </MenuItem>
   )
 }

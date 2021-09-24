@@ -7,6 +7,7 @@ import { AutoRow, RowBetween } from '../Row'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import CurrencyLogo from '../CurrencyLogo'
+import CoinLogo from '../CoinLogo'
 import DoubleCurrencyLogo from '../DoubleLogo'
 import { Input as NumericalInput } from '../NumericalInput'
 import { useActiveWeb3React } from '../../hooks'
@@ -192,6 +193,7 @@ export default function CurrencyInputPanel({
                     : currency?.symbol) || <TranslatedText translationId={82}>Select</TranslatedText>}
                 </StyledCurrencyText>
               )}
+              <CoinLogo size="24px" style={{ marginLeft: '8px' }} />
             </Aligner>
             {!disableCurrencySelect && <StyledChevronDownIcon />}
           </AutoRow>

@@ -100,6 +100,7 @@ const Aligner = styled.span`
 
 const InputPanel = styled.div<{ hideInput?: boolean }>`
   flex: 40%;
+  max-width: 400px;
   border-radius: 25px;
   display: flex;
   flex-flow: column nowrap;

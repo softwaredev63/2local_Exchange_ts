@@ -35,6 +35,7 @@ function Graph({ coin, token } : GraphProps) {
   const [chartKey, setChartKey] = useState('price_2lc')
   const [priceChange, setPriceChange] = useState(true)
   const [domain, setDomain] = useState([0.00026, 0.00054])
+  const [volumn, setVolumn] = useState(0)
 
   useEffect(() => {
     let tokenAddress = ''
@@ -55,38 +56,39 @@ function Graph({ coin, token } : GraphProps) {
         tokenAddress =  ETH.address
         const data: PriceDataProps = priceData[priceData.length - 1]
         setChartKey('price_eth')
-        setDomain([3000, 3800])
+        setDomain([2600, 3600])
         break
       case 'CAKE':
         tokenAddress =  CAKE.address
         setChartKey('price_cake')
-        setDomain([18, 26])
+        setDomain([16, 24])
         break
       case 'UNI':
         tokenAddress =  UNI.address
         setChartKey('price_uni')
-        setDomain([20, 28])
+        setDomain([18, 26])
         break
       case 'BTCB':
         tokenAddress =  BTCB.address
         setChartKey('price_btcb')
-        setDomain([42000, 50000])
+        setDomain([38000, 50000])
         break
     }
     setCurrentTokenAddress(tokenAddress)
   }, [ token, priceData ])
 
   useEffect(() => {
-    if (priceChange) {
       let tokenString = token
       if (token === 'BTCB') tokenString = 'BTC'
       const percentUrl = 'https://www.bitrue.com/api/v1/ticker/24hr?symbol='.concat(tokenString).concat('USDT')
       fetch(percentUrl)
       .then((response) => response.json())
-      .then((responseData) => {        
+      .then((responseData) => {
         if (responseData) {
           const data24h = responseData[0]
           if (data24h) {
+            const volumn24h = Number(data24h.volume)
+            setVolumn(volumn24h)
             setPrice(data24h.lastPrice)
             setPercent(Math.abs(data24h.priceChange))
             if (data24h.priceChange > 0) {
@@ -100,7 +102,6 @@ function Graph({ coin, token } : GraphProps) {
           }
         }
       })
-    }
   }, [ token, priceChange ])
 
   const updatePriceChangeCallback = useCallback(() => {
@@ -131,7 +132,8 @@ function Graph({ coin, token } : GraphProps) {
     <ChartArea>
       <RowBetween>
         <DetailDescription>
-          <Text fontSize="18px">1 {token} : {price} USD &nbsp;</Text>
+          <Text fontSize="18px">1 {token} : {price} USD, &nbsp;</Text>
+          {/* <Text fontSize="18px">V24h: ${volumn.toLocaleString(undefined, { maximumFractionDigits: 0 })} &nbsp;</Text> */}
           <PriceArea>
             <FontAwesomeIcon icon={increase ? faArrowUp : faArrowDown} color={infoColor} />
             <Percent fontSize="18px" color={infoColor}>

@@ -27,6 +27,9 @@ export default function SimplexCheckoutModal() {
     if (parsedQs.simplex === 'true') {
       setIsSimplex(true)
       setIsOpen(true)
+    } else {
+      setIsSimplex(false)
+      setIsOpen(false)
     }
   }, [parsedQs])
 
@@ -39,7 +42,14 @@ export default function SimplexCheckoutModal() {
   const [loadedSimplexFormScript, setLoadedSimpledFormScript] = useState(false);
 
   useEffect(() => {
-    if (isOpen && !loadedSimplexFormScript) {
+    let loadScript = false
+    if (isSimplex) {
+      loadScript = isOpen
+    } else {
+      loadScript = simplexCheckoutModalOpen
+    }
+    
+    if (loadScript && !loadedSimplexFormScript) {
       loadSimplexForm(() => {
         setLoadedSimpledFormScript(true);
         // @ts-ignore
@@ -60,11 +70,11 @@ export default function SimplexCheckoutModal() {
       });
     }
 
-    if (!isOpen && loadedSimplexFormScript) return unloadSimplexForm(() => {
+    if (!loadScript && loadedSimplexFormScript) return unloadSimplexForm(() => {
       setLoadedSimpledFormScript(false);
     });
     return undefined;
-  }, [isOpen, loadedSimplexFormScript])
+  }, [isSimplex, isOpen, simplexCheckoutModalOpen, loadedSimplexFormScript])
 
   const formHTML = '<form id="simplex-form">\n' +
     '    <div id="checkout-element">\n' +
@@ -74,7 +84,7 @@ export default function SimplexCheckoutModal() {
 
 
   return (
-    <Modal isOpen={isOpen} onDismiss={isSimplex ? redirect : simplexCheckoutModalToggle} minHeight={false} maxHeight={90}>
+    <Modal isOpen={isSimplex ? isOpen : simplexCheckoutModalOpen} onDismiss={isSimplex ? redirect : simplexCheckoutModalToggle} minHeight={false} maxHeight={90}>
       <Wrapper>
         <div className="content" dangerouslySetInnerHTML={{ __html: formHTML }} />
       </Wrapper>

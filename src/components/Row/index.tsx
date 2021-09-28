@@ -30,6 +30,31 @@ export const AutoRow = styled(Row)<{ gap?: string; justify?: string }>`
   }
 `
 
+export const SwapRow = styled(Row)<{ gap?: string; justify?: string }>`
+  flex-wrap: wrap;
+  margin: ${({ gap }) => gap && `-${gap}`};
+  justify-content: ${({ justify }) => justify && justify};
+  align-items: flex-start;
+
+  & > * {
+    margin: ${({ gap }) => gap} !important;
+  }
+
+  ${({ theme }) => theme.mediaQueries.xs} {
+    flex-direction: column;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    flex-direction: column;
+  }
+  ${({ theme }) => theme.mediaQueries.md} {
+    flex-direction: column;
+  }
+  ${({ theme }) => theme.mediaQueries.lg} {
+    flex-direction: row;
+  }
+
+`
+
 export const RowFixed = styled(Row)<{ gap?: string; justify?: string }>`
   width: fit-content;
   margin: ${({ gap }) => gap && `-${gap}`};

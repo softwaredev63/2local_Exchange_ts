@@ -10,7 +10,7 @@ import Card, { GreyCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import ConfirmSwapModal from 'components/swap/ConfirmSwapModal'
 import CurrencyInputPanel from 'components/CurrencyInputPanel'
-import { AutoRow, RowBetween } from 'components/Row'
+import { AutoRow, RowBetween, SwapRow } from 'components/Row'
 import BetterTradeLink from 'components/swap/BetterTradeLink'
 import confirmPriceImpactWithoutFee from 'components/swap/confirmPriceImpactWithoutFee'
 import { ArrowWrapper, BottomGrouping, SwapCallbackError, Wrapper } from 'components/swap/styleds'
@@ -280,16 +280,6 @@ const Swap = () => {
 
   return (
     <>
-      <TokenWarningModal
-        isOpen={urlLoadedTokens.length > 0 && !dismissTokenWarning}
-        tokens={urlLoadedTokens}
-        onConfirm={handleConfirmTokenWarning}
-      />
-      <SyrupWarningModal
-        isOpen={isSyrup}
-        transactionType={syrupTransactionType}
-        onConfirm={handleConfirmSyrupWarning}
-      />
       <AppBody>
         <Wrapper id="swap-page">
           <ConfirmSwapModal
@@ -307,7 +297,7 @@ const Swap = () => {
           />
           {/* <PageHeader title="Exchange" description="Trade tokens in an instant" /> */}
           <CardBody>
-            <AutoRow gap="md">
+            <SwapRow gap="md">
               <CurrencyInputPanel
                 back="transparent linear-gradient(292deg, #53A8F0 0%, #2D7FC4 100%) 0% 0% no-repeat padding-box"
                 label="From"
@@ -356,32 +346,13 @@ const Swap = () => {
                 otherCurrency={currencies[Field.INPUT]}
                 id="swap-currency-output"
               />
-
-              {recipient !== null && !showWrap ? (
-                <>
-                  <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
-                    <ArrowWrapper clickable={false}>
-                      <ArrowDown size="16" color={theme.colors.textSubtle} />
-                    </ArrowWrapper>
-                    <LinkStyledButton id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
-                      - Remove send
-                    </LinkStyledButton>
-                  </AutoRow>
-                  <AddressInputPanel id="recipient" value={recipient} onChange={onChangeRecipient} />
-                </>
-              ) : null}
-
-              {showWrap ? null : (
-                <Card padding=".25rem .75rem 0 .75rem" borderRadius="20px">
-                  <AutoColumn gap="4px">
-                    <RowBetween align="center">
-                      <SlippageToleranceSetting />
-                      <TransactionDeadlineSetting />
-                    </RowBetween>
-                  </AutoColumn>
-                </Card>
-              )}
-            </AutoRow>
+            </SwapRow>
+            {showWrap ? null : (
+              <SwapRow mt="10px" justify="space-between" >
+                  <SlippageToleranceSetting />
+                  <TransactionDeadlineSetting />
+              </SwapRow>
+            )}
             <BottomGrouping>
               {!account ? (
                 <ConnectWalletButton fullWidth />

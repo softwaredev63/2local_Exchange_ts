@@ -4,7 +4,17 @@ import styled from 'styled-components'
 export const Layout = styled.div`
   text-align: left;
   width: 100%;
-  margin: 20px;
+  margin: 5px;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    margin: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.md} {
+    margin: 15px;
+  }
+  ${({ theme }) => theme.mediaQueries.lg} {
+    margin: 20px;
+  }
 `
 
 export const LayoutTokenDescription = styled.div`
@@ -19,7 +29,7 @@ export const Description = styled(Text)`
 export const DetailDescription = styled(Text)`
   font: normal normal bold 16px/16px Swis721 BT;
   display: flex;
-  margin-top: 5px;
+  margin-top: 10px;
 `
 
 export const Percent = styled(Text)`
@@ -29,10 +39,11 @@ export const Percent = styled(Text)`
 `
 
 export const ContractAddress = styled(Text)`
-  font: normal normal bold 16px/6px Swis721 BT;
+  font: normal normal bold 16px/30px Swis721 BT;
   letter-spacing: 0.18px;
   opacity: 0.36;
   margin-right: 30px;
+  margin-top: 10px;
 `
 
 export const PriceArea = styled.div`
@@ -63,6 +74,19 @@ export const TickArea = styled.div`
   display: flex;
   width: 1200px;
   margin-left: 50px;
+
+  ${({ theme }) => theme.mediaQueries.xs} {
+    width: 400px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    width: 550px;
+  }
+  ${({ theme }) => theme.mediaQueries.md} {
+    width: 800px;
+  }
+  ${({ theme }) => theme.mediaQueries.lg} {
+    width: 1200px;
+  }
 `
 
 export const Tick = styled(Text)`

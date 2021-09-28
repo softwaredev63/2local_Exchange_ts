@@ -11,7 +11,7 @@ const RISKY_SLIPPAGE_HIGH = 500
 
 const StyledSlippageToleranceSettings = styled.div`
   margin-bottom: 16px;
-  width: 290px;
+  width: 350px;
   opacity: 0.5;
   font: Swis721 BT;
 `
@@ -23,7 +23,7 @@ const Option = styled.div`
 
 const InputOption = styled.div`
   padding: 0 4px;
-  width: 80px;
+  width: 75px;
 `
 
 const Options = styled.div`
@@ -52,6 +52,10 @@ const Label = styled.div`
 
 const StyledToggleButton = styled(Button)`
   width: 100%;
+`
+
+const StyledPercentText = styled(Text)`
+  margin: auto;
 `
 
 const predefinedValues = [
@@ -114,8 +118,6 @@ const SlippageToleranceSettings = () => {
               </Option>
             )
           })}
-        </Flex>
-        <Flex alignItems="center">
           <InputOption>
             <Input
               type="number"
@@ -128,9 +130,7 @@ const SlippageToleranceSettings = () => {
               isWarning={error !== null}
             />
           </InputOption>
-          <Option>
-            <Text fontSize="18px">%</Text>
-          </Option>
+          <StyledPercentText fontSize="18px">%</StyledPercentText>
         </Flex>
       </Options>
       {error && (

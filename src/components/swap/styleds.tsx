@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components'
 import { AutoColumn } from '../Column'
 
 export const Wrapper = styled.div`
-  width: 800px;
+  width: 100%;
   position: relative;
 `
 
@@ -15,13 +15,14 @@ export const ArrowWrapper = styled.div<{ clickable: boolean }>`
 
   ${({ clickable }) =>
     clickable
-      ? css`
-          :hover {
-            cursor: pointer;
-            opacity: 0.8;
-          }
-        `
-      : null}
+    ? css`
+        :hover {
+          cursor: pointer;
+          opacity: 0.8;
+        }
+      `
+    : null
+  }
 `
 
 export const SectionBreak = styled.div`

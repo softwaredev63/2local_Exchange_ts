@@ -38,7 +38,6 @@ const BodyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 16px 30px;
   min-height: calc(100vh - 152px);
   align-items: center;
   flex: 1;
@@ -50,6 +49,17 @@ const BodyWrapper = styled.div`
   background-repeat: no-repeat;
   background-position: top;
   background-size: contain;
+  padding: 16px 10px;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding: 16px 15px;
+  }
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding: 16px 20px;
+  }
+  ${({ theme }) => theme.mediaQueries.lg} {
+    padding: 16px 30px;
+  }
 `
 
 const Marginer = styled.div`

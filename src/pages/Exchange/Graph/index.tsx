@@ -3,7 +3,7 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'rec
 import { Button, CardBody, Text } from '@pancakeswap-libs/uikit'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
-import { RowBetween } from 'components/Row'
+import { SwapRow } from 'components/Row'
 import { ChartArea, Price } from './styleds'
 import useInterval from '../../../hooks/useInterval'
 import { L2L, CAKE, UNI, BTCB, ETH } from '../../../constants'
@@ -36,6 +36,23 @@ function Graph({ coin, token } : GraphProps) {
   const [priceChange, setPriceChange] = useState(true)
   const [domain, setDomain] = useState([0.00026, 0.00054])
   const [volumn, setVolumn] = useState(0)
+  const [screenWidth, setScreenWidth] = useState(0)
+
+  useEffect(() => {
+    const { innerWidth: width, innerHeight: height } = window;
+    if (width > 400) {
+      setScreenWidth(380)
+    }
+    if (width > 600) {
+      setScreenWidth(520)
+    }
+    if (width > 800) {
+      setScreenWidth(780)
+    }
+    if (width > 1200) {
+      setScreenWidth(1120)
+    }
+  }, [setScreenWidth])
 
   useEffect(() => {
     let tokenAddress = ''
@@ -130,7 +147,7 @@ function Graph({ coin, token } : GraphProps) {
 
   return (
     <ChartArea>
-      <RowBetween>
+      <SwapRow justify="space-between">
         <DetailDescription>
           <Text fontSize="18px">1 {token} : {price} USD, &nbsp;</Text>
           {/* <Text fontSize="18px">V24h: ${volumn.toLocaleString(undefined, { maximumFractionDigits: 0 })} &nbsp;</Text> */}
@@ -142,9 +159,9 @@ function Graph({ coin, token } : GraphProps) {
           </PriceArea>
         </DetailDescription>
         <ContractAddress>{currentTokenAddress}</ContractAddress>
-      </RowBetween>
+      </SwapRow>
       <Price>Price (USD)</Price>
-      <AreaChart width={1120} height={200} data={priceData}>
+      <AreaChart width={screenWidth} height={200} data={priceData}>
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />

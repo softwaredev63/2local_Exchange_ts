@@ -100,13 +100,29 @@ const Aligner = styled.span`
 
 const InputPanel = styled.div<{ hideInput?: boolean }>`
   flex: 40%;
-  max-width: 400px;
+  max-width: 380px;
   border-radius: 25px;
   display: flex;
   flex-flow: column nowrap;
   position: relative;
   background-color: ${({ theme }) => theme.colors.background};
   z-index: 1;
+
+  ${({ theme }) => theme.mediaQueries.xs} {
+    min-width: 350px;
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    min-width: 380px;
+  }
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    min-width: 380px;
+  }
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    min-width: 350px;
+  }
 `
 
 const Container = styled.div<{ hideInput: boolean; back: string }>`

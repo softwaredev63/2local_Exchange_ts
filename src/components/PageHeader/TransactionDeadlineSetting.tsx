@@ -7,7 +7,7 @@ import TranslatedText from '../TranslatedText'
 
 const StyledTransactionDeadlineSetting = styled.div`
   margin-bottom: 16px;
-  width: 290px;
+  width: 350px;
   opacity: 0.5;
 `
 const InputOption = styled.div`

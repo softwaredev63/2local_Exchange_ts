@@ -11,4 +11,5 @@ export const Price = styled.div`
   margin-bottom: 2rem;
   margin-left: 1rem;
   color: #000000;
+  width: 100%;
 `

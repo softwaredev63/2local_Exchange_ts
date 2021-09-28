@@ -73,22 +73,22 @@ function Graph({ coin, token } : GraphProps) {
         tokenAddress =  ETH.address
         const data: PriceDataProps = priceData[priceData.length - 1]
         setChartKey('price_eth')
-        setDomain([2600, 3600])
+        setDomain([2600, 3400])
         break
       case 'CAKE':
         tokenAddress =  CAKE.address
         setChartKey('price_cake')
-        setDomain([16, 24])
+        setDomain([16, 22])
         break
       case 'UNI':
         tokenAddress =  UNI.address
         setChartKey('price_uni')
-        setDomain([18, 26])
+        setDomain([16, 26])
         break
       case 'BTCB':
         tokenAddress =  BTCB.address
         setChartKey('price_btcb')
-        setDomain([38000, 50000])
+        setDomain([38000, 46000])
         break
     }
     setCurrentTokenAddress(tokenAddress)

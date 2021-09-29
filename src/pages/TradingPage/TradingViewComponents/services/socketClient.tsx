@@ -32,7 +32,7 @@ export default class SocketClient {
 
   _createSocket() {
     this._ws = new WebSocket(this.baseUrl)
-    this._ws.onopen = (e) => {
+    this._ws.onopen = () => {
       console.info(`Binance WS Open`)
       localStorage.setItem("wsStatus", '1')
     }
@@ -52,7 +52,7 @@ export default class SocketClient {
       const sData = JSON.parse(msg.data)
       try {
         if (sData && sData.k) {
-          const { s, E } = sData
+          const { s } = sData
           const { o, h, l, v, c, T, t } = sData.k
           // Update data
           const lastSocketData = {
@@ -78,7 +78,7 @@ export default class SocketClient {
     }
   }
 
-  subscribeOnStream(symbolInfo, resolution, onRealtimeCallback, subscribeUID, onResetCacheNeededCallback, lastDailyBar) {
+  subscribeOnStream(symbolInfo, resolution, onRealtimeCallback/* , subscribeUID, onResetCacheNeededCallback, lastDailyBar */) {
     try {
       const paramStr = `${symbolInfo.name.toLowerCase()}@kline_${this.tvIntervals[resolution]}`
       const obj = {

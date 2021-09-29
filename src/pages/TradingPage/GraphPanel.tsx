@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import TradingCharts from './TradingViewComponents/ChartComponent/TradingCharts';
 
 export default function GraphPanel({currentMACD}) {
 
-  const [macd, setMacd] = useState();
+  // const [macd, setMacd] = useState();
   const sendMACDToParent = (childMACDData: any) => {
-    setMacd(childMACDData);    
+    // setMacd(childMACDData);    
     currentMACD(childMACDData);
   };
   return (

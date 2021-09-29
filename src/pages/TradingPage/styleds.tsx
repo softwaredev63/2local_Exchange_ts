@@ -1,6 +1,5 @@
-import { Button, CardBody, Text } from '@pancakeswap-libs/uikit'
+import { Text } from '@pancakeswap-libs/uikit'
 import styled from 'styled-components'
-import exp from 'constants'
 
 
 export const ChartArea = styled.div`

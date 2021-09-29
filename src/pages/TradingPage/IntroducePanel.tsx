@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 import {  Text } from '@pancakeswap-libs/uikit'
 import Row from '../../components/Row'
-import { LightCard, OutlineCard } from '../../components/Card'
-import { Description, DetailDescription } from './styleds'
-import Graph from './GraphPanel'
+import { OutlineCard } from '../../components/Card'
+import { Description } from './styleds'
 
 const TickIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="19.45" height="19.45" viewBox="0 0 19.45 19.45"><g transform="translate(0 0)"><path d="M9.725,0A9.725,9.725,0,1,1,0,9.725H0A9.7,9.7,0,0,1,9.67,0Z" fill="#3bb54a"/><path d="M92.8,105.515l-6.907,6.907-3.868-3.84,1.575-1.547,2.293,2.266,5.332-5.332Z" transform="translate(-77.687 -98.47)" fill="#fff"/></g></svg>
@@ -11,9 +10,9 @@ const TickIcon = () => (
 const GreenIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="13.522" height="13.534" viewBox="0 0 13.522 13.534"><g transform="translate(-0.142)"><g transform="translate(0.142)"><path d="M12.372,0H3.209A1.291,1.291,0,0,0,1.937,1.511,1.337,1.337,0,0,0,3.28,2.583H8.317A2.583,2.583,0,0,0,9.1,2.46l.426-.136L.555,11.294a1.337,1.337,0,0,0-.187,1.711,1.291,1.291,0,0,0,1.937.168l9.034-9.008-.1.284a2.583,2.583,0,0,0-.155.878v5.056a1.337,1.337,0,0,0,1.072,1.343,1.291,1.291,0,0,0,1.511-1.291V1.291A1.291,1.291,0,0,0,12.372,0Z" transform="translate(-0.142)" fill="#2bff22"/></g></g></svg>
 )
-const RedIcon = () => (
+/* const RedIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="13.534" height="13.522" viewBox="0 0 13.534 13.522"><g transform="translate(13.534 -0.142) rotate(90)"><g transform="translate(0.142)"><path d="M12.372,0H3.209A1.291,1.291,0,0,0,1.937,1.511,1.337,1.337,0,0,0,3.28,2.583H8.317A2.583,2.583,0,0,0,9.1,2.46l.426-.136L.555,11.294a1.337,1.337,0,0,0-.187,1.711,1.291,1.291,0,0,0,1.937.168l9.034-9.008-.1.284a2.583,2.583,0,0,0-.155.878v5.056a1.337,1.337,0,0,0,1.072,1.343,1.291,1.291,0,0,0,1.511-1.291V1.291A1.291,1.291,0,0,0,12.372,0Z" transform="translate(-0.142)" fill="#f22"/></g></g></svg>
-)
+) */
 
 export default function IntroducePanel() {
   return (

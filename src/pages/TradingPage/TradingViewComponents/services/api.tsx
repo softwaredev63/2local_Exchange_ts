@@ -65,8 +65,6 @@ export default class binanceAPI {
   }
 
   resolveSymbol(symbolName, onSymbolResolvedCallback, onResolveErrorCallback) {
-    this.debug && console.log('👉 resolveSymbol:', symbolName)
-
     const comps = symbolName.split(':')
     symbolName = (comps.length > 1 ? comps[1] : symbolName).toUpperCase()
 
@@ -107,7 +105,7 @@ export default class binanceAPI {
     onResolveErrorCallback('not found')
   }
 
-  getBars(symbolInfo, resolution, from, to, onHistoryCallback, onErrorCallback, firstDataRequest) {
+  getBars(symbolInfo, resolution, from, to, onHistoryCallback, onErrorCallback) {
     const interval = this.ws.tvIntervals[resolution]
     if (!interval) {
       onErrorCallback('Invalid interval')

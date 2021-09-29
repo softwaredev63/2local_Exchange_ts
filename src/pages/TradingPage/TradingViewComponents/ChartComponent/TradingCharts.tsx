@@ -53,7 +53,6 @@ export default class TradingCharts extends Component<MACDProps> {
       parseFloat(candle[4])
     )); 
     
-    console.log('MACD', interval, ': ', macd(closePrices, 6, 3, 9).MACD[50-1]);
     switch (interval){
       case '1d': this.setState({macd_1d: macd(closePrices, 6, 3, 9).MACD[50-1]}); break;
       case '8h': this.setState({macd_8h: macd(closePrices, 6, 3, 9).MACD[50-1]}); break;

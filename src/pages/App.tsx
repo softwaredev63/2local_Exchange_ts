@@ -20,6 +20,7 @@ import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redir
 import { EN, allLanguages } from '../constants/localisation/languageCodes'
 
 import TradingPage from './TradingPage'
+import MultiSendPage from './MultiSend'
 import { RedirectToSwap } from './Exchange/Swap/redirects'
 import { LanguageContext } from '../hooks/LanguageContext'
 import { TranslationsContext } from '../hooks/TranslationsContext'
@@ -104,6 +105,7 @@ export default function App() {
                       <Route exact strict path='/remove/:tokens' component={RedirectOldRemoveLiquidityPathStructure} />
                       <Route exact strict path='/remove/:currencyIdA/:currencyIdB' component={RemoveLiquidity} />
                       <Route exact strict path="/trading" component={TradingPage} />
+                      <Route exact strict path="/msend" component={MultiSendPage} />
                       <Route exact strict path="/:outputCurrency" component={RedirectToSwap} />
                       <Route component={RedirectPathToExchange} />
                     </Switch>

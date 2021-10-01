@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Card, Form, Col, Table, Button, Spinner, Modal } from 'react-bootstrap';
+import { Container, Row, Card, Form, Col, Table, Button, Spinner, Modal, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { isAddress } from '@ethersproject/address';
+import { Token } from '@overage69/pancake-sdk-v2';
 import { useActiveWeb3React } from '../../hooks'
 import { useCurrencyBalance, useTokenBalance } from '../../state/wallet/hooks'
 import { useCurrency } from '../../hooks/Tokens'
@@ -17,21 +18,25 @@ interface CSVDataItem {
     amount: number;
 }
 
+const tokens: Token[] = [L2L, ETH, CAKE, UNI, BTCB];
+
 export default function MultiSendPage() {
     const { account, library } = useActiveWeb3React();
     // @ts-ignore
     const balanceBNB = useCurrencyBalance(account, useCurrency('ETH'));
-    // @ts-ignore
-    const balanceL2L = useTokenBalance(account, L2L);
     const userBnbBalance = balanceBNB?.toSignificant();
-    const userTokenBalance = balanceL2L?.toSignificant();
 
-    const contract = useTokenContract(L2L.address, false)
+    const [token, setToken] = useState<Token>(tokens[0]);
+    
+    // @ts-ignore
+    const tokenBalance = useTokenBalance(account, token);
+    const userTokenBalance = tokenBalance?.toSignificant();
+
+    const contract = useTokenContract(token.address, false)
 
     const [csvData, setCSVData] = useState<CSVDataItem[]>([]);
     const [sending, setSending] = useState(false);
     const [sent, setSent] = useState(false);
-    const [tokenAddress, setTokenAddress] = useState();
     const [tokenName, setTokenName] = useState();
     const [tokenSymbol, setTokenSymbol] = useState();
     const [tokenDecimals, setTokenDecimals] = useState();
@@ -42,24 +47,27 @@ export default function MultiSendPage() {
 
     useEffect(() => {
         (async () => {
-            if (!contract) return;
+            if (!account || !contract) return;
 
             const name = await contract.name();
             const symbol = await contract.symbol();
             const decimals = await contract.decimals();
             const totalSupply = await contract.totalSupply();
 
-            // @ts-ignore         
-            setTokenAddress(contract.address);
             setTokenName(name);
             setTokenSymbol(symbol);
             setTokenDecimals(decimals);
             // @ts-ignore         
             setTokenTotalSupply(totalSupply / 10 ** decimals);
         })()
-    }, [contract])
+    }, [account, contract])
 
     const totalAmount = csvData.length > 0 ? csvData.map(d => d.amount).reduce((a, c) => a + c) : 0;
+
+    const handleTokenSelect = (eventKey) => {
+        const token = tokens.find(t => t.symbol === eventKey);
+        setToken(token!);
+    }
 
     const handleFileChange = (e) => {
         const files = e.target.files;
@@ -95,7 +103,7 @@ export default function MultiSendPage() {
     }
 
     const handleSend = async () => {
-        if (!account || !contract) return;
+        if (!account || !token) return;
 
         if (totalAmount > parseFloat(userTokenBalance!)) {
             alert('Insufficient token amount');
@@ -104,7 +112,7 @@ export default function MultiSendPage() {
 
         setSending(true);
         try {
-            const txArray = await MultisendToken(library, tokenAddress, account, csvData);
+            const txArray = await MultisendToken(library, token.address, account, csvData);
             setSent(true);
 
             // @ts-ignore
@@ -117,14 +125,33 @@ export default function MultiSendPage() {
     }
 
     const handleModalClose = () => {
-      setShowResultModal(false);
+        setShowResultModal(false);
     }
 
     return (
         <Container fluid>
-            <h3 className="p-2">2LC Token Multisender</h3>
+            <h3 className="p-2">ERC20 Token Multisender</h3>
             <Card>
-                <Card.Header>Token information</Card.Header>
+                <Card.Header>
+                    <Row>
+                        <Col className="m-auto">
+                            Token information
+                        </Col>
+                        <Col className="text-right">
+                            <Dropdown>
+                                <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
+                                    <img src={`/images/2local/${token.symbol}.svg`} className="icon-token" alt={token.name} />{token.symbol}
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    {
+                                        tokens.map(t => <Dropdown.Item eventKey={t.symbol} onSelect={handleTokenSelect}><img className="icon-token" src={`/images/2local/${t.symbol}.svg`} alt={t.name}></img>{t.symbol}</Dropdown.Item>)
+                                    }
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Col>
+                    </Row>
+                </Card.Header>
                 <Card.Body>
                     <Form>
                         <Form.Group as={Row}>
@@ -152,7 +179,7 @@ export default function MultiSendPage() {
                                 Address:
                             </Form.Label>
                             <Col sm="5" style={{ margin: 'auto' }}>
-                                <a href={`${networkURL}/token/${tokenAddress}`} target="_blank" rel="noreferrer">{tokenAddress}</a>
+                                <a href={`${networkURL}/token/${token.address}`} target="_blank" rel="noreferrer">{token.address}</a>
                             </Col>
                             <Form.Label column sm="2">
                                 Total Supply:
@@ -202,29 +229,29 @@ export default function MultiSendPage() {
                             <Form.Control type="file" accept=".csv" onChange={handleFileChange} />
                         </Col>
                     </Form.Group>
-
-                    <Table striped bordered hover className="mt-4">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Address</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                csvData.map((d, i) => (
-                                    <tr key={`tr-${d.address}`}>
-                                        <td>{i + 1}</td>
-                                        <td><a href={`${networkURL}/address/${d.address}`} target="_blank" rel="noreferrer">{d.address}</a></td>
-                                        <td>{d.amount}</td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </Table>
-
-                    <div className="text-end">
+                    <div className="wallets-table-wrapper">
+                        <Table striped bordered hover className="mt-4">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Address</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    csvData.map((d, i) => (
+                                        <tr key={`tr-${d.address}`}>
+                                            <td>{i + 1}</td>
+                                            <td><a href={`${networkURL}/address/${d.address}`} target="_blank" rel="noreferrer">{d.address}</a></td>
+                                            <td>{d.amount}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </Table>
+                    </div>
+                    <div className="text-right">
                         <span className="p-2">Total:&nbsp;<b>{totalAmount}</b></span>
                         <Button variant="primary" disabled={!account || csvData.length === 0 || sending} onClick={handleSend}>
                             {
@@ -251,7 +278,7 @@ export default function MultiSendPage() {
                 </Modal.Header>
                 <Modal.Body>
                     {resultError ?? (
-                        resultTxArray.map((tx:any, i) => (
+                        resultTxArray.map((tx: any, i) => (
                             <div key={tx.transactionHash}>
                                 <a href={`${networkURL}/tx/${tx.transactionHash}`} target="_blank" rel="noreferrer">{tx.transactionHash}</a>
                             </div>

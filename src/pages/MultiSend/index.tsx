@@ -130,7 +130,7 @@ export default function MultiSendPage() {
 
     return (
         <Container fluid>
-            <h3 className="p-2">ERC20 Token Multisender</h3>
+            <h3 className="p-2">BEP20 & ERC20 Token Multisender</h3>
             <Card>
                 <Card.Header>
                     <Row>
@@ -140,12 +140,12 @@ export default function MultiSendPage() {
                         <Col className="text-right">
                             <Dropdown>
                                 <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
-                                    <img src={`/images/2local/${token.symbol}.svg`} className="icon-token" alt={token.name} />{token.symbol}
+                                    <img src={`/images/2local/${token.symbol}.svg`} className="icon-token" alt={token.name} />{token.symbol}<img src="/images/2local/BEP20.svg" className="icon-bep20" alt="BEP20 token" />
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
                                     {
-                                        tokens.map(t => <Dropdown.Item eventKey={t.symbol} onSelect={handleTokenSelect}><img className="icon-token" src={`/images/2local/${t.symbol}.svg`} alt={t.name}></img>{t.symbol}</Dropdown.Item>)
+                                        tokens.map(t => <Dropdown.Item eventKey={t.symbol} onSelect={handleTokenSelect}><img className="icon-token" src={`/images/2local/${t.symbol}.svg`} alt={t.name}></img>{t.symbol}<img src="/images/2local/BEP20.svg" className="icon-bep20" alt="BEP20 token" /></Dropdown.Item>)
                                     }
                                 </Dropdown.Menu>
                             </Dropdown>

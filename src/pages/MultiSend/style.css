@@ -85,7 +85,14 @@
 
 .icon-token {
     vertical-align: sub;
-    margin-right: 5px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.icon-bep20 {
+    vertical-align: sub;
+    margin-left: 10px;
     width: 20px;
     height: 20px;
 }

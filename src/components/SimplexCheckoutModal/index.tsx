@@ -57,7 +57,7 @@ export default function SimplexCheckoutModal() {
         const promise = simplex.createForm();
         promise.then(function (data) {
           const currencies = data.supportedCryptoCurrencies;
-          simplex.updateCryptoCurrency('BNB');
+          simplex.updateCryptoCurrency();
 
           // @ts-ignore
           // console.log(document.querySelector('#checkout-element > iframe').contentWindow.document.querySelector('#simplex-iframe-form > div.powered-logo.justify-content-end > div > img'));

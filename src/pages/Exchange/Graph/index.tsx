@@ -34,7 +34,7 @@ function Graph({ coin, token } : GraphProps) {
   const [currentTokenAddress, setCurrentTokenAddress] = useState('0x11f6ecc9e2658627e0876212f1078b9f84d3196e')
   const [chartKey, setChartKey] = useState('price_2lc')
   const [priceChange, setPriceChange] = useState(true)
-  const [domain, setDomain] = useState([0.00022, 0.00030])
+  const [domain, setDomain] = useState([0.00020, 0.00028])
   const [volumn, setVolumn] = useState(0)
   const [screenWidth, setScreenWidth] = useState(0)
 
@@ -67,28 +67,28 @@ function Graph({ coin, token } : GraphProps) {
       case '2LC':
          tokenAddress = L2L.address
          setChartKey('price_2lc')
-         setDomain([0.00022, 0.00030])
+         setDomain([0.00020, 0.00032])
          break
       case 'ETH':
         tokenAddress =  ETH.address
         const data: PriceDataProps = priceData[priceData.length - 1]
         setChartKey('price_eth')
-        setDomain([2900, 3700])
+        setDomain([3300, 3700])
         break
       case 'CAKE':
         tokenAddress =  CAKE.address
         setChartKey('price_cake')
-        setDomain([18, 22])
+        setDomain([17, 22])
         break
       case 'UNI':
         tokenAddress =  UNI.address
         setChartKey('price_uni')
-        setDomain([22, 28])
+        setDomain([22, 27])
         break
       case 'BTCB':
         tokenAddress =  BTCB.address
         setChartKey('price_btcb')
-        setDomain([42000, 56000])
+        setDomain([48000, 58000])
         break
     }
     setCurrentTokenAddress(tokenAddress)

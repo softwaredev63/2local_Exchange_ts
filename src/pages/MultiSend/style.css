@@ -83,22 +83,8 @@
     background-color: transparent;
 }
 
-.icon-token {
-    vertical-align: sub;
-    margin-right: 10px;
-    width: 20px;
-    height: 20px;
-}
-
-.icon-bep20 {
-    vertical-align: sub;
-    margin-left: 10px;
-    width: 20px;
-    height: 20px;
-}
-
 .wallets-table-wrapper {
-    max-height: 300px;
+    max-height: 600px;
     overflow-y: auto;
     margin-bottom: 20px;
 }

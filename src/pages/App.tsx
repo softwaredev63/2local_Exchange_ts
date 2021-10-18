@@ -92,7 +92,7 @@ export default function App() {
                   <Popups />
                   <Web3ReactManager>
                     <Switch>
-                      <Route exact strict path="/" component={TradingPage} />
+                      <Route exact strict path="/" component={Exchange} />
                       <Route exact strict path="/launch-pool" component={Exchange} />
                       <Route exact strict path="/yield-farming" component={Exchange} />
                       <Route exact strict path="/airdrops" component={Exchange} />

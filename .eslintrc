@@ -56,6 +56,11 @@
     "no-unused-expressions": 0,
     "no-restricted-syntax": 0,
     "import/no-duplicates": 0,
-    "react/jsx-no-bind": 0
+    "react/jsx-no-bind": 0,
+    "dot-notation": 0,
+    "react/no-array-index-key": 0,
+    "jsx-a11y/control-has-associated-label": 0,
+    "eqeqeq": 0,
+    "no-return-await": 0
   }
 }

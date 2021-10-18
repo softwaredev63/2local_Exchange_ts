@@ -1,644 +1,539 @@
-import React from 'react'
-import {  Text } from '@pancakeswap-libs/uikit'
+import React, { useEffect, useState } from 'react'
+import { Text } from '@pancakeswap-libs/uikit'
 import { OutlineCard } from '../../components/Card'
+import { BLACK_COLOR, RED_COLOR, GREEN_COLOR } from '../../constants/colors'
+import api from '../../connectors/api'
 
-export default function TradingTable({currentMACD}) {
+export default function TradingTable({ currentMACD }) {
+  const [tradingRound, setTradingRound] = useState<number>(0);
+  const [totalBUSD, setTotalBUSD] = useState<number>(0);
+  const [minPeriod, setMinPeriod] = useState<number>(0);
+  const [avgPeriod, setAvgPeriod] = useState<number>(0);
+  const [highestAdd, setHighestAdd] = useState<number>(0);
+  const [tradingFor, setTradingFor] = useState<string>('');
+  const [feePercent, setFeePercent] = useState<number>(0);
+  const [tradingRoundsPrice, setTradingRoundsPrice] = useState<number[]>([]);
+  const [priceChange2LCT, setPriceChange2LCT] = useState<any>({});
+
+  const updateTradingData = () => {
+    api.fetchData('tradingRound').then((d: any) => setTradingRound(d))
+    api.fetchData('totalBUSD').then((d: any) => setTotalBUSD(d))
+    api.fetchData('minPeriod').then((d: any) => setMinPeriod(d))
+    api.fetchData('avgPeriod').then((d: any) => setAvgPeriod(d))
+    api.fetchData('highestAdd').then((d: any) => setHighestAdd(d))
+    api.fetchData('tradingFor').then((d: any) => setTradingFor(d))
+    api.fetchData('feePercent').then((d: any) => setFeePercent(d))
+    api.fetchData('tradingRoundsPrice').then((d: any) => {
+      setTradingRoundsPrice(Object.values(d).reverse() as number[]);
+    })
+    api.fetchData('change2LCTforDays').then((d: any) => setPriceChange2LCT(d))
+  }
+
+  useEffect(() => {
+    updateTradingData();
+  }, [])
 
   return (
-        <OutlineCard style={{marginTop:25}}>
-          <table width="100%" style={{paddingLeft:10}}>
-            <tr>
-              <td style={{textAlign:'left',width:'30%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  Trading round
+    <OutlineCard style={{ marginTop: 25 }}>
+      <table width="100%" style={{ paddingLeft: 10 }}>
+        <tr>
+          <td style={{ textAlign: 'left', width: '30%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Trading round
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '35%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              {tradingRound}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              BUSD in Pool
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              {totalBUSD.toFixed(4)}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              BUSD
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              2LC-T min. in pool
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              {minPeriod}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Days
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              2LC-T avg. in pool
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              {avgPeriod}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Days
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              2LC-T highest add
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              {highestAdd}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              BUSD
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Pool trading for
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              {tradingFor}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Transfer fee
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              {feePercent}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              %
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              2LC-T change 24H
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+            {priceChange2LCT['1d'] ? priceChange2LCT['1d'].toFixed(2) : '-'}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              %
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              2LC-T change 7D
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+            {priceChange2LCT['7d'] ? priceChange2LCT['7d'].toFixed(2) : '-'}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              %
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              2LC-T change 30D
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+            {priceChange2LCT['30d'] ? priceChange2LCT['30d'].toFixed(2) : '-'}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              %
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              2LC-T change ∞
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+            {priceChange2LCT['first'] ? priceChange2LCT['first'].toFixed(2) : '-'}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              %
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Value
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              275
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              BUSD
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              BUSD
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              1
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              BUSD
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              BTC
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              0.00085001
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              BTC
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              MACD (3,6,9) 8H
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={currentMACD.macd_8h < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
+              {currentMACD.macd_8h.toFixed(2)}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              MACD (3,6,9) 4H
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={currentMACD.macd_4h < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
+              {currentMACD.macd_4h.toFixed(2)}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              MACD (3,6,9) 1H
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={currentMACD.macd_1h < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
+              {currentMACD.macd_1h.toFixed(2)}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color="#333333" style={{ fontSize: 16 }}>
+              *
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              MACD (3,6,9) 15m
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={currentMACD.macd_15m < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
+              {currentMACD.macd_15m.toFixed(2)}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              MACD (3,6,9) 1m
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={currentMACD.macd_1m < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
+              {currentMACD.macd_1m.toFixed(2)}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color="#DE0505" style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Transferred IN
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              250
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              BUSD
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Value Change
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={GREEN_COLOR} style={{ fontSize: 16 }}>
+              10.2
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={GREEN_COLOR} style={{ fontSize: 16 }}>
+              %
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Value Change 24h
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={GREEN_COLOR} style={{ fontSize: 16 }}>
+              1.5
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={GREEN_COLOR} style={{ fontSize: 16 }}>
+              %
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '50%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Closing Price Rounds
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '25%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        {
+          tradingRoundsPrice.map((p, i) => (
+            <tr key={`trading-round-price-${i}`}>
+              <td style={{ textAlign: 'left', width: '50%' }}>
+                <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+                  Round {tradingRoundsPrice.length - i - 1} 2LC-T
                 </Text>
               </td>
-              <td style={{textAlign:'right',width:'35%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>5</b>
+              <td style={{ textAlign: 'right', width: '25%' }}>
+                <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+                  {p.toFixed(4)}
                 </Text>
               </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  BUSD in Pool
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>100,017</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  2LC-T min. in pool
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>30</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>Days</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  2LC-T avg. in pool
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>33</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>Days</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  2LC-T highest add
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>42,000</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  Pool trading for
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>Up</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  Transfer fee
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>3</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>%</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  &nbsp;
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b> &nbsp;</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b> &nbsp; </b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  2LC-T out
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b> 250,000</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>2LC-T</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  2LC-T change 24H
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>1.5</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>%</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  2LC-T change 7D
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>11.5</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>%</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  2LC-T change 30D
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>22.5</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>%</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  2LC-T change ∞
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>33.0</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>%</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  &nbsp;
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b> &nbsp;</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b> &nbsp; </b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Value
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>275</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
+              <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+                <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
                   BUSD
                 </Text>
               </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>1</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
             </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  BTC
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>0.00085001</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BTC</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  &nbsp;
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  MACD (3,6,9) 8H
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                {
-                  currentMACD.macd_8h < 0 ?
-                  <Text color="#DE0505" style={{fontSize:16}}>
-                    <b>{currentMACD.macd_8h.toFixed(2)}</b>
-                  </Text>
-                  :
-                  <Text color="#707070" style={{fontSize:16}}>
-                    <b>{currentMACD.macd_8h.toFixed(2)}</b>
-                  </Text>
-                }
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  MACD (3,6,9) 4H
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                {
-                  currentMACD.macd_4h < 0 ?
-                  <Text color="#DE0505" style={{fontSize:16}}>
-                    <b>{currentMACD.macd_4h.toFixed(2)}</b>
-                  </Text>
-                  :
-                  <Text color="#707070" style={{fontSize:16}}>
-                    <b>{currentMACD.macd_4h.toFixed(2)}</b>
-                  </Text>
-                }                
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  MACD (3,6,9) 1H
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                {
-                  currentMACD.macd_1h < 0 ?
-                  <Text color="#DE0505" style={{fontSize:16}}>
-                    <b>{currentMACD.macd_1h.toFixed(2)}</b>
-                  </Text>
-                  :
-                  <Text color="#707070" style={{fontSize:16}}>
-                    <b>{currentMACD.macd_1h.toFixed(2)}</b>
-                  </Text>
-                }
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#333333" style={{fontSize:16}}>
-                  <b>*</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  MACD (3,6,9) 15m
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                {
-                  currentMACD.macd_15m < 0 ?
-                  <Text color="#DE0505" style={{fontSize:16}}>
-                    <b>{currentMACD.macd_15m.toFixed(2)}</b>
-                  </Text>
-                  :
-                  <Text color="#707070" style={{fontSize:16}}>
-                    <b>{currentMACD.macd_15m.toFixed(2)}</b>
-                  </Text>
-                }
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  MACD (3,6,9) 1m
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-              {
-                  currentMACD.macd_1m < 0 ?
-                  <Text color="#DE0505" style={{fontSize:16}}>
-                    <b>{currentMACD.macd_1m.toFixed(2)}</b>
-                  </Text>
-                  :
-                  <Text color="#707070" style={{fontSize:16}}>
-                    <b>{currentMACD.macd_1m.toFixed(2)}</b>
-                  </Text>
-                }
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  &nbsp;
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#DE0505" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Transferred IN
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>250</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Value Change
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#00E100" style={{fontSize:16}}>
-                  <b>10.2</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#00E100" style={{fontSize:16}}>
-                  <b>%</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Value Change 24h
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#00E100" style={{fontSize:16}}>
-                  <b>1.5</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#00E100" style={{fontSize:16}}>
-                  <b>%</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  &nbsp;
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Trading rounds
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>&nbsp;</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Round 6 2LC-T6
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>0.1881</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Round 5 2LC-T5
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>0.1703</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Round 4 2LC-T4
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>0.1631</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Round 3 2LC-T3
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>0.1415</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Round 2 2LC-T2
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>0.1291</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <td style={{textAlign:'left',width:'50%'}}>
-                <Text color="#9B9B9B" style={{fontSize:16}}>
-                  Round 1 2LC-T1
-                </Text>
-              </td>
-              <td style={{textAlign:'right',width:'25%'}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>0.1101</b>
-                </Text>
-              </td>
-              <td style={{textAlign:'left',paddingLeft:10}}>
-                <Text color="#707070" style={{fontSize:16}}>
-                  <b>BUSD</b>
-                </Text>
-              </td>
-            </tr>
-
-          </table>
-        </OutlineCard>
+          ))
+        }
+      </table>
+    </OutlineCard>
   )
 }

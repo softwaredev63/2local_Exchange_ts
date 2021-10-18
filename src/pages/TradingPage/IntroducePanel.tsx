@@ -3,6 +3,7 @@ import {  Text } from '@pancakeswap-libs/uikit'
 import Row from '../../components/Row'
 import { OutlineCard } from '../../components/Card'
 import { Description } from './styleds'
+import { BLACK_COLOR, RED_COLOR, GREEN_COLOR } from '../../constants/colors'
 
 const TickIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="19.45" height="19.45" viewBox="0 0 19.45 19.45"><g transform="translate(0 0)"><path d="M9.725,0A9.725,9.725,0,1,1,0,9.725H0A9.7,9.7,0,0,1,9.67,0Z" fill="#3bb54a"/><path d="M92.8,105.515l-6.907,6.907-3.868-3.84,1.575-1.547,2.293,2.266,5.332-5.332Z" transform="translate(-77.687 -98.47)" fill="#fff"/></g></svg>

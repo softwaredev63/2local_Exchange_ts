@@ -4,7 +4,7 @@ import { getContract } from './index';
 import MultisenderABI from '../constants/abis/Multisendor.json';
 import ERC20ABI from '../constants/abis/erc20';
 
-const multiSenderAddress: string = process.env.REACT_APP_MULTISENDER_ADDRESS!;
+const multisendContractAddress: string = process.env.REACT_APP_MULTISEND_CONTRACT_ADDRESS!;
 
 export async function MultisendToken(provider, tokenAddress, userAddress, sendData) {
 
@@ -14,7 +14,7 @@ export async function MultisendToken(provider, tokenAddress, userAddress, sendDa
     try {
         // 1. Transfer total amounts for Multisender contract to send
         const tokenContract = getContract(tokenAddress, ERC20ABI, provider, userAddress);
-        const multiSenderContract = getContract(multiSenderAddress, MultisenderABI, provider, userAddress);
+        const multisendContract = getContract(multisendContractAddress, MultisenderABI, provider, userAddress);
 
         const userTokenBalance = await tokenContract.balanceOf(userAddress);
         const decimal = await tokenContract.decimals();
@@ -27,7 +27,7 @@ export async function MultisendToken(provider, tokenAddress, userAddress, sendDa
 
         const gasPrice = await provider.getGasPrice();
 
-        const txSendTotalAmount = await tokenContract.transfer(multiSenderAddress, totalAmountToSend, {
+        const txSendTotalAmount = await tokenContract.transfer(multisendContractAddress, totalAmountToSend, {
             from: userAddress,
             // gas: gas,
             gasPrice,
@@ -52,7 +52,7 @@ export async function MultisendToken(provider, tokenAddress, userAddress, sendDa
             if (pageAddresses.length > 0) {
                 const pageAmountsToSend = amountsToSend.slice(i * pageSize, (i + 1) * pageSize);
 
-                const gas = await multiSenderContract.estimateGas.bulkSendTokens(tokenAddress, pageAddresses, pageAmountsToSend, {
+                const gas = await multisendContract.estimateGas.bulkSendTokens(tokenAddress, pageAddresses, pageAmountsToSend, {
                     from: userAddress
                 });
 
@@ -65,7 +65,7 @@ export async function MultisendToken(provider, tokenAddress, userAddress, sendDa
                 // Set contract owner fee as payable amount
                 if (gas.lt(gasForSingleTransaction.mul(pageAddresses.length))) sendData.value = parseUnits(`${gasForSingleTransaction.mul(pageAddresses.length).sub(gas).toNumber()}`, 'gwei')
 
-                const txPageBulkSend = await multiSenderContract.bulkSendTokens(tokenAddress, pageAddresses, pageAmountsToSend, sendData);
+                const txPageBulkSend = await multisendContract.bulkSendTokens(tokenAddress, pageAddresses, pageAmountsToSend, sendData);
                 txArray.push(
                     await txPageBulkSend.wait()
                 );
@@ -99,7 +99,7 @@ export async function MultisendBNB(provider, userAddress, sendData) {
         const gasForSingleTransaction = await provider.estimateGas({ from: userAddress, to: addresses[0], value: maxAmountToSend }); console.log('>>>>> gasForSingleTransaction', gasForSingleTransaction)
 
         // Send amounts to receivers from Multisender contract
-        const multiSenderContract = getContract(multiSenderAddress, MultisenderABI, provider, userAddress);
+        const multisendContract = getContract(multisendContractAddress, MultisenderABI, provider, userAddress);
         const amountsToSend = amounts.map(a => parseEther(`${a}`));
 
         const pageSize = 500;
@@ -109,7 +109,7 @@ export async function MultisendBNB(provider, userAddress, sendData) {
             const pageAmountsToSend = amountsToSend.slice(i * pageSize, (i + 1) * pageSize);
             let value = pageAmountsToSend.reduce((a, c) => a.add(c));
 
-            const gas = await multiSenderContract.estimateGas.bulkSendBNB(pageAddresses, pageAmountsToSend, {
+            const gas = await multisendContract.estimateGas.bulkSendBNB(pageAddresses, pageAmountsToSend, {
                 from: userAddress,
                 value
             });
@@ -127,7 +127,7 @@ export async function MultisendBNB(provider, userAddress, sendData) {
                 value = value.add(gasForSingleTransaction.mul(pageAddresses.length).sub(gas))
 
             sendData.value = value;
-            const txPageBulkSend = await multiSenderContract.bulkSendBNB(pageAddresses, pageAmountsToSend, sendData);
+            const txPageBulkSend = await multisendContract.bulkSendBNB(pageAddresses, pageAmountsToSend, sendData);
             txArray.push(
                 await txPageBulkSend.wait()
             );

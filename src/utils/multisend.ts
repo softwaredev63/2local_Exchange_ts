@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { parseUnits, formatEther, parseEther } from '@ethersproject/units';
 import { getContract } from './index';
-import MultisenderABI from '../constants/abis/Multisendor.json';
+import MultisendContractABI from '../constants/abis/MultisendContract.json';
 import ERC20ABI from '../constants/abis/erc20';
 
 const multisendContractAddress: string = process.env.REACT_APP_MULTISEND_CONTRACT_ADDRESS!;
@@ -14,7 +14,7 @@ export async function MultisendToken(provider, tokenAddress, userAddress, sendDa
     try {
         // 1. Transfer total amounts for Multisender contract to send
         const tokenContract = getContract(tokenAddress, ERC20ABI, provider, userAddress);
-        const multisendContract = getContract(multisendContractAddress, MultisenderABI, provider, userAddress);
+        const multisendContract = getContract(multisendContractAddress, MultisendContractABI, provider, userAddress);
 
         const userTokenBalance = await tokenContract.balanceOf(userAddress);
         const decimal = await tokenContract.decimals();
@@ -96,10 +96,11 @@ export async function MultisendBNB(provider, userAddress, sendData) {
         const maxAmount = Math.max(...amounts);
         const maxAmountToSend = parseEther(`${maxAmount}`);
 
-        const gasForSingleTransaction = await provider.estimateGas({ from: userAddress, to: addresses[0], value: maxAmountToSend }); console.log('>>>>> gasForSingleTransaction', gasForSingleTransaction)
+        const gasForSingleTransaction = await provider.estimateGas({ from: userAddress, to: addresses[0], value: maxAmountToSend }); 
+        // console.log('>>>>> gasForSingleTransaction', gasForSingleTransaction)
 
         // Send amounts to receivers from Multisender contract
-        const multisendContract = getContract(multisendContractAddress, MultisenderABI, provider, userAddress);
+        const multisendContract = getContract(multisendContractAddress, MultisendContractABI, provider, userAddress);
         const amountsToSend = amounts.map(a => parseEther(`${a}`));
 
         const pageSize = 500;
@@ -114,7 +115,7 @@ export async function MultisendBNB(provider, userAddress, sendData) {
                 value
             });
 
-            console.log('>>>>>> Gas Amount', gas);
+            // console.log('>>>>>> Gas Amount', gas);
 
             const sendData: any = {
                 from: userAddress,

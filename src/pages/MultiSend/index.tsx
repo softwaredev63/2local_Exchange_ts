@@ -72,7 +72,6 @@ export default function MultiSendPage() {
     const handleSend = async () => {
         if (!account || !token) return;
 
-
         setSending(true);
         try {
             let txArray;
@@ -104,6 +103,7 @@ export default function MultiSendPage() {
 
             <Row className="mt-3">
                 <Col sm="4">
+                    <h5>Select token to send</h5>
                     <TokenList
                         handleItemClick={handleTokenSelect}
                     />
@@ -143,7 +143,7 @@ export default function MultiSendPage() {
                             </div>
                             <div className="text-right">
                                 <span className="p-2">Total:&nbsp;<b>{parseFloat(totalAmount.toFixed(5))} {symbolName}</b></span>
-                                <Button variant="primary" disabled={!account || csvData.length === 0 || sending} onClick={handleSend}>
+                                <Button variant="primary" disabled={!account || !token || csvData.length === 0 || sending} onClick={handleSend}>
                                     {
                                         sending && (<div>
                                             <Spinner

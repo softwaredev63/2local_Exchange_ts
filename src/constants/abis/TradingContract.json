@@ -133,11 +133,6 @@
         "internalType": "uint256",
         "name": "_amount",
         "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_days",
-        "type": "uint256"
       }
     ],
     "name": "deposit",
@@ -200,19 +195,6 @@
   {
     "inputs": [],
     "name": "feePercent",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "get2LCTAvgInPool",
     "outputs": [
       {
         "internalType": "uint256",
@@ -315,32 +297,6 @@
         "internalType": "contract IPancakeRouter02",
         "name": "",
         "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "periodInPoolAvg",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "periodInPoolDefault",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -470,11 +426,6 @@
       {
         "internalType": "uint256",
         "name": "amount2LCT",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "lockTime",
         "type": "uint256"
       }
     ],

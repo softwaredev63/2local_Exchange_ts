@@ -7,18 +7,9 @@ import { GreyCard } from '../../components/Card'
 import api from '../../connectors/api'
 import Deposit from '../../utils/trading'
 
-const periodOptions = [
-  { value: 30, label: '30 Days' },
-  { value: 60, label: '60 Days' },
-  { value: 90, label: '90 Days' },
-  { value: 180, label: '180 Days' },
-  { value: 360, label: '360 Days' },
-];
-
 export default function AddRetrieve() {
   const { account, library } = useActiveWeb3React();
 
-  const [periodOption, setPeriodOption] = useState(-1);
   const [exchangeRate, setExchangeRate] = useState(0);
   const [valueBUSD, setValueBUSD] = useState<(number | undefined)>();
   const [value2LCT, setValue2LCT] = useState<(number | undefined)>();
@@ -28,11 +19,6 @@ export default function AddRetrieve() {
   useEffect(() => {
     api.fetchData('exchangeRate').then((d: any) => setExchangeRate(d))
   })
-
-  const handlePeriodChange = (e) => {
-    setPeriodOption(e.target.value)
-    setErrors({ ...errors, periodOption: null })
-  }
 
   const handleBUSDChange = (e) => {
     const value = e.target.value
@@ -47,13 +33,12 @@ export default function AddRetrieve() {
     }
 
     const errs = {}
-    if (periodOption == -1) errs['periodOption'] = 'Select lock period'
     if (!valueBUSD) errs['valueBUSD'] = 'Input BUSD amount'
     setErrors(errs)
     if (Object.keys(errs).length > 0) return;
 
     try {
-      await Deposit(library, account, valueBUSD, periodOption);
+      await Deposit(library, account, valueBUSD);
       const now = Date.now();
       const successToast = {
         id: `id-${now}`,
@@ -88,17 +73,6 @@ export default function AddRetrieve() {
       <GreyCard>
         <Row style={{ paddingLeft: 10 }}>
           <Text color="#333333" style={{ fontSize: 18, textAlign: "center" }}>Add Retrieve Trading Pool</Text>
-        </Row>
-        <Row style={{ padding: 10, paddingTop: 15 }}>
-          <InputGroup className="w-100">
-            <Form.Control as="select" placeholder="Lock Period" isInvalid={!!errors.periodOption} onChange={handlePeriodChange}>
-              <option value={-1} key={-1}>Lock Period</option>
-              {periodOptions.map(option => <option key={`period-option-${option.value}`} value={option.value}>{option.label}</option>)}
-            </Form.Control>
-            <Form.Control.Feedback type="invalid">
-              {errors.periodOption}
-            </Form.Control.Feedback>
-          </InputGroup>
         </Row>
 
         <Row style={{ padding: 10, paddingTop: 15 }}>

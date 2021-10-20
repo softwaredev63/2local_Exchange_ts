@@ -39,7 +39,6 @@ export const LayoutTokenDescription = styled.div`
 `
 
 export const Description = styled(Text)`
-  width:50%;
   flex: 1;  
   background: white transparency;
 `

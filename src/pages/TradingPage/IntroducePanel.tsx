@@ -3,7 +3,6 @@ import {  Text } from '@pancakeswap-libs/uikit'
 import Row from '../../components/Row'
 import { OutlineCard } from '../../components/Card'
 import { Description } from './styleds'
-import { BLACK_COLOR, RED_COLOR, GREEN_COLOR } from '../../constants/colors'
 
 const TickIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="19.45" height="19.45" viewBox="0 0 19.45 19.45"><g transform="translate(0 0)"><path d="M9.725,0A9.725,9.725,0,1,1,0,9.725H0A9.7,9.7,0,0,1,9.67,0Z" fill="#3bb54a"/><path d="M92.8,105.515l-6.907,6.907-3.868-3.84,1.575-1.547,2.293,2.266,5.332-5.332Z" transform="translate(-77.687 -98.47)" fill="#fff"/></g></svg>
@@ -19,68 +18,68 @@ export default function IntroducePanel() {
   return (
         <OutlineCard>
           <Row style={{alignContent:"left"}}>
-            <Text color="#333333" style={{fontSize:18,textAlign:"center"}}>
+            <Text color="#333333" style={{fontSize:18}}>
               <b>Steps</b>
             </Text>
           </Row>
-          <Row style={{padding:5,paddingTop:10,textAlign:"left"}}>
+          <Row style={{padding:5,paddingTop:10}}>
               <TickIcon /> &nbsp;&nbsp;
-              <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
+              <Text color="#727272" style={{fontSize:18}}>
                 Add BUSD to Pool for the lock period you prefer.
               </Text>
           </Row>
           <Row style={{padding:5}}>
               <TickIcon /> &nbsp;&nbsp;
-            <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
+            <Text color="#727272" style={{fontSize:18}}>
               It will be converted to 2LC-T for the same value.
             </Text>
           </Row>
           <Row style={{padding:5}}>
               <TickIcon /> &nbsp;&nbsp;
-              <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
+              <Text color="#727272" style={{fontSize:18}}>
                 The tokens will be swapped for BTCB and back again to BUSD.
               </Text>
           </Row>
           <Row style={{padding:5}}>
               <TickIcon /> &nbsp;&nbsp;
-              <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
+              <Text color="#727272" style={{fontSize:18}}>
                 The exchange value of the 2LC-T will be following the changes of trading.
               </Text>
           </Row>
           <hr style={{marginTop:15,marginBottom:15}} />
             <Description>
               <Row >
-                <Text color="#333333" style={{fontSize:18,textAlign:"center"}}>
-                  <b>Trading BTC(UP)</b>
+                <Text color="#333333" style={{fontSize:18}}>
+                  <b>Trading BTCB / BUSD</b>
                 </Text>
               </Row>
               <Row style={{padding:5,paddingTop:10}}>
                 <GreenIcon /> &nbsp;&nbsp;
-                <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
+                <Text color="#727272" style={{fontSize:18}}>
                   MACD (3,6,9) 8H, 4H, 1H, 3m, 1m, is positive: Buying
                 </Text>
               </Row>
               <Row style={{padding:5}}>
                 <GreenIcon /> &nbsp;&nbsp;
-                <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
-                MACD (3,6,9) 4H  0: Selling
+                <Text color="#727272" style={{fontSize:18}}>
+                MACD (3,6,9) 1H: Selling
                 </Text>
               </Row>
               <Row style={{padding:5}}>
                 <GreenIcon /> &nbsp;&nbsp;
-                <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
+                <Text color="#727272" style={{fontSize:18}}>
                   One day price change  -2.5%: Selling
                 </Text>
               </Row>
               <Row style={{padding:5}}>
                 <GreenIcon /> &nbsp;&nbsp;
-                <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
+                <Text color="#727272" style={{fontSize:18}}>
                 1 hour price change  -0.5%: Selling
                 </Text>
               </Row>
             </Description>
           <Row style={{paddingTop:15}}>
-            <Text color="#727272" style={{fontSize:18,textAlign:"center"}}>
+            <Text color="#727272" style={{fontSize:18}}>
             Withdraw is only possible when the tokens are swapped in BUSD.
             </Text>
           </Row>

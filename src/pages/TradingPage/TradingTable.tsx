@@ -7,8 +7,6 @@ import api from '../../connectors/api'
 export default function TradingTable({ currentMACD }) {
   const [tradingRound, setTradingRound] = useState<number>(0);
   const [totalBUSD, setTotalBUSD] = useState<number>(0);
-  const [minPeriod, setMinPeriod] = useState<number>(0);
-  const [avgPeriod, setAvgPeriod] = useState<number>(0);
   const [highestAdd, setHighestAdd] = useState<number>(0);
   const [tradingFor, setTradingFor] = useState<string>('');
   const [feePercent, setFeePercent] = useState<number>(0);
@@ -18,8 +16,6 @@ export default function TradingTable({ currentMACD }) {
   const updateTradingData = () => {
     api.fetchData('tradingRound').then((d: any) => setTradingRound(d))
     api.fetchData('totalBUSD').then((d: any) => setTotalBUSD(d))
-    api.fetchData('minPeriod').then((d: any) => setMinPeriod(d))
-    api.fetchData('avgPeriod').then((d: any) => setAvgPeriod(d))
     api.fetchData('highestAdd').then((d: any) => setHighestAdd(d))
     api.fetchData('tradingFor').then((d: any) => setTradingFor(d))
     api.fetchData('feePercent').then((d: any) => setFeePercent(d))
@@ -73,40 +69,6 @@ export default function TradingTable({ currentMACD }) {
         <tr>
           <td style={{ textAlign: 'left', width: '50%' }}>
             <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              2LC-T min. in pool
-            </Text>
-          </td>
-          <td style={{ textAlign: 'right', width: '25%' }}>
-            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              {minPeriod}
-            </Text>
-          </td>
-          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
-            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              Days
-            </Text>
-          </td>
-        </tr>
-        <tr>
-          <td style={{ textAlign: 'left', width: '50%' }}>
-            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              2LC-T avg. in pool
-            </Text>
-          </td>
-          <td style={{ textAlign: 'right', width: '25%' }}>
-            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              {avgPeriod}
-            </Text>
-          </td>
-          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
-            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              Days
-            </Text>
-          </td>
-        </tr>
-        <tr>
-          <td style={{ textAlign: 'left', width: '50%' }}>
-            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
               2LC-T highest add
             </Text>
           </td>
@@ -141,7 +103,7 @@ export default function TradingTable({ currentMACD }) {
         <tr>
           <td style={{ textAlign: 'left', width: '50%' }}>
             <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              Transfer fee
+              Service fee
             </Text>
           </td>
           <td style={{ textAlign: 'right', width: '25%' }}>

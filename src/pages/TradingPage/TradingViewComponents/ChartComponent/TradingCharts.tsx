@@ -7,6 +7,8 @@ import ChartLamp from './ChartLamp';
 import ChartArrow from './ChartArrow';
 import ChartMark from './ChartMark';
 
+import CustomChart from "./CustomChart";
+
 export interface MACDProps {
   currentMACD: (value: any) => void
 }
@@ -50,7 +52,7 @@ export default class TradingCharts extends Component<MACDProps> {
   }
 
   async setMACDValue(interval) {
-    const response = await fetch(`https://api.binance.com/api/v1/klines?symbol=BTCUSDT&interval=${interval}&limit=50`, { method: 'GET' });
+    const response = await fetch(`https://api.binance.com/api/v1/klines?symbol=BTCBUSD&interval=${interval}&limit=50`, { method: 'GET' });
     const res = await response.json();
     const closePrices = await res.map(candle => (
       parseFloat(candle[4])
@@ -74,17 +76,17 @@ export default class TradingCharts extends Component<MACDProps> {
     return (
       <div>
         <div className="chart-container">
-          <b className="macd-label">BTC-USDT</b>
-          <Text color="#727272" style={{ fontSize: 18 }}>We use BTC-USDT only for trading data when to swap to BTCB or BUSD</Text>
+          <b className="macd-label">2LCT-BUSD</b>          
           <div className="trading-chart">
-            <Chart chartMode={{ 'mode': 'price', 'symbol': 'BTCUSDT', 'interval': '3' }} />
+            <CustomChart/>
           </div>
         </div>
 
         <div className="chart-container">
-          <b className="macd-label">BTC-USDT</b>
+          <b className="macd-label">BTC-BUSD</b>
+          <Text color="#727272" style={{ fontSize: 18 }}>We use BTC-BUSD only for trading data when to swap to BTCB or BUSD</Text>
           <div className="trading-chart">
-            <Chart chartMode={{ 'mode': 'price', 'symbol': 'BTCUSDT', 'interval': '1' }} />
+            <Chart chartMode={{ 'mode': 'price', 'symbol': 'BTCBUSD', 'interval': '1' }} />
           </div>
         </div>
 
@@ -94,7 +96,7 @@ export default class TradingCharts extends Component<MACDProps> {
             <ChartArrow value={this.macdState.macd_1d} />
           </div>
           <div className="trading-chart">
-            <Chart chartMode={{ 'mode': 'macd', 'symbol': 'BTCUSDT', 'interval': 'D' }} />
+            <Chart chartMode={{ 'mode': 'macd', 'symbol': 'BTCBUSD', 'interval': 'D' }} />
           </div>
         </div>
 
@@ -108,7 +110,7 @@ export default class TradingCharts extends Component<MACDProps> {
           </div>
 
           <div className="trading-chart">
-            <Chart chartMode={{ 'mode': 'macd', 'symbol': 'BTCUSDT', 'interval': '240' }} />
+            <Chart chartMode={{ 'mode': 'macd', 'symbol': 'BTCBUSD', 'interval': '240' }} />
           </div>
         </div>
 
@@ -121,7 +123,7 @@ export default class TradingCharts extends Component<MACDProps> {
           </div>
 
           <div className="trading-chart">
-            <Chart chartMode={{ 'mode': 'macd', 'symbol': 'BTCUSDT', 'interval': '60' }} />
+            <Chart chartMode={{ 'mode': 'macd', 'symbol': 'BTCBUSD', 'interval': '60' }} />
           </div>
         </div>
 
@@ -135,7 +137,7 @@ export default class TradingCharts extends Component<MACDProps> {
           </div>
 
           <div className="trading-chart">
-            <Chart chartMode={{ 'mode': 'macd', 'symbol': 'BTCUSDT', 'interval': '15' }} />
+            <Chart chartMode={{ 'mode': 'macd', 'symbol': 'BTCBUSD', 'interval': '15' }} />
           </div>
         </div>
 
@@ -148,7 +150,7 @@ export default class TradingCharts extends Component<MACDProps> {
             <ChartLamp value={this.macdState.macd_1m} />
           </div>
           <div className="trading-chart">
-            <Chart chartMode={{ 'mode': 'macd', 'symbol': 'BTCUSDT', 'interval': '1' }} />
+            <Chart chartMode={{ 'mode': 'macd', 'symbol': 'BTCBUSD', 'interval': '1' }} />
           </div>
         </div>
       </div>

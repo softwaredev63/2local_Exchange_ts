@@ -61,6 +61,7 @@
     "react/no-array-index-key": 0,
     "jsx-a11y/control-has-associated-label": 0,
     "eqeqeq": 0,
-    "no-return-await": 0
+    "no-return-await": 0,
+    "@typescript-eslint/no-non-null-assertion": 0
   }
 }

@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useActiveWeb3React } from '../../hooks'
 import { GreyCard } from '../../components/Card'
 import api from '../../connectors/api'
-import Deposit from '../../utils/trading'
+import { Deposit, Withdraw } from '../../utils/trading'
 
 export default function AddRetrieve() {
   const { account, library } = useActiveWeb3React();
@@ -21,10 +21,17 @@ export default function AddRetrieve() {
   })
 
   const handleBUSDChange = (e) => {
-    const value = e.target.value
+    const { value } = e.target
     setValueBUSD(value);
     setValue2LCT(value / exchangeRate);
-    setErrors({ ...errors, valueBUSD: null })
+    setErrors({})
+  }
+
+  const handle2LCTChange = (e) => {
+    const { value } = e.target
+    setValue2LCT(value);
+    setValueBUSD(value * exchangeRate);
+    setErrors({})
   }
 
   const handleClickDeposit = async () => {
@@ -64,6 +71,45 @@ export default function AddRetrieve() {
     return;
   }
 
+  
+
+  const handleClickWithdraw = async () => {
+    if (!account) {
+      alert('Connect wallet!'); return;
+    }
+
+    const errs = {}
+    if (!value2LCT) errs['value2LCT'] = 'Input 2LCT amount'
+    setErrors(errs)
+    if (Object.keys(errs).length > 0) return;
+
+    try {
+      await Withdraw(library, account, value2LCT);
+      const now = Date.now();
+      const successToast = {
+        id: `id-${now}`,
+        title: 'Withdraw success',
+        description: `${value2LCT} 2LCT was withdrawn successfully`,
+        type: 'success',
+      };
+
+      setToasts((prevToasts) => [successToast, ...prevToasts]);
+
+    } catch (e:any) {
+      console.error(e)
+      const now = Date.now();
+      const errorToast = {
+        id: `id-${now}`,
+        title: 'Withdraw error',
+        description: e.message,
+        type: 'danger',
+      };
+
+      setToasts((prevToasts) => [errorToast, ...prevToasts]);
+    }
+    return;
+  }
+
   const handleRemoveToasts = (id: string) => {
     setToasts((prevToasts) => prevToasts.filter((prevToast) => prevToast.id !== id));
   };
@@ -77,7 +123,7 @@ export default function AddRetrieve() {
 
         <Row style={{ padding: 10, paddingTop: 15 }}>
           <InputGroup>
-            <Form.Control type="text" placeholder="Input" onChange={handleBUSDChange} isInvalid={!!errors.valueBUSD} />
+            <Form.Control type="text" placeholder="Enter amount BUSD" onChange={handleBUSDChange} value={valueBUSD} isInvalid={!!errors.valueBUSD} />
             <InputGroup.Append>
               <InputGroup.Text>BUSD</InputGroup.Text>
             </InputGroup.Append>
@@ -89,10 +135,13 @@ export default function AddRetrieve() {
 
         <Row style={{ padding: 10, paddingTop: 15 }}>
           <InputGroup>
-            <Form.Control type="text" placeholder="Output" value={value2LCT} />
+            <Form.Control type="text" placeholder="Enter amount 2LC-T" onChange={handle2LCTChange} value={value2LCT} isInvalid={!!errors.value2LCT} />
             <InputGroup.Append>
               <InputGroup.Text>2LC-T</InputGroup.Text>
             </InputGroup.Append>
+            <Form.Control.Feedback type="invalid">
+              {errors.value2LCT}
+            </Form.Control.Feedback>
           </InputGroup>
         </Row>
 
@@ -100,7 +149,7 @@ export default function AddRetrieve() {
           <Button variant="subtle" style={{ background: "#EC681C", width: "100%", fontSize: "16px", height: 60 }} onClick={handleClickDeposit}>Deposit</Button>
         </Row>
         <Row style={{ padding: 10 }}>
-          <Button variant="subtle" style={{ background: "#FAC326", width: "100%", fontSize: "16px", height: 60 }}>Buy BUSD</Button>
+          <Button variant="subtle" style={{ background: "#FAC326", width: "100%", fontSize: "16px", height: 60 }} onClick={handleClickWithdraw}>Withdraw</Button>
         </Row>
       </GreyCard>
       <ToastContainer toasts={toasts} onRemove={handleRemoveToasts} />

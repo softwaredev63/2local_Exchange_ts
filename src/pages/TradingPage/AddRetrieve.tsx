@@ -7,6 +7,8 @@ import { GreyCard } from '../../components/Card'
 import api from '../../connectors/api'
 import { Deposit, Withdraw } from '../../utils/trading'
 
+const validNumeric = (d) => d == '.' || '1234567890'.indexOf(d) > -1;
+
 export default function AddRetrieve() {
   const { account, library } = useActiveWeb3React();
 
@@ -20,8 +22,18 @@ export default function AddRetrieve() {
     api.fetchData('exchangeRate').then((d: any) => setExchangeRate(d))
   })
 
+  const handleKeyPress = (e) => {
+    if (!validNumeric(e.key)) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+
+  }
   const handleBUSDChange = (e) => {
+
     const { value } = e.target
+    
     setValueBUSD(value);
     setValue2LCT(value / exchangeRate);
     setErrors({})
@@ -40,7 +52,8 @@ export default function AddRetrieve() {
     }
 
     const errs = {}
-    if (!valueBUSD) errs['valueBUSD'] = 'Input BUSD amount'
+    if (!valueBUSD) errs['valueBUSD'] = 'Input BUSD amount';
+    else if (valueBUSD < 10) errs['valueBUSD'] = 'BUSD amount should be greater than 10';
     setErrors(errs)
     if (Object.keys(errs).length > 0) return;
 
@@ -123,7 +136,7 @@ export default function AddRetrieve() {
 
         <Row style={{ padding: 10, paddingTop: 15 }}>
           <InputGroup>
-            <Form.Control type="text" placeholder="Enter amount BUSD" onChange={handleBUSDChange} value={valueBUSD} isInvalid={!!errors.valueBUSD} />
+            <Form.Control type="text" placeholder="Enter amount BUSD" onKeyPress={handleKeyPress} onChange={handleBUSDChange} value={valueBUSD} isInvalid={!!errors.valueBUSD} />
             <InputGroup.Append>
               <InputGroup.Text>BUSD</InputGroup.Text>
             </InputGroup.Append>
@@ -135,7 +148,7 @@ export default function AddRetrieve() {
 
         <Row style={{ padding: 10, paddingTop: 15 }}>
           <InputGroup>
-            <Form.Control type="text" placeholder="Enter amount 2LC-T" onChange={handle2LCTChange} value={value2LCT} isInvalid={!!errors.value2LCT} />
+            <Form.Control type="text" placeholder="Enter amount 2LC-T" onKeyPress={handleKeyPress} onChange={handle2LCTChange} value={value2LCT} isInvalid={!!errors.value2LCT} />
             <InputGroup.Append>
               <InputGroup.Text>2LC-T</InputGroup.Text>
             </InputGroup.Append>

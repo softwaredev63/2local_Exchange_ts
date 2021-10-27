@@ -1,4 +1,5 @@
 import React from 'react'
+import { Currency } from '@overage69/pancake-sdk-v2'
 import Modal from '../Modal'
 import { useActiveWeb3React } from '../../hooks'
 import ConfirmationPendingContent from './ConfirmationPendingContent'
@@ -11,6 +12,7 @@ interface ConfirmationModalProps {
   content: () => React.ReactNode
   attemptingTxn: boolean
   pendingText: string
+  currencyToAdd?: Currency | undefined
 }
 
 const TransactionConfirmationModal = ({
@@ -19,7 +21,8 @@ const TransactionConfirmationModal = ({
   attemptingTxn,
   hash,
   pendingText,
-  content
+  content,
+  currencyToAdd
 }: ConfirmationModalProps) => {
   const { chainId } = useActiveWeb3React()
 
@@ -31,7 +34,7 @@ const TransactionConfirmationModal = ({
       {attemptingTxn ? (
         <ConfirmationPendingContent onDismiss={onDismiss} pendingText={pendingText} />
       ) : hash ? (
-        <TransactionSubmittedContent chainId={chainId} hash={hash} onDismiss={onDismiss} />
+        <TransactionSubmittedContent chainId={chainId} hash={hash} onDismiss={onDismiss} currencyToAdd={currencyToAdd} />
       ) : (
         content()
       )}

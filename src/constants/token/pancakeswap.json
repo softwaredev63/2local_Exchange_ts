@@ -65,6 +65,13 @@
       "address": "0xeba66d75a2b3a832b1eaee03b83ffd91a38bb362",
       "chainId": 56,
       "decimals": 5
+    },
+    {
+      "name": "Binance-Peg BSC-USD",
+      "symbol": "USDT",
+      "address": "0x55d398326f99059ff775485246999027b3197955",
+      "chainId": 56,
+      "decimals": 18
     }
   ]
 }

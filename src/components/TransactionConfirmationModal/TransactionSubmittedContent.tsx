@@ -20,10 +20,7 @@ type TransactionSubmittedContentProps = {
 
 const TransactionSubmittedContent = ({ onDismiss, chainId, hash, currencyToAdd }: TransactionSubmittedContentProps) => {
   const theme = useContext(ThemeContext)
-  const { t } = useTranslation()
-
   const token: Token | undefined = wrappedCurrency(currencyToAdd, chainId)
-
   const isMetamask = window.ethereum && window.ethereum.isMetaMask
 
   return (
@@ -43,7 +40,7 @@ const TransactionSubmittedContent = ({ onDismiss, chainId, hash, currencyToAdd }
               onClick={() => registerToken(token.address, token.symbol, token.decimals)}
             >
               <Flex>
-                {t('Add %asset% to Metamask', { asset: token.symbol })}
+                {`Add ${token.symbol} to Metamask`}
               </Flex>
             </Button>
           )}

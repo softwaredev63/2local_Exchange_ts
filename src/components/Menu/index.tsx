@@ -12,6 +12,7 @@ import { useCurrency } from '../../hooks/Tokens'
 import useInterval from '../../hooks/useInterval'
 import { useCurrencyBalance, useTokenBalance } from '../../state/wallet/hooks'
 import { useSimplexCheckoutModalToggle } from '../../state/application/hooks'
+import { registerToken } from '../../utils/wallet'
 import SimplexCheckoutModal from '../SimplexCheckoutModal'
 import { L2L, CAKE, UNI, BTCB, ETH } from '../../constants'
 
@@ -115,6 +116,12 @@ const Menu: React.FC = props => {
     setTotalCost(total)
   }, [ costBNB, cost2LC, costETH, costCAKE, costUNI, costBTCB ])
 
+  const addToken = () => {
+    if (account) {
+      registerToken(L2L.address, L2L.symbol, L2L.decimals)
+    }
+  }
+
   return (
     <>
       <UikitMenu
@@ -145,6 +152,8 @@ const Menu: React.FC = props => {
         totalCost={totalCost}
         showBuyButton
         showContractButton
+        showHowButton
+        onAddToken={addToken}
       />
       <SimplexCheckoutModal />
     </>

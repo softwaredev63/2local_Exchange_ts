@@ -14,15 +14,15 @@ export default function TradingTable({ currentMACD }) {
   const [priceChange2LCT, setPriceChange2LCT] = useState<any>({});
 
   const updateTradingData = () => {
-    api.fetchData('tradingRound').then((d: any) => setTradingRound(d))
-    api.fetchData('totalBUSD').then((d: any) => setTotalBUSD(d))
-    api.fetchData('highestAdd').then((d: any) => setHighestAdd(d))
-    api.fetchData('tradingFor').then((d: any) => setTradingFor(d))
-    api.fetchData('feePercent').then((d: any) => setFeePercent(d))
-    api.fetchData('tradingRoundsPrice').then((d: any) => {
-      setTradingRoundsPrice(Object.values(d).reverse() as number[]);
+    api.fetchData('trading/trading-round').then((d: any) => setTradingRound(d))
+    api.fetchData('trading/total-busd').then((d: any) => setTotalBUSD(d))
+    api.fetchData('trading/highest-added').then((d: any) => setHighestAdd(d))
+    api.fetchData('trading/trading-for').then((d: any) => setTradingFor(d))
+    api.fetchData('trading/fee-percent').then((d: any) => setFeePercent(d))
+    api.fetchData('trading/trading-rounds-price').then((d: any) => {
+      setTradingRoundsPrice(d.reverse() as number[]);
     })
-    api.fetchData('change2LCTforDays').then((d: any) => setPriceChange2LCT(d))
+    api.fetchData('trading/price-change').then((d: any) => setPriceChange2LCT(d))
   }
 
   useEffect(() => {
@@ -479,7 +479,7 @@ export default function TradingTable({ currentMACD }) {
             <tr key={`trading-round-price-${i}`}>
               <td style={{ textAlign: 'left', width: '50%' }}>
                 <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-                  Round {tradingRoundsPrice.length - i - 1} 2LC-T
+                  Round {tradingRoundsPrice.length - i} 2LC-T
                 </Text>
               </td>
               <td style={{ textAlign: 'right', width: '25%' }}>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { createChart, isBusinessDay } from 'lightweight-charts';
 import socketIOClient from "socket.io-client";
-import { API_BASE_URL } from '../../../../connectors/api'
+import { API_BASE_URL, SOCKET_BASE_URL } from '../../../../connectors/api'
 
 function CustomChart() {
 
@@ -45,7 +45,7 @@ function CustomChart() {
       },
 
       timeScale: {
-        tickMarkFormatter: (time) => {
+        tickMarkFormatter: (time) => {console.log('>>>>>>>>>>>>>>>>', time)
 
           const monthTitle = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
           const date = new Date(time * 1000);
@@ -80,21 +80,21 @@ function CustomChart() {
       priceFormat: {
         type: 'custom',
         minMove: 0.00000001,
-        formatter: price => parseFloat(price).toFixed(8),
+        formatter: price => price.toFixed(8),
       },
     });
 
     let cnt = 0;
     const period = 8;
-    fetch(`${API_BASE_URL}/getInitChartData?period=${period}`)
+    fetch(`${API_BASE_URL}/trading/2lct-price-data?period=${period}`)
       .then(res => res.json())
       .then(json => {
         areaSeries.setData(json);
 
         chart.timeScale().fitContent();
 
-        const socket = socketIOClient(`${API_BASE_URL}`);
-        socket.on("FromAPI", data => {
+        const socket = socketIOClient(`${SOCKET_BASE_URL}`);
+        socket.on("2lct-current-price", data => {
 
           data.time = Date.parse(data.time) / 1000;
 

@@ -19,7 +19,7 @@ export default function AddRetrieve() {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   useEffect(() => {
-    api.fetchData('exchangeRate').then((d: any) => setExchangeRate(d))
+    api.fetchData('trading/exchange-rate').then((d: any) => setExchangeRate(d))
   })
 
   const handleKeyPress = (e) => {

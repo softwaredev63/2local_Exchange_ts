@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { createChart, isBusinessDay } from 'lightweight-charts';
 import socketIOClient from "socket.io-client";
+import { useResizeDetector } from 'react-resize-detector';
 import { API_BASE_URL, SOCKET_BASE_URL } from '../../../../connectors/api'
-
 function CustomChart() {
+  const { width, ref } = useResizeDetector();
 
-  const ref: any = React.useRef();
+  const chartRef = useRef<any>();
+
 
   useEffect(() => {
-
     const chart = createChart(ref.current, {
-      width: 1000,
+      width: width,
       height: 300,
       rightPriceScale: {
         scaleMargins: {
@@ -45,7 +46,7 @@ function CustomChart() {
       },
 
       timeScale: {
-        tickMarkFormatter: (time) => {console.log('>>>>>>>>>>>>>>>>', time)
+        tickMarkFormatter: (time) => {
 
           const monthTitle = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
           const date = new Date(time * 1000);
@@ -84,7 +85,6 @@ function CustomChart() {
       },
     });
 
-    let cnt = 0;
     const period = 8;
     fetch(`${API_BASE_URL}/trading/2lct-price-data?period=${period}`)
       .then(res => res.json())
@@ -95,25 +95,22 @@ function CustomChart() {
 
         const socket = socketIOClient(`${SOCKET_BASE_URL}`);
         socket.on("2lct-current-price", data => {
-
-          data.time = Date.parse(data.time) / 1000;
-
-          cnt = (cnt + 1) % 60;
-          if (cnt === 0) {
-            areaSeries.update(data);
-          }
+          areaSeries.update(data);
         });
       }).catch(error => {
         console.error(error);
       });
+
+    chartRef.current = chart;
   }, []);
 
+  // useEffect(() => {
+  //   const chart = chartRef.current;
+  //   if (chart) chart.applyOptions({ width });
+  // }, [width])
   return (
-
     <div>
-      <div className="container">
-        <div ref={ref} />
-      </div>
+      <div ref={ref} />
     </div>
   );
 }

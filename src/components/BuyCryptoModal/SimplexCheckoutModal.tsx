@@ -84,7 +84,7 @@ export default function SimplexCheckoutModal() {
 
 
   return (
-    <Modal isOpen={isSimplex ? isOpen : simplexCheckoutModalOpen} onDismiss={isSimplex ? redirect : simplexCheckoutModalToggle} minHeight={false} maxHeight={90}>
+    <Modal isOpen={isSimplex ? isOpen : simplexCheckoutModalOpen} onDismiss={isSimplex ? redirect : simplexCheckoutModalToggle} minHeight={false} maxHeight={360}>
       <Wrapper>
         <div className="content" dangerouslySetInnerHTML={{ __html: formHTML }} />
       </Wrapper>

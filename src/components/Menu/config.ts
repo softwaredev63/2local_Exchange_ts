@@ -108,9 +108,9 @@ const config: MenuEntry[] = [
       },
       {
         label: 'Lottery',
-        href: '/lottery',
+        href: 'https://farms.2local.io/#/lottery',
         icon: 'LotteryIcon',
-        disabled: true,
+        disabled: false,
       },
       {
         label: 'Prediction',

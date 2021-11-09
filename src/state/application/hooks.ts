@@ -12,7 +12,8 @@ import {
   toggleExchangeTab,
   toggleExchangeCoin,
   toggleExchangeToken,
-  toggleSimplexCheckoutModal
+  toggleSimplexCheckoutModal,
+  toggleIndacoinCheckoutModal
 } from './actions'
 import { AppDispatch, AppState } from '../index'
 
@@ -156,4 +157,13 @@ export function useSimplexCheckoutModalOpen(): boolean {
 export function useSimplexCheckoutModalToggle(): () => void {
   const dispatch = useDispatch()
   return useCallback(() => dispatch(toggleSimplexCheckoutModal()), [dispatch])
+}
+
+export function useIndacoinCheckoutModalOpen(): boolean {
+  return useSelector((state: AppState) => state.application.indacoionCheckoutModalOpen)
+}
+
+export function useIndacoinCheckoutModalToggle(): () => void {
+  const dispatch = useDispatch()
+  return useCallback(() => dispatch(toggleIndacoinCheckoutModal()), [dispatch])
 }

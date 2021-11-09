@@ -31,6 +31,7 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...r
   'aria-label': 'dialog',
 })`
   &[data-reach-dialog-content] {
+    justify-content: center;
     margin: 0 0 2rem 0;
     border: 1px solid ${({ theme }) => theme.colors.invertedContrast};
     background-color: ${({ theme }) => theme.colors.invertedContrast};
@@ -45,12 +46,12 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...r
     ${({ maxHeight }) =>
       maxHeight &&
       css`
-        max-height: ${maxHeight}vh;
+        max-height: ${maxHeight}px;
       `}
     ${({ minHeight }) =>
       minHeight &&
       css`
-        min-height: ${minHeight}vh;
+        min-height: ${minHeight}px;
       `}
     display: flex;
     border-radius: 20px;

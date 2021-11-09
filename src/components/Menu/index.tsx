@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { Menu as UikitMenu, ConnectorId } from '@pancakeswap-libs/uikit'
+import { Menu as UikitMenu, ConnectorId, useModal } from '@pancakeswap-libs/uikit'
 import { Currency } from '@overage69/pancake-sdk-v2'
 import { useWeb3React } from '@web3-react/core'
 import { allLanguages } from 'constants/localisation/languageCodes'
@@ -11,9 +11,10 @@ import links from './config'
 import { useCurrency } from '../../hooks/Tokens'
 import useInterval from '../../hooks/useInterval'
 import { useCurrencyBalance, useTokenBalance } from '../../state/wallet/hooks'
-import { useSimplexCheckoutModalToggle } from '../../state/application/hooks'
 import { registerToken } from '../../utils/wallet'
-import SimplexCheckoutModal from '../SimplexCheckoutModal'
+import SimplexCheckoutModal from '../BuyCryptoModal/SimplexCheckoutModal'
+import IndacoinCheckoutModal from '../BuyCryptoModal/IndacoinCheckoutModal'
+import BuyCryptoModal from '../BuyCryptoModal'
 import { L2L, CAKE, UNI, BTCB, ETH } from '../../constants'
 
 interface PriceDataProps {
@@ -41,8 +42,6 @@ const Menu: React.FC = props => {
   const [costBTCB, setCostBTCB] = useState(0)
 
   const [totalCost, setTotalCost] = useState(0)
-
-  const simplexCheckoutModalToggle = useSimplexCheckoutModalToggle()
 
   const balanceBNB = useCurrencyBalance(account ?? undefined, useCurrency('ETH') ?? undefined)
   const balanceL2L = useTokenBalance(account ?? undefined, L2L)
@@ -122,6 +121,8 @@ const Menu: React.FC = props => {
     }
   }
 
+  const [onPresentBuyModal] = useModal(<BuyCryptoModal />)
+
   return (
     <>
       <UikitMenu
@@ -147,7 +148,7 @@ const Menu: React.FC = props => {
         setLang={setSelectedLanguage}
         cakePriceUsd={cakePriceUsd}
         {...props}
-        onBuyCryptoWithSimplex={simplexCheckoutModalToggle}
+        onBuyCryptoWithSimplex={onPresentBuyModal}
         showBalanceContol
         totalCost={totalCost}
         showBuyButton
@@ -155,6 +156,7 @@ const Menu: React.FC = props => {
         showHowButton
         onAddToken={addToken}
       />
+      <IndacoinCheckoutModal />
       <SimplexCheckoutModal />
     </>
   )

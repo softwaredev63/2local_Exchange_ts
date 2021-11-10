@@ -34,7 +34,7 @@ function Graph({ coin, token } : GraphProps) {
   const [currentTokenAddress, setCurrentTokenAddress] = useState('0x11f6ecc9e2658627e0876212f1078b9f84d3196e')
   const [chartKey, setChartKey] = useState('price_2lc')
   const [priceChange, setPriceChange] = useState(true)
-  const [domain, setDomain] = useState([0.00025, 0.00070])
+  const [domain, setDomain] = useState([0.0002, 0.00034])
   const [volumn, setVolumn] = useState(0)
   const [screenWidth, setScreenWidth] = useState(0)
 
@@ -57,7 +57,7 @@ function Graph({ coin, token } : GraphProps) {
   useEffect(() => {
     let tokenAddress = ''
 
-    fetch('https://exchangeapi.2local.io/getPriceData')
+    fetch('https://exchangeapi.2local.io/exchange/priceData')
       .then((response) => response.json())
       .then((responseData) => {
         setPriceData(responseData)
@@ -67,28 +67,28 @@ function Graph({ coin, token } : GraphProps) {
       case '2LC':
          tokenAddress = L2L.address
          setChartKey('price_2lc')
-         setDomain([0.00025, 0.00070])
+         setDomain([0.0002, 0.00034])
          break
       case 'ETH':
         tokenAddress =  ETH.address
         const data: PriceDataProps = priceData[priceData.length - 1]
         setChartKey('price_eth')
-        setDomain([3800, 4600])
+        setDomain([4100, 4900])
         break
       case 'CAKE':
         tokenAddress =  CAKE.address
         setChartKey('price_cake')
-        setDomain([17, 20])
+        setDomain([17, 21])
         break
       case 'UNI':
         tokenAddress =  UNI.address
         setChartKey('price_uni')
-        setDomain([23, 29])
+        setDomain([25, 29])
         break
       case 'BTCB':
         tokenAddress =  BTCB.address
         setChartKey('price_btcb')
-        setDomain([58000, 64000])
+        setDomain([59000, 69000])
         break
     }
     setCurrentTokenAddress(tokenAddress)

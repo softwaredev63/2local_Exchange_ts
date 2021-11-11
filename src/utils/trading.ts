@@ -1,7 +1,8 @@
-import { parseEther } from '@ethersproject/units';
+import { formatEther, parseEther } from '@ethersproject/units';
 import { getContract } from './index';
 import TradingContractABI from '../constants/abis/TradingContract.json';
 import BUSDABI from '../constants/abis/BUSD.json';
+
 
 export async function Deposit(provider, userAddress, amount/* BUSD amount */) {
     const tradingContractAddress: string = process.env.REACT_APP_TRADING_CONTRACT_ADDRESS!;
@@ -34,4 +35,12 @@ export async function Withdraw(provider, userAddress, amount/* 2LCT amount */) {
         from: userAddress
     });
     return await txDeposit.wait()
+}
+
+export async function Balance2LCT(provider, userAddress) {
+    const tradingContractAddress: string = process.env.REACT_APP_TRADING_CONTRACT_ADDRESS!;
+
+    const tradingContract = getContract(tradingContractAddress, TradingContractABI, provider, userAddress);
+    const balance = await tradingContract.userInfo(userAddress);
+    return parseFloat(formatEther(balance));   
 }

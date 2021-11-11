@@ -1,26 +1,37 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Text, ToastContainer, Toast } from '@pancakeswap-libs/uikit'
-import { Row, Form, InputGroup } from 'react-bootstrap'
+import { Row, Col, Form, InputGroup, Button as Button1 } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useActiveWeb3React } from '../../hooks'
 import { GreyCard } from '../../components/Card'
 import api from '../../connectors/api'
-import { Deposit, Withdraw } from '../../utils/trading'
+import { Deposit, Withdraw, Balance2LCT } from '../../utils/trading'
 
 const validNumeric = (d) => d == '.' || '1234567890'.indexOf(d) > -1;
 
 export default function AddRetrieve() {
   const { account, library } = useActiveWeb3React();
 
+  const [userBalance2LCT, setUserBalance2LCT] = useState(0);
   const [exchangeRate, setExchangeRate] = useState(0);
   const [valueBUSD, setValueBUSD] = useState<(number | undefined)>();
   const [value2LCT, setValue2LCT] = useState<(number | undefined)>();
   const [errors, setErrors] = useState<any>({});
   const [toasts, setToasts] = useState<Toast[]>([]);
 
+
+  const updateUserBalance2LCT = async () => {
+    const balance = await Balance2LCT(library, account); 
+    setUserBalance2LCT(balance);
+  }
+
   useEffect(() => {
     api.fetchData('trading/exchange-rate').then((d: any) => setExchangeRate(d))
   })
+
+  useEffect(() => {
+    updateUserBalance2LCT();
+  }, [account])
 
   const handleKeyPress = (e) => {
     if (!validNumeric(e.key)) {
@@ -127,6 +138,8 @@ export default function AddRetrieve() {
     setToasts((prevToasts) => prevToasts.filter((prevToast) => prevToast.id !== id));
   };
 
+  const userBalanceBUSD = (userBalance2LCT * exchangeRate);
+
   return (
     <div>
       <GreyCard>
@@ -139,6 +152,7 @@ export default function AddRetrieve() {
             <Form.Control type="text" placeholder="Enter amount BUSD" onKeyPress={handleKeyPress} onChange={handleBUSDChange} value={valueBUSD} isInvalid={!!errors.valueBUSD} />
             <InputGroup.Append>
               <InputGroup.Text>BUSD</InputGroup.Text>
+              <Button1 size="sm" variant="outline-secondary" style={{marginLeft:5}} onClick={() => setValueBUSD(userBalanceBUSD)}>MAX</Button1>
             </InputGroup.Append>
             <Form.Control.Feedback type="invalid">
               {errors.valueBUSD}
@@ -151,11 +165,16 @@ export default function AddRetrieve() {
             <Form.Control type="text" placeholder="Enter amount 2LC-T" onKeyPress={handleKeyPress} onChange={handle2LCTChange} value={value2LCT} isInvalid={!!errors.value2LCT} />
             <InputGroup.Append>
               <InputGroup.Text>2LC-T</InputGroup.Text>
+              <Button1 size="sm" variant="outline-secondary" style={{marginLeft:5}} onClick={() => setValue2LCT(userBalance2LCT)}>MAX</Button1>
             </InputGroup.Append>
             <Form.Control.Feedback type="invalid">
               {errors.value2LCT}
             </Form.Control.Feedback>
           </InputGroup>
+        </Row>
+        <Row style={{ marginTop: 15 }}>
+          <Col sm={5}>Balance 2LC-T</Col>
+          <Col sm={7} style={{textAlign: 'right'}}>{userBalance2LCT.toFixed(4)} (${userBalanceBUSD.toFixed(2)})</Col>
         </Row>
 
         <Row style={{ padding: 10, marginTop: 15 }}>

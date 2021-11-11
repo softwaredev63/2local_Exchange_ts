@@ -3,11 +3,13 @@ import { Text } from '@pancakeswap-libs/uikit'
 import { OutlineCard } from '../../components/Card'
 import { BLACK_COLOR, RED_COLOR, GREEN_COLOR } from '../../constants/colors'
 import api from '../../connectors/api'
+import ChartLamp from './TradingViewComponents/ChartComponent/ChartLamp'
 
-export default function TradingTable({ currentMACD }) {
+export default function TradingTable({ currentHistogram }) {
   const [tradingRound, setTradingRound] = useState<number>(0);
   const [totalBUSD, setTotalBUSD] = useState<number>(0);
   const [highestAdd, setHighestAdd] = useState<number>(0);
+  const [isGoPhase, setGoPhase] = useState<boolean>(false);
   const [tradingFor, setTradingFor] = useState<string>('');
   const [feePercent, setFeePercent] = useState<number>(0);
   const [tradingRoundsPrice, setTradingRoundsPrice] = useState<number[]>([]);
@@ -17,6 +19,7 @@ export default function TradingTable({ currentMACD }) {
     api.fetchData('trading/trading-round').then((d: any) => setTradingRound(d))
     api.fetchData('trading/total-busd').then((d: any) => setTotalBUSD(d))
     api.fetchData('trading/highest-added').then((d: any) => setHighestAdd(d))
+    api.fetchData('trading/go-phase').then((d: any) => setGoPhase(d))
     api.fetchData('trading/trading-for').then((d: any) => setTradingFor(d))
     api.fetchData('trading/fee-percent').then((d: any) => setFeePercent(d))
     api.fetchData('trading/trading-rounds-price').then((d: any) => {
@@ -32,6 +35,40 @@ export default function TradingTable({ currentMACD }) {
   return (
     <OutlineCard style={{ marginTop: 25 }}>
       <table width="100%" style={{ paddingLeft: 10 }}>
+        <tr>
+          <td style={{ textAlign: 'left', width: '30%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Current Currency
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '35%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              {isGoPhase ? 'BTC' : 'BUSD'}
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
+        <tr>
+          <td style={{ textAlign: 'left', width: '30%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              Withdraw
+            </Text>
+          </td>
+          <td style={{ textAlign: 'right', width: '35%' }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              <ChartLamp on={!isGoPhase} size={20} />
+            </Text>
+          </td>
+          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
+            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
+              &nbsp;
+            </Text>
+          </td>
+        </tr>
         <tr>
           <td style={{ textAlign: 'left', width: '30%' }}>
             <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
@@ -80,23 +117,6 @@ export default function TradingTable({ currentMACD }) {
           <td style={{ textAlign: 'left', paddingLeft: 10 }}>
             <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
               BUSD
-            </Text>
-          </td>
-        </tr>
-        <tr>
-          <td style={{ textAlign: 'left', width: '50%' }}>
-            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              Pool trading for
-            </Text>
-          </td>
-          <td style={{ textAlign: 'right', width: '25%' }}>
-            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              {tradingFor}
-            </Text>
-          </td>
-          <td style={{ textAlign: 'left', paddingLeft: 10 }}>
-            <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              &nbsp;
             </Text>
           </td>
         </tr>
@@ -290,12 +310,12 @@ export default function TradingTable({ currentMACD }) {
         <tr>
           <td style={{ textAlign: 'left', width: '50%' }}>
             <Text color={BLACK_COLOR} style={{ fontSize: 16 }}>
-              MACD (3,6,9) 8H
+              MACD (3,6,9) 1D
             </Text>
           </td>
           <td style={{ textAlign: 'right', width: '25%' }}>
-            <Text color={currentMACD.macd_8h < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
-              {currentMACD.macd_8h.toFixed(2)}
+            <Text color={currentHistogram['1d'] < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
+              {currentHistogram['1d'].toFixed(2)}
             </Text>
           </td>
           <td style={{ textAlign: 'left', paddingLeft: 10 }}>
@@ -311,8 +331,8 @@ export default function TradingTable({ currentMACD }) {
             </Text>
           </td>
           <td style={{ textAlign: 'right', width: '25%' }}>
-            <Text color={currentMACD.macd_4h < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
-              {currentMACD.macd_4h.toFixed(2)}
+            <Text color={currentHistogram['4h'] < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
+              {currentHistogram['4h'].toFixed(2)}
             </Text>
           </td>
           <td style={{ textAlign: 'left', paddingLeft: 10 }}>
@@ -328,8 +348,8 @@ export default function TradingTable({ currentMACD }) {
             </Text>
           </td>
           <td style={{ textAlign: 'right', width: '25%' }}>
-            <Text color={currentMACD.macd_1h < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
-              {currentMACD.macd_1h.toFixed(2)}
+            <Text color={currentHistogram['1h'] < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
+              {currentHistogram['1h'].toFixed(2)}
             </Text>
           </td>
           <td style={{ textAlign: 'left', paddingLeft: 10 }}>
@@ -345,8 +365,8 @@ export default function TradingTable({ currentMACD }) {
             </Text>
           </td>
           <td style={{ textAlign: 'right', width: '25%' }}>
-            <Text color={currentMACD.macd_15m < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
-              {currentMACD.macd_15m.toFixed(2)}
+            <Text color={currentHistogram['15m'] < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
+              {currentHistogram['15m'].toFixed(2)}
             </Text>
           </td>
           <td style={{ textAlign: 'left', paddingLeft: 10 }}>
@@ -362,8 +382,8 @@ export default function TradingTable({ currentMACD }) {
             </Text>
           </td>
           <td style={{ textAlign: 'right', width: '25%' }}>
-            <Text color={currentMACD.macd_1m < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
-              {currentMACD.macd_1m.toFixed(2)}
+            <Text color={currentHistogram['1m'] < 0 ? RED_COLOR : BLACK_COLOR} style={{ fontSize: 16 }}>
+              {currentHistogram['1m'].toFixed(2)}
             </Text>
           </td>
           <td style={{ textAlign: 'left', paddingLeft: 10 }}>

@@ -52,7 +52,7 @@ export default function TradingPage() {
       updateMACDValues('1m');
     }, 1000);
     return () => clearInterval(interval);
-  }, [macd, histogram])
+  }, [])
   
   return (
     <Layout>

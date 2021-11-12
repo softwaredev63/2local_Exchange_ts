@@ -27,7 +27,7 @@ export default function AddRetrieve() {
 
   useEffect(() => {
     api.fetchData('trading/exchange-rate').then((d: any) => setExchangeRate(d))
-  })
+  }, [])
 
   useEffect(() => {
     updateUserBalance2LCT();

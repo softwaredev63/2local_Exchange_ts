@@ -46,12 +46,12 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...r
     ${({ maxHeight }) =>
       maxHeight &&
       css`
-        max-height: ${maxHeight}px;
+        max-height: ${maxHeight}vh;
       `}
     ${({ minHeight }) =>
       minHeight &&
       css`
-        min-height: ${minHeight}px;
+        min-height: ${minHeight}vh;
       `}
     display: flex;
     border-radius: 20px;

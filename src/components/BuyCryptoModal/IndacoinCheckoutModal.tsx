@@ -8,7 +8,7 @@ export default function IndacoinCheckoutModal() {
 	const indacoinCheckoutModalToggle = useIndacoinCheckoutModalToggle()
 
 	return (
-		<Modal isOpen={indacoinCheckoutModalOpen} onDismiss={indacoinCheckoutModalToggle} minHeight={400} maxHeight={400}>
+		<Modal isOpen={indacoinCheckoutModalOpen} onDismiss={indacoinCheckoutModalToggle} minHeight={51} maxHeight={400}>
 			<iframe src="https://indacoin.com/partner-widget/?partner=vaiyo" title="Indacoin Checkout" />
 		</Modal>
 	)

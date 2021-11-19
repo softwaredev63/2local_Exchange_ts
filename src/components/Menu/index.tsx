@@ -51,7 +51,7 @@ const Menu: React.FC = props => {
   const balanceBTCB = useTokenBalance(account ?? undefined, BTCB)
 
   const updatePriceChangeCallback = useCallback(() => {
-    fetch('https://exchangeapi.2local.io/getLastPriceData')
+    fetch('https://exchangeapi.2local.io/exchange/lastPriceData')
       .then((response) => response.json())
       .then((responseData) => {
         setPriceData(responseData[0])

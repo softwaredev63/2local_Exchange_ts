@@ -57,7 +57,7 @@ const config: MenuEntry[] = [
     href: 'staking',
     items: [
       {
-        label: 'Liquidity 2LC-LP',
+        label: 'Liquidity',
         href: '/pool',
         icon: 'BNB2LCIcon',
         disabled: false,

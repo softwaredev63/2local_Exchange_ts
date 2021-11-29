@@ -95,6 +95,16 @@ const Title = styled(Text)`
   margin-bottom: 1.25rem;
 `
 
+const CopyRightText = styled(Text)`
+  text-align: center;
+  font: normal 25px/30px Swis721 BT;
+  opacity: 1;
+  font-size: 1rem;
+  line-height: 2rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+`
+
 const Item = styled.a`
   font: normal normal 25px/40px Swis721 BT;
   font-size: 1.25rem;
@@ -142,6 +152,7 @@ export default function Footer() {
         </LinkContainer>
       </Container>
       <Divider/>
+      <CopyRightText>® 2021, 2local Tallinn, Estonia.</CopyRightText>
     </StyledFooter>
   )
 }

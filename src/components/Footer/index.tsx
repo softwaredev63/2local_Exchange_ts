@@ -140,6 +140,7 @@ export default function Footer() {
           <Item href="https://bscscan.com/token/0x111763fb1D088Bf4f058ee8e38ec35cc0E805Ecc">2LC Contract</Item>
           <Item href="https://2local.io/public/uploads/docs/terms_of_use.pdf">Terms of Use</Item>
           <Item href="https://www.certik.org/projects/2local">Audit Report 2LC</Item>
+          <Item href="https://2local.io/public/media/Audit_Report_Staking_Pool.pdf">Audit Staking Pool</Item>
         </LinkContainer>
         <LinkContainer>
           <Title>Github</Title>

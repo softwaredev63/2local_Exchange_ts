@@ -9,7 +9,7 @@ export default function IndacoinCheckoutModal() {
 
 	return (
 		<Modal isOpen={indacoinCheckoutModalOpen} onDismiss={indacoinCheckoutModalToggle} minHeight={51} maxHeight={400}>
-			<iframe src="https://indacoin.com/partner-widget/?partner=vaiyo" title="Indacoin Checkout" />
+			<iframe src="https://indacoin.com/partner-widget/?partner=2LC" title="Indacoin Checkout" />
 		</Modal>
 	)
 }

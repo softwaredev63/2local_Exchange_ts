@@ -11,6 +11,7 @@ import {
   toggleExchangeToken,
   toggleSimplexCheckoutModal,
   toggleIndacoinCheckoutModal,
+  toggleIndacoin2LCCheckoutModal,
 } from './actions'
 
 type PopupList = Array<{ key: string; show: boolean; content: PopupContent; removeAfterMs: number | null }>
@@ -25,6 +26,7 @@ export interface ApplicationState {
   exchangeToken: string
   simplexCheckoutModalOpen: boolean
   indacoionCheckoutModalOpen: boolean
+  indacoion2LCCheckoutModalOpen: boolean
 }
 
 const initialState: ApplicationState = {
@@ -37,6 +39,7 @@ const initialState: ApplicationState = {
   exchangeToken: '2LC',
   simplexCheckoutModalOpen: false,
   indacoionCheckoutModalOpen: false,
+  indacoion2LCCheckoutModalOpen: false,
 }
 
 export default createReducer(initialState, builder =>
@@ -86,5 +89,8 @@ export default createReducer(initialState, builder =>
     })
     .addCase(toggleIndacoinCheckoutModal, state => {
       state.indacoionCheckoutModalOpen = !state.indacoionCheckoutModalOpen
+    })
+    .addCase(toggleIndacoin2LCCheckoutModal, state => {
+      state.indacoion2LCCheckoutModalOpen = !state.indacoion2LCCheckoutModalOpen
     })
 )

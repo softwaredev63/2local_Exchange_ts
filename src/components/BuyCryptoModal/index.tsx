@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button, Text,  Modal } from '@pancakeswap-libs/uikit'
-import { useSimplexCheckoutModalToggle, useIndacoinCheckoutModalToggle } from '../../state/application/hooks'
+import { useSimplexCheckoutModalToggle, useIndacoinCheckoutModalToggle, useIndacoin2LCCheckoutModalToggle } from '../../state/application/hooks'
 
 const ChannelItem = styled.div`
   display: flex;
@@ -34,6 +34,7 @@ const BuyCryptoModal = ({ onDismiss = defaultOnDismiss }: SettingsModalProps) =>
 
   const simplexCheckoutModalToggle = useSimplexCheckoutModalToggle()
   const indacoinCheckoutModalToggle = useIndacoinCheckoutModalToggle()
+  const indacoin2LCCheckoutModalToggle = useIndacoin2LCCheckoutModalToggle()
 
   return (
     <Modal title="Choose your payment channel" onDismiss={onDismiss}>
@@ -45,7 +46,7 @@ const BuyCryptoModal = ({ onDismiss = defaultOnDismiss }: SettingsModalProps) =>
         Simplex
       </ChannelItem>
       <ChannelItem onClick={() => {
-          indacoinCheckoutModalToggle()
+          indacoin2LCCheckoutModalToggle()
           onDismiss()
         }}>
         <LogoImage src="images/indacoin.svg" alt="indacoin"/>

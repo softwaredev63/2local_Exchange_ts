@@ -14,6 +14,7 @@ import { useCurrencyBalance, useTokenBalance } from '../../state/wallet/hooks'
 import { registerToken } from '../../utils/wallet'
 import SimplexCheckoutModal from '../BuyCryptoModal/SimplexCheckoutModal'
 import IndacoinCheckoutModal from '../BuyCryptoModal/IndacoinCheckoutModal'
+import Indacoin2LCCheckoutModal from '../BuyCryptoModal/Indacoin2LCCheckoutModal'
 import BuyCryptoModal from '../BuyCryptoModal'
 import { L2L, CAKE, UNI, BTCB, ETH } from '../../constants'
 
@@ -156,6 +157,7 @@ const Menu: React.FC = props => {
         showHowButton
         onAddToken={addToken}
       />
+      <Indacoin2LCCheckoutModal />
       <IndacoinCheckoutModal />
       <SimplexCheckoutModal />
     </>
